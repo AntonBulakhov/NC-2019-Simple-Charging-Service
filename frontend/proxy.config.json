@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://localhost:8080/get-simple-object",
+    "target": "http://localhost:8080/get-simple-text",
     "secure": false,
     "pathRewrite": {"^/api" : ""}
   }
