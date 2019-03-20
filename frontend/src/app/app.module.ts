@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import { NavbarComponent } from './navbar/navbar.component';
 import { ModalsigninComponent } from './modalsignin/modalsignin.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    ModalsigninComponent
+    ModalsigninComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
