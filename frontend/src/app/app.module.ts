@@ -13,6 +13,7 @@ import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { RegformComponent } from './regform/regform.component';
+import { ProductpageComponent } from './productpage/productpage.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { RegformComponent } from './regform/regform.component';
     ProductsComponent,
     HomeComponent,
     RegistrationComponent,
-    RegformComponent
+    RegformComponent,
+    ProductpageComponent
   ],
   imports: [
     BrowserModule,
