@@ -11,6 +11,8 @@ import { CardComponent } from './card/card.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { RegformComponent } from './regform/regform.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { HomeComponent } from './home/home.component';
     CardComponent,
     FooterComponent,
     ProductsComponent,
-    HomeComponent
+    HomeComponent,
+    RegistrationComponent,
+    RegformComponent
   ],
   imports: [
     BrowserModule,
