@@ -9,6 +9,8 @@ import { ModalsigninComponent } from './modalsignin/modalsignin.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CardComponent } from './card/card.component';
 import { FooterComponent } from './footer/footer.component';
+import { ProductsComponent } from './products/products.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { FooterComponent } from './footer/footer.component';
     ModalsigninComponent,
     CarouselComponent,
     CardComponent,
-    FooterComponent
+    FooterComponent,
+    ProductsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
