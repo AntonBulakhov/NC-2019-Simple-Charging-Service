@@ -4,35 +4,22 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import { NavbarComponent } from './navbar/navbar.component';
-import { ModalsigninComponent } from './modalsignin/modalsignin.component';
-import { CarouselComponent } from './carousel/carousel.component';
-import { CardComponent } from './card/card.component';
-import { FooterComponent } from './footer/footer.component';
-import { ProductsComponent } from './products/products.component';
-import { HomeComponent } from './home/home.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { RegformComponent } from './regform/regform.component';
-import { ProductpageComponent } from './productpage/productpage.component';
+import {CardComponent} from "./card/card.component";
+import {ProductpageComponent} from "./modules/pages/components/productpage/productpage.component";
+import {PagesModule} from "./modules/pages/pages.module";
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    ModalsigninComponent,
-    CarouselComponent,
     CardComponent,
-    FooterComponent,
-    ProductsComponent,
-    HomeComponent,
-    RegistrationComponent,
-    RegformComponent,
-    ProductpageComponent
+    ProductpageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    PagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

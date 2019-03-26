@@ -1,12 +1,21 @@
 <div class="col-3">
-  <div class="card mb-4" style="width: 18rem;">
+  <div class="card mb-4" style="width: 20rem;">
     <img class="card-img-top" src="../../assets/img/Netflix-Logo.jpg" alt="Netflix">
     <div class="dropdown-divider"></div>
     <div class="card-body">
-      <h5 class="card-title">Netflix</h5>
-      <p class="card-text h-25">Netflix subscription allows you to watch serials and movies on your laptop</p>
-      <p class="card-text font-weight-bold mt-4"> 9.99$/month</p>
-      <div class="d-flex justify-content-between">
+      <h5 class="card-title" aria-describedby="companyHelpBlock"><a routerLink="/product" id="cardLink">Netflix</a></h5>
+      <small id="companyHelpBlock" class="form-text text-muted">
+        <p>Company: <a href="#">Netflix</a></p>
+      </small>
+      <p class="card-text h-25">Netflix subscription allows you to watch serials and movies on your laptop...</p>
+      <div class="form-group">
+        <select class="form-control col-6">
+          <option>9.99$/m</option>
+          <option>49.99$/6 m</option>
+          <option>89.99$/y</option>
+        </select>
+      </div>
+      <div class="d-flex justify-content-between mt-3">
         <button class="btn btn-primary col-4">Buy</button>
         <button class="btn btn-outline-primary col-4" routerLink="/product">More</button>
       </div>
