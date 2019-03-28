@@ -1,0 +1,39 @@
+<div class="modal fade" id="toUpModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form class="px-4 py-3">
+        <div class="row">
+          <label for="cardNum">Number on card</label>
+          <input type="text" class="form-control" id="cardNum">
+          <div class="invalid-feedback">Number is required</div>
+        </div>
+        <div class="row">
+          <label for="cardName">Name on card</label>
+          <input type="text" class="form-control" id="cardName">
+          <small class="text-muted">Full name on your card</small>
+          <div class="invalid-feedback">Name is required</div>
+        </div>
+        <div class="row">
+          <div class="col p-0 mr-2">
+            <label for="cardExp">Expiration</label>
+            <input type="text" class="form-control" id="cardExp">
+          </div>
+          <div class="col p-0 ml-2">
+            <label for="cardCVV">CVV</label>
+            <input type="text" class="form-control" id="cardCVV">
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-5">
+            <label for="cardSum">Sum</label>
+            <input type="text" class="form-control" id="cardSum">
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mr-0 mt-3">
+          <button type="submit" class="btn btn-primary col-2">Add</button>
+          <button type="button" class="btn btn-danger col-2" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

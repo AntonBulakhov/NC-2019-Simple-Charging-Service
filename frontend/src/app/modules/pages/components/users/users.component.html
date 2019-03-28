@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid mrt-75">
+  <div class="row justify-content-end">
+    <div class="col-8 d-flex justify-content-start">
+      <h3 class="text-white mb-0">List of users</h3>
+    </div>
+    <div class="col-4 d-flex justify-content-center">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Show
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item btn btn-primary" type="button">All</button>
+          <button class="dropdown-item btn btn-primary" type="button">Failed subs</button>
+          <button class="dropdown-item btn btn-primary" type="button">Admins</button>
+          <button class="dropdown-item btn btn-primary" type="button">Users</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--blue divider-->
+<div class="container-fluid">
+  <div class="dropdown-divider w-100" style="border-top: 1px solid #0378f5"></div>
+</div>
+
+<!--users-->
+<div class="container-fluid mb-4">
+  <table class="table table-hover bg-light">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Second Name</th>
+      <th scope="col">Failed Subs</th>
+      <th scope="col" style="width: 10%">Profile</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>anton@example.com</td>
+      <td>Anton</td>
+      <td>Bulakhov</td>
+      <td>0</td>
+      <td>
+        <button type="button" class="btn btn-primary">View</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-footer></app-footer>

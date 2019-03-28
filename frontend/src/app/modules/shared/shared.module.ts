@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {FooterComponent} from "./components/footer/footer.component";
 import {NavbarComponent} from "./components/navbar/navbar.component";
 import {CarouselComponent} from "./components/carousel/carousel.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import {CarouselComponent} from "./components/carousel/carousel.component";
     CarouselComponent
   ],
   imports: [
+    RouterModule
   ],
   exports:[
     NavbarComponent,
