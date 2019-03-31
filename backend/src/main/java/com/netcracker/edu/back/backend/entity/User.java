@@ -6,34 +6,34 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 public class User {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     private String email;
     private String login;
     private String password;
+    private String logoUrl;
+    private byte blocked;
     private String firstname;
     private String secondname;
-    private String logoURL;
-    private boolean blocked;
+    private Role role;
 
-    public User(int id, String email, String login, String password, String firstname, String secondname, String logoURL, boolean blocked) {
-        this.id = id;
-        this.email = email;
-        this.login = login;
-        this.password = password;
-        this.firstname = firstname;
-        this.secondname = secondname;
-        this.logoURL = logoURL;
-        this.blocked = blocked;
-    }
-
+    @Id
+    @Column(name = "id")
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Basic
@@ -67,6 +67,26 @@ public class User {
     }
 
     @Basic
+    @Column(name = "logoURL")
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    @Basic
+    @Column(name = "blocked")
+    public byte getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(byte blocked) {
+        this.blocked = blocked;
+    }
+
+    @Basic
     @Column(name = "firstname")
     public String getFirstname() {
         return firstname;
@@ -86,40 +106,23 @@ public class User {
         this.secondname = secondname;
     }
 
-    @Basic
-    @Column(name = "logoURL")
-    public String getLogoURL() {
-        return logoURL;
-    }
-
-    public void setLogoURL(String logoURL) {
-        this.logoURL = logoURL;
-    }
-
-    @Basic
-    @Column(name = "blocked")
-    public boolean isBlocked() {
-        return blocked;
-    }
-
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User that = (User) o;
+        return id == that.id &&
+                blocked == that.blocked &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(login, that.login) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(logoUrl, that.logoUrl) &&
+                Objects.equals(firstname, that.firstname) &&
+                Objects.equals(secondname, that.secondname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, login, password, firstname);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        User user = (User) obj;
-        return id == user.id &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(login, user.login) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(firstname, user.firstname);
+        return Objects.hash(id, email, login, password, logoUrl, blocked, firstname, secondname);
     }
 }
