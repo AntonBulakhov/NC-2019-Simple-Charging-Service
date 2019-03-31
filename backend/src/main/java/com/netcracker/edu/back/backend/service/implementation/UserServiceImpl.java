@@ -4,10 +4,12 @@ import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.repository.UserRepository;
 import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class UserSeviceImpl implements UserService {
+@Service
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
