@@ -4,15 +4,15 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "chargingdb", catalog = "")
 public class User {
     private int id;
+    private Byte blocked;
     private String email;
-    private String login;
-    private String password;
-    private String logoUrl;
-    private byte blocked;
     private String firstname;
+    private String login;
+    private String logourl;
+    private String password;
     private String secondname;
     private Role role;
 
@@ -26,14 +26,14 @@ public class User {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    public Role getRole() {
-        return role;
+    @Basic
+    @Column(name = "blocked")
+    public Byte getBlocked() {
+        return blocked;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setBlocked(Byte blocked) {
+        this.blocked = blocked;
     }
 
     @Basic
@@ -47,6 +47,16 @@ public class User {
     }
 
     @Basic
+    @Column(name = "firstname")
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    @Basic
     @Column(name = "login")
     public String getLogin() {
         return login;
@@ -57,6 +67,16 @@ public class User {
     }
 
     @Basic
+    @Column(name = "logourl")
+    public String getLogourl() {
+        return logourl;
+    }
+
+    public void setLogourl(String logourl) {
+        this.logourl = logourl;
+    }
+
+    @Basic
     @Column(name = "password")
     public String getPassword() {
         return password;
@@ -64,36 +84,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Basic
-    @Column(name = "logoURL")
-    public String getLogoUrl() {
-        return logoUrl;
-    }
-
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
-    }
-
-    @Basic
-    @Column(name = "blocked")
-    public byte getBlocked() {
-        return blocked;
-    }
-
-    public void setBlocked(byte blocked) {
-        this.blocked = blocked;
-    }
-
-    @Basic
-    @Column(name = "firstname")
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
     }
 
     @Basic
@@ -112,17 +102,26 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User that = (User) o;
         return id == that.id &&
-                blocked == that.blocked &&
+                Objects.equals(blocked, that.blocked) &&
                 Objects.equals(email, that.email) &&
-                Objects.equals(login, that.login) &&
-                Objects.equals(password, that.password) &&
-                Objects.equals(logoUrl, that.logoUrl) &&
                 Objects.equals(firstname, that.firstname) &&
+                Objects.equals(login, that.login) &&
+                Objects.equals(logourl, that.logourl) &&
+                Objects.equals(password, that.password) &&
                 Objects.equals(secondname, that.secondname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, login, password, logoUrl, blocked, firstname, secondname);
+        return Objects.hash(id, blocked, email, firstname, login, logourl, password, secondname);
+    }
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

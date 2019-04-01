@@ -4,10 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "role", schema = "chargingdb", catalog = "")
-public class Role {
+@Table(name = "billing_account", schema = "chargingdb", catalog = "")
+public class BillingAccount {
     private int id;
     private String name;
+    private Double sum;
+    private User user;
 
     @Id
     @Column(name = "id")
@@ -29,17 +31,37 @@ public class Role {
         this.name = name;
     }
 
+    @Basic
+    @Column(name = "sum")
+    public Double getSum() {
+        return sum;
+    }
+
+    public void setSum(Double sum) {
+        this.sum = sum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Role that = (Role) o;
+        BillingAccount that = (BillingAccount) o;
         return id == that.id &&
-                Objects.equals(name, that.name);
+                Objects.equals(name, that.name) &&
+                Objects.equals(sum, that.sum);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, sum);
+    }
+
+    @ManyToOne
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
