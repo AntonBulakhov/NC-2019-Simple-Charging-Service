@@ -18,6 +18,7 @@ public class User {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -116,7 +117,7 @@ public class User {
         return Objects.hash(id, blocked, email, firstname, login, logourl, password, secondname);
     }
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne()
     public Role getRole() {
         return role;
     }

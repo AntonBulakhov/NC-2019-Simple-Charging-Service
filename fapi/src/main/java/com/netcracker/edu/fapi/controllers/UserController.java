@@ -1,6 +1,6 @@
 package com.netcracker.edu.fapi.controllers;
 
-import com.netcracker.edu.fapi.models.User;
+import com.netcracker.edu.fapi.dto.User;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +15,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getU")
+    @GetMapping("/login/{login}")
     public User getUserByLogin(@PathVariable String login) {
-        return userService.getUser();
+        return userService.getUserByLogin(login);
     }
 }

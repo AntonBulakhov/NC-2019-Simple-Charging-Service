@@ -1,4 +1,4 @@
-package com.netcracker.edu.fapi.models;
+package com.netcracker.edu.fapi.dto;
 
 public class User {
     private int id;
@@ -9,6 +9,7 @@ public class User {
     private byte blocked;
     private String firstname;
     private String secondname;
+    private Role role;
 
     public int getId() {
         return id;
@@ -74,4 +75,11 @@ public class User {
         this.secondname = secondname;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

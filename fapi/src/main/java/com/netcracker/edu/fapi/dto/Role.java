@@ -1,4 +1,4 @@
-package com.netcracker.edu.fapi.models;
+package com.netcracker.edu.fapi.dto;
 
 public class Role {
     private int id;

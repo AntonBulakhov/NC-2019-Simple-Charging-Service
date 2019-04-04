@@ -1,7 +1,7 @@
 package com.netcracker.edu.fapi.service;
 
-import com.netcracker.edu.fapi.models.User;
+import com.netcracker.edu.fapi.dto.User;
 
 public interface UserService {
-    User getUser();
+    User getUserByLogin(String login);
 }
