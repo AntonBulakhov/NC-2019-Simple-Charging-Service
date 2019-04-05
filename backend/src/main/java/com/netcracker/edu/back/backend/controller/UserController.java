@@ -1,5 +1,6 @@
 package com.netcracker.edu.back.backend.controller;
 
+import com.netcracker.edu.back.backend.dto.UserDTO;
 import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.service.RoleService;
 import com.netcracker.edu.back.backend.service.UserService;
@@ -14,13 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/user")
 public class UserController {
     @Autowired
-    private RoleService roleService;
-    @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/login/{login}", method = RequestMethod.GET)
-    public ResponseEntity<User> getUserByLogin(@PathVariable(name = "login") String login) {
+    public ResponseEntity<UserDTO> getUserByLogin(@PathVariable(name = "login") String login) {
         User user = userService.findByLogin(login);
-        return ResponseEntity.ok(user);
+        UserDTO userDTO = new UserDTO(user);
+        return ResponseEntity.ok(userDTO);
     }
 }

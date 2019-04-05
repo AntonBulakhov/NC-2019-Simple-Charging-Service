@@ -32,7 +32,7 @@ public class UserDTO {
         this.id = entity.getId();
         this.blocked = entity.getBlocked();
         this.email = entity.getEmail();
-        this.firstname = entity.getEmail();
+        this.firstname = entity.getFirstname();
         this.login = entity.getLogin();
         this.logourl = entity.getLogourl();
         this.password = entity.getPassword();
