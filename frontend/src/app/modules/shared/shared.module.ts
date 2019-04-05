@@ -11,7 +11,7 @@ import {RouterModule} from "@angular/router";
     CarouselComponent
   ],
   imports: [
-    RouterModule
+    RouterModule,
   ],
   exports:[
     NavbarComponent,

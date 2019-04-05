@@ -1,8 +1,18 @@
 package com.netcracker.edu.fapi.dto;
 
+import lombok.Data;
+
 public class Role {
     private int id;
     private String name;
+
+    public Role() {
+    }
+
+    public Role(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public int getId() {
         return id;

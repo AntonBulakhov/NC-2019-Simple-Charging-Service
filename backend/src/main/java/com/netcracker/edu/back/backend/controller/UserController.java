@@ -1,6 +1,5 @@
 package com.netcracker.edu.back.backend.controller;
 
-import com.netcracker.edu.back.backend.entity.Role;
 import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.service.RoleService;
 import com.netcracker.edu.back.backend.service.UserService;
@@ -21,14 +20,6 @@ public class UserController {
 
     @RequestMapping(value = "/login/{login}", method = RequestMethod.GET)
     public ResponseEntity<User> getUserByLogin(@PathVariable(name = "login") String login) {
-        Role admin = new Role();
-        admin.setId(1);
-        admin.setName("admin");
-        roleService.save(admin);
-        User userr = new User();
-        userr.setLogin("user");
-        userr.setRole(admin);
-        userService.save(userr);
         User user = userService.findByLogin(login);
         return ResponseEntity.ok(user);
     }

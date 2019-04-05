@@ -117,7 +117,7 @@ public class User {
         return Objects.hash(id, blocked, email, firstname, login, logourl, password, secondname);
     }
 
-    @ManyToOne()
+    @ManyToOne
     public Role getRole() {
         return role;
     }
