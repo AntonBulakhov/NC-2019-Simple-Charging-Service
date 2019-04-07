@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-modaltoup',
+  selector: 'charging-modaltoup',
   templateUrl: './modaltoup.component.html',
   styleUrls: ['./modaltoup.component.css']
 })

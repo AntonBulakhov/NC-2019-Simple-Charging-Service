@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Title} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-registration',
+  selector: 'charging-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-modaladdwallet',
+  selector: 'charging-modaladdwallet',
   templateUrl: './modaladdwallet.component.html',
   styleUrls: ['./modaladdwallet.component.css']
 })

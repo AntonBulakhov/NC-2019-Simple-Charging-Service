@@ -11,8 +11,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import {ModalsModule} from "../modals/modals.module";
 import { UsersComponent } from './components/users/users.component';
 import { CompaniesComponent } from './components/companies/companies.component';
-import { RegnewcompanyComponent } from './components/regnewcompany/regnewcompany.component';
-import { AddnewproductComponent } from './components/addnewproduct/addnewproduct.component';
+import { NewcompanyComponent } from './components/newcompany/newcompany.component';
+import { NewproductComponent } from './components/newproduct/newproduct.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +23,8 @@ import { AddnewproductComponent } from './components/addnewproduct/addnewproduct
     ProfileComponent,
     UsersComponent,
     CompaniesComponent,
-    RegnewcompanyComponent,
-    AddnewproductComponent,
+    NewcompanyComponent,
+    NewproductComponent,
   ],
   imports: [
     AuthorisationModule,
@@ -40,8 +40,8 @@ import { AddnewproductComponent } from './components/addnewproduct/addnewproduct
     ProfileComponent,
     UsersComponent,
     CompaniesComponent,
-    RegnewcompanyComponent,
-    AddnewproductComponent
+    NewcompanyComponent,
+    NewproductComponent
   ]
 })
 export class PagesModule { }

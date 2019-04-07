@@ -8,8 +8,8 @@ import {ProductpageComponent} from "./modules/pages/components/productpage/produ
 import {ProfileComponent} from "./modules/pages/components/profile/profile.component";
 import {UsersComponent} from "./modules/pages/components/users/users.component";
 import {CompaniesComponent} from "./modules/pages/components/companies/companies.component";
-import {AddnewproductComponent} from "./modules/pages/components/addnewproduct/addnewproduct.component";
-import {RegnewcompanyComponent} from "./modules/pages/components/regnewcompany/regnewcompany.component";
+import {NewproductComponent} from "./modules/pages/components/newproduct/newproduct.component";
+import {NewcompanyComponent} from "./modules/pages/components/newcompany/newcompany.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -19,8 +19,8 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'users', component: UsersComponent},
   {path: 'companies', component: CompaniesComponent},
-  {path: 'newproduct', component: AddnewproductComponent},
-  {path: 'newcompany', component: RegnewcompanyComponent}
+  {path: 'newproduct', component: NewproductComponent},
+  {path: 'newcompany', component: NewcompanyComponent}
 ];
 
 @NgModule({

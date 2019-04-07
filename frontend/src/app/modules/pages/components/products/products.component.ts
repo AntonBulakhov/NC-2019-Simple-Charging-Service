@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Title} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-products',
+  selector: 'charging-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })

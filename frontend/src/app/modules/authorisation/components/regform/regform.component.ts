@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-regform',
+  selector: 'charging-regform',
   templateUrl: './regform.component.html',
   styleUrls: ['./regform.component.css']
 })

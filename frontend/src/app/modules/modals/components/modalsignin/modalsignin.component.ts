@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 
 @Component({
-  selector: 'app-modalsignin',
+  selector: 'charging-modalsignin',
   templateUrl: './modalsignin.component.html',
   styleUrls: ['./modalsignin.component.css']
 })
