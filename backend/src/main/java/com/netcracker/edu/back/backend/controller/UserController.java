@@ -1,6 +1,5 @@
 package com.netcracker.edu.back.backend.controller;
 
-import com.netcracker.edu.back.backend.dto.UserDTO;
 import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.service.RoleService;
 import com.netcracker.edu.back.backend.service.UserService;
@@ -18,9 +17,8 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/login/{login}", method = RequestMethod.GET)
-    public ResponseEntity<UserDTO> getUserByLogin(@PathVariable(name = "login") String login) {
+    public ResponseEntity<User> getUserByLogin(@PathVariable(name = "login") String login) {
         User user = userService.findByLogin(login);
-        UserDTO userDTO = new UserDTO(user);
-        return ResponseEntity.ok(userDTO);
+        return ResponseEntity.ok(user);
     }
 }
