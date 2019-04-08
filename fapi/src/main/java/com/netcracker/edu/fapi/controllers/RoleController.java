@@ -1,11 +1,9 @@
-package com.netcracker.edu.back.backend.controller;
+package com.netcracker.edu.fapi.controllers;
 
-import com.netcracker.edu.back.backend.entity.Role;
-import com.netcracker.edu.back.backend.repository.RoleRepository;
-import com.netcracker.edu.back.backend.service.RoleService;
+import com.netcracker.edu.fapi.dto.Role;
+import com.netcracker.edu.fapi.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,7 +14,7 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "/get_roles", method = RequestMethod.GET)
+    @RequestMapping("/get_roles")
     public List<Role> getAllRoles(){
         return roleService.findAll();
     }
