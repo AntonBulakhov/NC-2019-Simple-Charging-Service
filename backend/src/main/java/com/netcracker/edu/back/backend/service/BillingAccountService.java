@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface BillingAccountService {
     BillingAccount save(BillingAccount billingAccount);
-    BillingAccount finById(Long id);
+    Optional<BillingAccount> finById(Long id);
 }
