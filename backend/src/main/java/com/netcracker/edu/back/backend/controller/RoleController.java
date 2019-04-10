@@ -1,7 +1,6 @@
 package com.netcracker.edu.back.backend.controller;
 
 import com.netcracker.edu.back.backend.entity.Role;
-import com.netcracker.edu.back.backend.repository.RoleRepository;
 import com.netcracker.edu.back.backend.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

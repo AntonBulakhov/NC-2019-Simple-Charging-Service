@@ -5,18 +5,16 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "subscription", schema = "chargingdb", catalog = "")
 public class Subscription {
     private int id;
-    private Byte blocked;
-    private Date enddate;
     private Date purchacedate;
-    private BillingAccount biling_account;
+    private Date enddate;
+    private byte blocked;
     private Product product;
+    private BillingAccount billingAccount;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -26,13 +24,13 @@ public class Subscription {
     }
 
     @Basic
-    @Column(name = "blocked")
-    public Byte getBlocked() {
-        return blocked;
+    @Column(name = "purchacedate")
+    public Date getPurchacedate() {
+        return purchacedate;
     }
 
-    public void setBlocked(Byte blocked) {
-        this.blocked = blocked;
+    public void setPurchacedate(Date purchacedate) {
+        this.purchacedate = purchacedate;
     }
 
     @Basic
@@ -46,13 +44,13 @@ public class Subscription {
     }
 
     @Basic
-    @Column(name = "purchacedate")
-    public Date getPurchacedate() {
-        return purchacedate;
+    @Column(name = "blocked")
+    public byte getBlocked() {
+        return blocked;
     }
 
-    public void setPurchacedate(Date purchacedate) {
-        this.purchacedate = purchacedate;
+    public void setBlocked(byte blocked) {
+        this.blocked = blocked;
     }
 
     @Override
@@ -61,31 +59,33 @@ public class Subscription {
         if (o == null || getClass() != o.getClass()) return false;
         Subscription that = (Subscription) o;
         return id == that.id &&
-                Objects.equals(blocked, that.blocked) &&
-                Objects.equals(enddate, that.enddate) &&
-                Objects.equals(purchacedate, that.purchacedate);
+                blocked == that.blocked &&
+                Objects.equals(purchacedate, that.purchacedate) &&
+                Objects.equals(enddate, that.enddate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, blocked, enddate, purchacedate);
+        return Objects.hash(id, purchacedate, enddate, blocked);
     }
 
     @ManyToOne
-    public BillingAccount getBiling_account() {
-        return biling_account;
-    }
-
-    public void setBiling_account(BillingAccount biling_account) {
-        this.biling_account = biling_account;
-    }
-
-    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     public Product getProduct() {
         return product;
     }
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "billing_account_id", referencedColumnName = "id", nullable = false)
+    public BillingAccount getBillingAccount() {
+        return billingAccount;
+    }
+
+    public void setBillingAccount(BillingAccount billingAccount) {
+        this.billingAccount = billingAccount;
     }
 }

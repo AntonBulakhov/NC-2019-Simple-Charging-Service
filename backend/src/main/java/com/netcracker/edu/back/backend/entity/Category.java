@@ -1,17 +1,18 @@
 package com.netcracker.edu.back.backend.entity;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-@Table(name = "category", schema = "chargingdb", catalog = "")
 public class Category {
     private int id;
     private String name;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -34,9 +35,9 @@ public class Category {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Category that = (Category) o;
-        return id == that.id &&
-                Objects.equals(name, that.name);
+        Category category = (Category) o;
+        return id == category.id &&
+                Objects.equals(name, category.name);
     }
 
     @Override

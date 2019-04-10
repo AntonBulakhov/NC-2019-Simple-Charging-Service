@@ -4,16 +4,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "price", schema = "chargingdb", catalog = "")
 public class Price {
     private int id;
-    private Byte period;
-    private Double price;
+    private double price;
+    private byte period;
     private Product product;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -23,41 +21,42 @@ public class Price {
     }
 
     @Basic
-    @Column(name = "period")
-    public Byte getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(Byte period) {
-        this.period = period;
-    }
-
-    @Basic
     @Column(name = "price")
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Basic
+    @Column(name = "period")
+    public byte getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(byte period) {
+        this.period = period;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Price that = (Price) o;
-        return id == that.id &&
-                Objects.equals(period, that.period) &&
-                Objects.equals(price, that.price);
+        Price price1 = (Price) o;
+        return id == price1.id &&
+                Double.compare(price1.price, price) == 0 &&
+                period == price1.period;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, period, price);
+        return Objects.hash(id, price, period);
     }
 
     @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     public Product getProduct() {
         return product;
     }
