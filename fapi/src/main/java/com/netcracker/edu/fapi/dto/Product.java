@@ -4,6 +4,7 @@ public class Product {
     private int id;
     private String description;
     private String name;
+    private String logoUrl;
     private String videolink;
     private Category category;
     private User user;
@@ -11,10 +12,11 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String description, String name, String videolink, Category category, User user) {
+    public Product(int id, String description, String name, String logoUrl, String videolink, Category category, User user) {
         this.id = id;
         this.description = description;
         this.name = name;
+        this.logoUrl = logoUrl;
         this.videolink = videolink;
         this.category = category;
         this.user = user;
@@ -67,5 +69,13 @@ public class Product {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 }
