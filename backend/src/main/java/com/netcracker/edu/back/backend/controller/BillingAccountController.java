@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/billing_account")
 public class BillingAccountController {
@@ -17,7 +19,7 @@ public class BillingAccountController {
 
     @RequestMapping(value = "/get_billing_account/{id}", method = RequestMethod.GET)
     public ResponseEntity<BillingAccount> getBillingAccountById(@PathVariable(name = "id") Long id){
-        BillingAccount billingAccount = billingAccountService.finById(id);
-        return ResponseEntity.ok(billingAccount);
+        Optional<BillingAccount> billingAccount = billingAccountService.finById(id);
+        return ResponseEntity.ok(billingAccount.get());
     }
 }

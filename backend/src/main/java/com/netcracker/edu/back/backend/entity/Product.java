@@ -4,24 +4,33 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "product", schema = "chargingdb", catalog = "")
 public class Product {
     private int id;
-    private String description;
     private String name;
+    private String description;
+    private String logoUrl;
     private String videolink;
-    private Category category;
     private User user;
+    private Category category;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "name")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -35,13 +44,13 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
+    @Column(name = "logoURL")
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     @Basic
@@ -58,33 +67,36 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product that = (Product) o;
-        return id == that.id &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(videolink, that.videolink);
+        Product product = (Product) o;
+        return id == product.id &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(logoUrl, product.logoUrl) &&
+                Objects.equals(videolink, product.videolink);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, name, videolink);
+        return Objects.hash(id, name, description, logoUrl, videolink);
     }
 
     @ManyToOne
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
