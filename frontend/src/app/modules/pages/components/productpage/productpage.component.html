@@ -2,20 +2,18 @@
 <charging-modalsignin></charging-modalsignin>
 
 <div class="container-fluid d-flex justify-content-center mrt-75">
-  <div class="col-7 rounded media bg-light" id="productCard">
-    <img src="../../../../../assets/img/products/Netflix-Logo.jpg" class="mt-3 mb-3 img-thumbnail" alt="Netflix-logo">
+  <div class="col-7 rounded media bg-light" id="productCard" *ngIf="loaded">
+    <img src="../../../../../assets/img/products/{{product.logoUrl}}" class="mt-3 mb-3 img-thumbnail" alt="Netflix-logo">
     <div class="media-body ml-4 mt-3 h-75 align-content-around">
-      <h2 class="mt-0 font-weight-bold">Netflix</h2>
+      <h2 class="mt-0 font-weight-bold">{{product.name}}</h2>
       <small id="companyHelpBlock" class="form-text text-muted">
-        <p>Company: <a href="#">Netflix</a></p>
+        <p>Company: <a href="#">{{product.user.firstname}}</a></p>
       </small>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, facere in iure non quae temporibus.</p>
-      <div class="form-group">
-        <select class="form-control col-4">
-          <option>9.99$/month</option>
-          <option>49.99$/6 months</option>
-          <option>89.99$/year</option>
-        </select>
+      <p>{{product.description}}</p>
+      <div class="row">
+        <p class="text-dark mr-2" id="price">Price: </p>
+        <h5>{{product.price}}$</h5>
+        <p class="text-dark">/month</p>
       </div>
       <div class="w-100 mt-3 mb-4">
         <button class="btn btn-primary col-3">Buy</button>

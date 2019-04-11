@@ -1,0 +1,23 @@
+import {UserModel} from "./user-model";
+
+export class ProductModel {
+  id: string;
+  description: string;
+  name: string;
+  logoUrl: string;
+  videoLink: string;
+  price: string;
+  user: UserModel;
+
+  static cloneBase(product: ProductModel):ProductModel{
+    const cloneProductModel: ProductModel = new ProductModel();
+    cloneProductModel.id = product.id;
+    cloneProductModel.description = product.description;
+    cloneProductModel.name = product.name;
+    cloneProductModel.logoUrl = product.logoUrl;
+    cloneProductModel.videoLink = product.videoLink;
+    cloneProductModel.price = product.price;
+    cloneProductModel.user = product.user;
+    return cloneProductModel;
+  }
+}

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Title} from "@angular/platform-browser";
+import {ProductModel} from "../../../../models/product-model";
+import {ProductService} from "../../../../services/product-service";
 
 @Component({
   selector: 'charging-products',
@@ -8,11 +10,21 @@ import {Title} from "@angular/platform-browser";
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private titleService : Title) {
+  public products: ProductModel[];
+
+  constructor(private titleService : Title,
+              private productService: ProductService) {
     this.titleService.setTitle("Products")
   }
 
   ngOnInit() {
+    this.loadAllProducts();
+  }
+
+  private loadAllProducts(): void{
+    this.productService.getAllProducts().subscribe(productsArray =>{
+      this.products = productsArray as ProductModel[];
+    })
   }
 
 }

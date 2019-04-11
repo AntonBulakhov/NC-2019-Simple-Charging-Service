@@ -4,22 +4,24 @@ import java.sql.Date;
 
 public class Subscription {
     private int id;
-    private Byte blocked;
-    private Date enddate;
     private Date purchacedate;
-    private BillingAccount biling_account;
+    private Date enddate;
+    private byte blocked;
+    private Double discount;
     private Product product;
+    private BillingAccount billingAccount;
 
     public Subscription() {
     }
 
-    public Subscription(int id, Byte blocked, Date enddate, Date purchacedate, BillingAccount biling_account, Product product) {
+    public Subscription(int id, Date purchacedate, Date enddate, byte blocked, Double discount, Product product, BillingAccount billingAccount) {
         this.id = id;
-        this.blocked = blocked;
-        this.enddate = enddate;
         this.purchacedate = purchacedate;
-        this.biling_account = biling_account;
+        this.enddate = enddate;
+        this.blocked = blocked;
+        this.discount = discount;
         this.product = product;
+        this.billingAccount = billingAccount;
     }
 
     public int getId() {
@@ -30,12 +32,12 @@ public class Subscription {
         this.id = id;
     }
 
-    public Byte getBlocked() {
-        return blocked;
+    public Date getPurchacedate() {
+        return purchacedate;
     }
 
-    public void setBlocked(Byte blocked) {
-        this.blocked = blocked;
+    public void setPurchacedate(Date purchacedate) {
+        this.purchacedate = purchacedate;
     }
 
     public Date getEnddate() {
@@ -46,20 +48,20 @@ public class Subscription {
         this.enddate = enddate;
     }
 
-    public Date getPurchacedate() {
-        return purchacedate;
+    public byte getBlocked() {
+        return blocked;
     }
 
-    public void setPurchacedate(Date purchacedate) {
-        this.purchacedate = purchacedate;
+    public void setBlocked(byte blocked) {
+        this.blocked = blocked;
     }
 
-    public BillingAccount getBiling_account() {
-        return biling_account;
+    public Double getDiscount() {
+        return discount;
     }
 
-    public void setBiling_account(BillingAccount biling_account) {
-        this.biling_account = biling_account;
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 
     public Product getProduct() {
@@ -68,5 +70,13 @@ public class Subscription {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public BillingAccount getBillingAccount() {
+        return billingAccount;
+    }
+
+    public void setBillingAccount(BillingAccount billingAccount) {
+        this.billingAccount = billingAccount;
     }
 }

@@ -1,7 +1,5 @@
 package com.netcracker.edu.fapi.dto;
 
-import lombok.Data;
-
 public class Role {
     private int id;
     private String name;

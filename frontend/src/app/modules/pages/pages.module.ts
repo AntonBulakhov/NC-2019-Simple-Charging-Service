@@ -13,6 +13,8 @@ import { UsersComponent } from './components/users/users.component';
 import { CompaniesComponent } from './components/companies/companies.component';
 import { NewcompanyComponent } from './components/newcompany/newcompany.component';
 import { NewproductComponent } from './components/newproduct/newproduct.component';
+import {BrowserModule} from "@angular/platform-browser";
+import {ProductService} from "../../services/product-service";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { NewproductComponent } from './components/newproduct/newproduct.componen
     SharedModule,
     ProductModule,
     ModalsModule,
+    BrowserModule
   ],
   exports:[
     HomeComponent,
@@ -42,6 +45,9 @@ import { NewproductComponent } from './components/newproduct/newproduct.componen
     CompaniesComponent,
     NewcompanyComponent,
     NewproductComponent
+  ],
+  providers: [
+    ProductService
   ]
 })
 export class PagesModule { }

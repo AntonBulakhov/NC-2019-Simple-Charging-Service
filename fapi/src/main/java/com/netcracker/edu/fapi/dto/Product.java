@@ -2,24 +2,26 @@ package com.netcracker.edu.fapi.dto;
 
 public class Product {
     private int id;
-    private String description;
     private String name;
+    private String description;
+    private double price;
     private String logoUrl;
     private String videolink;
-    private Category category;
     private User user;
+    private Category category;
 
     public Product() {
     }
 
-    public Product(int id, String description, String name, String logoUrl, String videolink, Category category, User user) {
+    public Product(int id, String name, String description, double price, String logoUrl, String videolink, User user, Category category) {
         this.id = id;
-        this.description = description;
         this.name = name;
+        this.description = description;
+        this.price = price;
         this.logoUrl = logoUrl;
         this.videolink = videolink;
-        this.category = category;
         this.user = user;
+        this.category = category;
     }
 
     public int getId() {
@@ -30,21 +32,36 @@ public class Product {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     public String getVideolink() {
@@ -55,14 +72,6 @@ public class Product {
         this.videolink = videolink;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public User getUser() {
         return user;
     }
@@ -71,11 +80,11 @@ public class Product {
         this.user = user;
     }
 
-    public String getLogoUrl() {
-        return logoUrl;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

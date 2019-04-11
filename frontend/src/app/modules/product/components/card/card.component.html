@@ -1,23 +1,21 @@
-<div class="col-3">
-  <div class="card mb-4" style="width: 20rem;">
-    <img class="card-img-top" src="../../../../../assets/img/products/Netflix-Logo.jpg" alt="Netflix">
+<div class="col-3" id="card">
+  <div class="card mb-4">
+    <img class="card-img-top" src="../../../../../assets/img/products/{{product.logoUrl}}" alt="Netflix">
     <div class="dropdown-divider"></div>
     <div class="card-body">
-      <h5 class="card-title" aria-describedby="companyHelpBlock"><a routerLink="/product" id="cardLink">Netflix</a></h5>
+      <h4 class="card-title" aria-describedby="companyHelpBlock"><a routerLink="/product/{{product.id}}" id="cardLink">{{product.name}}</a></h4>
       <small id="companyHelpBlock" class="form-text text-muted">
-        <p>Company: <a routerLink="/">Netflix</a></p>
+        <p>Company: <a routerLink="/">{{product.user.firstname}}</a></p>
       </small>
-      <p class="card-text h-25">Netflix subscription allows you to watch serials and movies on your laptop</p>
-      <div class="form-group">
-        <select class="form-control col-6">
-          <option>9.99$/m</option>
-          <option>49.99$/6 m</option>
-          <option>89.99$/y</option>
-        </select>
+      <p class="card-text h-25">{{product.description}}</p>
+      <div class="form-group row ml-1">
+        <p class="text-dark mr-2">Price: </p>
+        <h5>{{product.price}}$</h5>
+        <p class="text-dark">/month</p>
       </div>
       <div class="d-flex justify-content-between mt-3">
         <button class="btn btn-primary col-4">Buy</button>
-        <button class="btn btn-outline-primary col-4" routerLink="/product">More</button>
+        <button class="btn btn-outline-primary col-4" routerLink="/product/{{product.id}}">More</button>
       </div>
     </div>
   </div>

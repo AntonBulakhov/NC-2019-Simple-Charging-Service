@@ -8,6 +8,7 @@ public class Product {
     private int id;
     private String name;
     private String description;
+    private double price;
     private String logoUrl;
     private String videolink;
     private User user;
@@ -44,6 +45,16 @@ public class Product {
     }
 
     @Basic
+    @Column(name = "price")
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    @Basic
     @Column(name = "logoURL")
     public String getLogoUrl() {
         return logoUrl;
@@ -69,6 +80,7 @@ public class Product {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
         return id == product.id &&
+                Double.compare(product.price, price) == 0 &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(description, product.description) &&
                 Objects.equals(logoUrl, product.logoUrl) &&
@@ -77,7 +89,7 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, logoUrl, videolink);
+        return Objects.hash(id, name, description, price, logoUrl, videolink);
     }
 
     @ManyToOne

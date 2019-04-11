@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface SubscriptionService {
     List<Subscription> findAll();
+    List<Subscription> getTopFourSubs();
 
 }

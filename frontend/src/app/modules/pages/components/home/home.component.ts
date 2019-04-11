@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Title} from "@angular/platform-browser";
+import {ProductModel} from "../../../../models/product-model";
+import {ProductService} from "../../../../services/product-service";
 
 @Component({
   selector: 'charging-home',
@@ -8,11 +10,22 @@ import {Title} from "@angular/platform-browser";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private titleService : Title) {
+  public products: ProductModel[];
+
+  constructor(private titleService : Title,
+              private productService: ProductService) {
     this.titleService.setTitle("Home")
   }
 
   ngOnInit() {
+    this.loadTopFourProducts();
+  }
+
+  private loadTopFourProducts():void{
+    this.productService.getTopFourProducts().subscribe(productsArray =>{
+      this.products = productsArray as ProductModel[];
+    })
+
   }
 
 }

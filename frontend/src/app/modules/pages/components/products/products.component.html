@@ -33,12 +33,11 @@
 </div>
 <!--blue divider-->
 <div class="w-100 dropdown-divider" style="border-top: 1px solid #0378f5"></div>
+
 <div class="container-fluid mt-4 mb-4">
   <div class="row justify-content-around">
-    <charging-card></charging-card>
-    <charging-card></charging-card>
-    <charging-card></charging-card>
-    <charging-card></charging-card>
+    <charging-card *ngFor="let product of products"
+    [product]="product"></charging-card>
   </div>
 </div>
 <charging-footer></charging-footer>

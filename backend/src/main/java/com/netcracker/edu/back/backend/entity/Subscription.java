@@ -10,6 +10,7 @@ public class Subscription {
     private Date purchacedate;
     private Date enddate;
     private byte blocked;
+    private Double discount;
     private Product product;
     private BillingAccount billingAccount;
 
@@ -53,6 +54,16 @@ public class Subscription {
         this.blocked = blocked;
     }
 
+    @Basic
+    @Column(name = "discount")
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,12 +72,13 @@ public class Subscription {
         return id == that.id &&
                 blocked == that.blocked &&
                 Objects.equals(purchacedate, that.purchacedate) &&
-                Objects.equals(enddate, that.enddate);
+                Objects.equals(enddate, that.enddate) &&
+                Objects.equals(discount, that.discount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, purchacedate, enddate, blocked);
+        return Objects.hash(id, purchacedate, enddate, blocked, discount);
     }
 
     @ManyToOne

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'charging-navbar',
@@ -8,14 +7,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private http:HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  getUser():void{
-    this.http.get("/api/user/login/user").subscribe(value => {
-      console.log(value);
-    })
   }
 }
