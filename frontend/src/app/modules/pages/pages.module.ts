@@ -15,6 +15,11 @@ import { NewcompanyComponent } from './components/newcompany/newcompany.componen
 import { NewproductComponent } from './components/newproduct/newproduct.component';
 import {BrowserModule} from "@angular/platform-browser";
 import {ProductService} from "../../services/product-service";
+import { NotfoundComponent } from './components/notfound/notfound.component';
+import {RouterModule} from "@angular/router";
+import {FormsModule} from "@angular/forms";
+import {UserService} from "../../services/user-service";
+import {RoleService} from "../../services/role-service";
 
 @NgModule({
   declarations: [
@@ -27,13 +32,16 @@ import {ProductService} from "../../services/product-service";
     CompaniesComponent,
     NewcompanyComponent,
     NewproductComponent,
+    NotfoundComponent,
   ],
   imports: [
     AuthorisationModule,
     SharedModule,
     ProductModule,
     ModalsModule,
-    BrowserModule
+    BrowserModule,
+    RouterModule,
+    FormsModule
   ],
   exports:[
     HomeComponent,
@@ -44,10 +52,13 @@ import {ProductService} from "../../services/product-service";
     UsersComponent,
     CompaniesComponent,
     NewcompanyComponent,
-    NewproductComponent
+    NewproductComponent,
+    NotfoundComponent
   ],
   providers: [
-    ProductService
+    ProductService,
+    UserService,
+    RoleService
   ]
 })
 export class PagesModule { }

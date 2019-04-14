@@ -1,4 +1,5 @@
 import {UserModel} from "./user-model";
+import {CategoryModel} from "./category-model";
 
 export class ProductModel {
   id: string;
@@ -8,6 +9,7 @@ export class ProductModel {
   videoLink: string;
   price: string;
   user: UserModel;
+  category: CategoryModel;
 
   static cloneBase(product: ProductModel):ProductModel{
     const cloneProductModel: ProductModel = new ProductModel();
@@ -18,6 +20,7 @@ export class ProductModel {
     cloneProductModel.videoLink = product.videoLink;
     cloneProductModel.price = product.price;
     cloneProductModel.user = product.user;
+    cloneProductModel.category = product.category;
     return cloneProductModel;
   }
 }
