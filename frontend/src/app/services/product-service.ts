@@ -11,14 +11,14 @@ export class ProductService {
   }
 
   getAllProducts():Observable<ProductModel[]>{
-    return this.http.get<ProductModel[]>("/api/product/get_all");
+    return this.http.get<ProductModel[]>("/api/products/");
   }
 
   getTopFourProducts():Observable<ProductModel[]>{
-    return this.http.get<ProductModel[]>("/api/product/get_top_4");
+    return this.http.get<ProductModel[]>("/api/products/top4");
   }
 
   getProductById(id: string): Observable<ProductModel>{
-    return this.http.get<ProductModel>("/api/product/get/"+id);
+    return this.http.get<ProductModel>("/api/products/"+id);
   }
 }

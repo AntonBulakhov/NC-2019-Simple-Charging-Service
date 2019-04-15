@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
@@ -18,7 +18,7 @@ public class UserController {
         return userService.getUserByLogin(login);
     }
 
-    @PostMapping("/save")
+    @PostMapping("")
     public ResponseEntity<User> saveUser(@RequestBody User user){
         if(user != null){
             return ResponseEntity.ok(userService.saveUser(user));

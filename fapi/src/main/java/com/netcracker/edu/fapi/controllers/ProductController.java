@@ -12,22 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/get_all", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
     }
 
-    @RequestMapping(value = "/get_top_4", method = RequestMethod.GET)
+    @RequestMapping(value = "/top4", method = RequestMethod.GET)
     public List<Product> getTopFourProducts(){
         return productService.getTopFourProducts();
     }
 
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Product> getProductById(@PathVariable(name = "id") Long id){
         return ResponseEntity.ok(productService.getProductById(id));
     }

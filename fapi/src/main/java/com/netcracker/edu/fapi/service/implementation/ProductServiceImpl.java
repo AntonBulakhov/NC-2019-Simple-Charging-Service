@@ -18,20 +18,20 @@ public class ProductServiceImpl  implements ProductService {
     @Override
     public List<Product> getAllProducts() {
         RestTemplate restTemplate = new RestTemplate();
-        Product[] products  = restTemplate.getForObject(backendURL + "/api/product/get_all", Product[].class);
+        Product[] products  = restTemplate.getForObject(backendURL + "/api/products", Product[].class);
         return products == null ? Collections.emptyList() : Arrays.asList(products);
     }
 
     @Override
     public List<Product> getTopFourProducts() {
         RestTemplate restTemplate = new RestTemplate();
-        Product[] products = restTemplate.getForObject(backendURL + "/api/product/get_top_4", Product[].class);
+        Product[] products = restTemplate.getForObject(backendURL + "/api/products/top4", Product[].class);
         return products == null ? Collections.emptyList() : Arrays.asList(products);
     }
 
     @Override
     public Product getProductById(Long id) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(backendURL + "/api/product/get/" + id, Product.class);
+        return restTemplate.getForObject(backendURL + "/api/products/" + id, Product.class);
     }
 }

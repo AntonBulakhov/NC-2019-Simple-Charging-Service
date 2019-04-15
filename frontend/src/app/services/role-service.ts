@@ -9,6 +9,6 @@ export class RoleService {
   }
 
   getAllRoles():Observable<RoleModel[]>{
-    return this.http.get<RoleModel[]>("/api/role/get_all");
+    return this.http.get<RoleModel[]>("/api/roles");
   }
 }

@@ -9,7 +9,7 @@ export class UserService {
   }
 
   regNewUser(user:UserModel):Observable<UserModel>{
-    return this.http.post<UserModel>("/api/user/save", user);
+    return this.http.post<UserModel>("/api/users", user);
   }
 
 }

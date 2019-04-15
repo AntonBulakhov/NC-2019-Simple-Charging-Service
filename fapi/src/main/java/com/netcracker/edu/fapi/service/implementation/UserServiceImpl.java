@@ -14,13 +14,13 @@ public class UserServiceImpl implements UserService {
 
     public User getUserByLogin(String login) {
         RestTemplate restTemplate = new RestTemplate();
-        User user = restTemplate.getForObject(backendURL + "/api/user/login/" + login, User.class);
+        User user = restTemplate.getForObject(backendURL + "/api/users/login/" + login, User.class);
         return user;
     }
 
     @Override
     public User saveUser(User user) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(backendURL + "/api/user/save", user, User.class).getBody();
+        return restTemplate.postForEntity(backendURL + "/api/users", user, User.class).getBody();
     }
 }

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping("/api/roles")
 public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping("/get_all")
+    @RequestMapping("")
     public List<Role> getAllRoles(){
         return roleService.findAll();
     }

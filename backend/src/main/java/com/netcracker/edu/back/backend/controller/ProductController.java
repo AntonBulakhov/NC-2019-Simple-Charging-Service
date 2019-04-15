@@ -15,19 +15,19 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @RequestMapping(value = "/get_all", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Product> getAllProducts(){
         return productService.findAll();
     }
 
-    @RequestMapping(value = "/get_top_4", method = RequestMethod.GET)
+    @RequestMapping(value = "/top4", method = RequestMethod.GET)
     public List<Product> getTopFourProducts(){
         List<Product> products = new ArrayList<>();
         ArrayList<Subscription> subscriptions = (ArrayList<Subscription>)subscriptionService.getTopFourSubs();
@@ -48,7 +48,7 @@ public class ProductController {
         return products;
     }
 
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Optional<Product> getAllProducts(@PathVariable(name = "id") Integer id){
         return productService.getProductById(id);
     }
