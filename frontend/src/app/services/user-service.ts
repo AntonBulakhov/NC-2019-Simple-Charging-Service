@@ -12,4 +12,8 @@ export class UserService {
     return this.http.post<UserModel>("/api/users", user);
   }
 
+  findUserByEmail(email:string): any{
+    return this.http.get("/api/users/email/" + email);
+  }
+
 }

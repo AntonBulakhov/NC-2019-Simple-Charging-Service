@@ -15,6 +15,7 @@ export class RegformComponent implements OnInit {
   public newUser: UserModel = new UserModel();
   public isAdmin: boolean = false;
   public roles: RoleModel[];
+  public userExists: boolean = false;
 
   constructor(private roleService: RoleService,
               private userService: UserService,
@@ -45,4 +46,11 @@ export class RegformComponent implements OnInit {
     }
   }
 
+  public ifExistsByEmail(email: string):void{
+    if(email != undefined) this.userService.findUserByEmail(email).subscribe(()=>{
+      this.userExists = true;
+    }, ()=>{
+      console.clear();
+    });
+  }
 }
