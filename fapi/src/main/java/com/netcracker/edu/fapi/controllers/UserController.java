@@ -15,8 +15,10 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/login/{login}")
-    public User getUserByLogin(@PathVariable String login) {
-        return userService.getUserByLogin(login);
+    public ResponseEntity getUserByLogin(@PathVariable String login) {
+        User user = userService.findUserByLogin(login);
+        if(user == null) return ResponseEntity.notFound().build();
+        else return ResponseEntity.ok().build();
     }
 
     @GetMapping("/email/{email}")

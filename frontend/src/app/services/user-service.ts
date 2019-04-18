@@ -16,4 +16,8 @@ export class UserService {
     return this.http.get("/api/users/email/" + email);
   }
 
+  findUserByLogin(login:string): any{
+    return this.http.get("/api/users/login/" + login);
+  }
+
 }
