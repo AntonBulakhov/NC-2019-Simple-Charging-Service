@@ -1,6 +1,5 @@
 package com.netcracker.edu.fapi.dto;
 
-
 public class User {
     private int id;
     private String email;

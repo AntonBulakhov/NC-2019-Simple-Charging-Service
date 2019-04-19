@@ -14,22 +14,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login/{login}")
-    public ResponseEntity getUserByLogin(@PathVariable String login) {
+    @PostMapping("/login")
+    public ResponseEntity<Boolean> getUserByLogin(@RequestBody String login) {
         User user = userService.findUserByLogin(login);
-        if(user == null) return ResponseEntity.notFound().build();
-        else return ResponseEntity.ok().build();
+        if(user == null) return ResponseEntity.ok(false);
+        else return ResponseEntity.ok(true);
     }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity getUserByEmail(@PathVariable String email){
+    @PostMapping("/email")
+    public ResponseEntity<Boolean> getUserByEmail(@RequestBody String email){
       User user = userService.findUserByEmail(email);
-      if(user == null) return ResponseEntity.notFound().build();
-      else return ResponseEntity.ok().build();
+
+      if(user == null) return ResponseEntity.ok(false);
+      else return ResponseEntity.ok(true);
     }
 
     @PostMapping("")
     public ResponseEntity<User> saveUser(@RequestBody User user){
+        System.out.println(user.getPassword());
         if(user != null){
             return ResponseEntity.ok(userService.saveUser(user));
         }else return null;

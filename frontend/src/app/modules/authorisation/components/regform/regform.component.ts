@@ -48,18 +48,18 @@ export class RegformComponent implements OnInit {
   }
 
   public ifExistsByEmail(email: string):void{
-    if(email != undefined) this.userService.findUserByEmail(email).subscribe(()=>{
-      this.userExistsByEmail = true;
-    }, ()=>{
-      console.clear();
+    if(email != undefined) this.userService.findUserByEmail(email).subscribe((exists)=>{
+      if(exists) {
+        this.userExistsByEmail = true;
+      }
     });
   }
 
   public ifExistsByLogin(login: string):void{
-    if(login != undefined) this.userService.findUserByLogin(login).subscribe(()=>{
-      this.userExistsByLogin = true;
-    }, () => {
-      console.clear();
+    if(login != undefined) this.userService.findUserByLogin(login).subscribe((exists)=>{
+      if(exists) {
+        this.userExistsByLogin = true;
+      }
     })
   }
 }

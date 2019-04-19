@@ -13,11 +13,11 @@ export class UserService {
   }
 
   findUserByEmail(email:string): any{
-    return this.http.get("/api/users/email/" + email);
+    return this.http.post("/api/users/email",email);
   }
 
   findUserByLogin(login:string): any{
-    return this.http.get("/api/users/login/" + login);
+    return this.http.post("/api/users/login", login);
   }
 
 }
