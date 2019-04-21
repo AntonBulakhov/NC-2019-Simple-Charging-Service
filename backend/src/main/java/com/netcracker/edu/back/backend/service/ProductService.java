@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface ProductService {
     List<Product> findAll();
     Optional<Product> getProductById(Integer id);
+    Product getProductByName(String name);
 }

@@ -21,4 +21,8 @@ export class ProductService {
   getProductById(id: string): Observable<ProductModel>{
     return this.http.get<ProductModel>("/api/products/"+id);
   }
+
+  findProductByName(name: string): any{
+    return this.http.post("/api/products/name", name);
+  }
 }

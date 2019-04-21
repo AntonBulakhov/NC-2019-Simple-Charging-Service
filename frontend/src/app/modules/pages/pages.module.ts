@@ -20,6 +20,7 @@ import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {UserService} from "../../services/user-service";
 import {RoleService} from "../../services/role-service";
+import {CategoryService} from "../../services/category-service";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {RoleService} from "../../services/role-service";
   providers: [
     ProductService,
     UserService,
-    RoleService
+    RoleService,
+    CategoryService
   ]
 })
 export class PagesModule { }

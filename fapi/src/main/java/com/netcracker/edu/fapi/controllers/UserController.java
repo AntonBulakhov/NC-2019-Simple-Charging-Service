@@ -14,6 +14,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable int id){
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Boolean> getUserByLogin(@RequestBody String login) {
         User user = userService.findUserByLogin(login);
@@ -24,7 +29,6 @@ public class UserController {
     @PostMapping("/email")
     public ResponseEntity<Boolean> getUserByEmail(@RequestBody String email){
       User user = userService.findUserByEmail(email);
-
       if(user == null) return ResponseEntity.ok(false);
       else return ResponseEntity.ok(true);
     }

@@ -4,10 +4,7 @@ import com.netcracker.edu.fapi.dto.Product;
 import com.netcracker.edu.fapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,15 @@ public class ProductController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Product> getProductById(@PathVariable(name = "id") Long id){
         return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @PostMapping("/name")
+    public ResponseEntity<Boolean> findProductByName(@RequestBody String name){
+        Product product = productService.findProductByName(name);
+        if (product == null) {
+            return ResponseEntity.ok(false);
+        }else {
+            return ResponseEntity.ok(true);
+        }
     }
 }

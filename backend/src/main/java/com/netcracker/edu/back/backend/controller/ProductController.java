@@ -5,6 +5,7 @@ import com.netcracker.edu.back.backend.entity.Subscription;
 import com.netcracker.edu.back.backend.service.ProductService;
 import com.netcracker.edu.back.backend.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,5 +52,11 @@ public class ProductController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Optional<Product> getAllProducts(@PathVariable(name = "id") Integer id){
         return productService.getProductById(id);
+    }
+
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    public ResponseEntity<Product> getProductByName(@PathVariable String name){
+        Product product = productService.getProductByName(name);
+        return ResponseEntity.ok(product);
     }
 }

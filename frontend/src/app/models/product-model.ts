@@ -1,4 +1,4 @@
-import {UserSafeModel} from "./user-model";
+import {UserModel} from "./user-model";
 import {CategoryModel} from "./category-model";
 
 export class ProductModel {
@@ -8,7 +8,7 @@ export class ProductModel {
   logoUrl: string;
   videoLink: string;
   price: string;
-  user: UserSafeModel;
+  user: UserModel;
   category: CategoryModel;
 
   static cloneBase(product: ProductModel):ProductModel{

@@ -12,6 +12,10 @@ export class UserService {
     return this.http.post<UserModel>("/api/users", user);
   }
 
+  getUSerById(id: string): Observable<UserModel>{
+    return this.http.get<UserModel>("/api/users/"+id);
+  }
+
   findUserByEmail(email:string): any{
     return this.http.post("/api/users/email",email);
   }

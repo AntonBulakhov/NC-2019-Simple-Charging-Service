@@ -1,5 +1,8 @@
 package com.netcracker.edu.fapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Product {
     private int id;
     private String name;

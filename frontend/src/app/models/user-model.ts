@@ -25,26 +25,3 @@ export class UserModel {
     return cloneUserModel;
   }
 }
-
-export class UserSafeModel {
-  id: string;
-  email: string;
-  login: string;
-  logoUrl: string;
-  firstname: string;
-  secondname: string;
-
-  role: RoleModel;
-
-  static cloneBase(user: UserModel):UserModel{
-    const cloneUserModel: UserModel = new UserModel();
-    cloneUserModel.id = user.id;
-    cloneUserModel.email = user.email;
-    cloneUserModel.login = user.login;
-    cloneUserModel.logoUrl = user.logoUrl;
-    cloneUserModel.firstname = user.firstname;
-    cloneUserModel.secondname = user.secondname;
-    cloneUserModel.role = user.role;
-    return cloneUserModel;
-  }
-}
