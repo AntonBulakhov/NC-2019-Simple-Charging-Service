@@ -39,6 +39,10 @@ export class NewproductComponent implements OnInit {
   }
 
   public createNewProduct(): void{
+    const myNewFile = new File([this.productImage], this.newProduct.name+"-logo.jpg".trim(), {type: this.productImage.type});
+    this.newProduct.logoUrl = myNewFile.name;
+    this.newProduct.user = this.seller;
+    console.log(this.newProduct);
 
   }
 
