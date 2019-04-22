@@ -17,6 +17,7 @@ export class NewproductComponent implements OnInit {
   public seller: UserModel;
   public categories: CategoryModel[];
   public productImage: File = null;
+  public category: string;
   public ready: boolean;
   public productExists: boolean = false;
 
@@ -28,6 +29,7 @@ export class NewproductComponent implements OnInit {
     this.categoryService.getAllCategories().subscribe(cats=>{
       this.categories = cats as CategoryModel[];
       this.ready = true;
+      this.category = this.categories[0].name;
     });
     this.userService.getUSerById("2").subscribe((user)=>{
       this.seller = user as UserModel;
@@ -39,11 +41,10 @@ export class NewproductComponent implements OnInit {
   }
 
   public createNewProduct(): void{
-    const myNewFile = new File([this.productImage], this.newProduct.name+"-logo.jpg".trim(), {type: this.productImage.type});
-    this.newProduct.logoUrl = myNewFile.name;
+    this.newProduct.logoUrl = this.newProduct.name+"-logo.jpg";
     this.newProduct.user = this.seller;
+    this.newProduct.category = this.getCategory(this.category);
     console.log(this.newProduct);
-
   }
 
   public ifExistsByName(name: string): void{
@@ -52,6 +53,10 @@ export class NewproductComponent implements OnInit {
         this.productExists = value;
       })
     }
+  }
+
+  public getCategory(name:string): CategoryModel{
+    return this.categories.find(obj=> obj.name == name);
   }
 
 }
