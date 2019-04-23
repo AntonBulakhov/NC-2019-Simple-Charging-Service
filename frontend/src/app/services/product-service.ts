@@ -19,10 +19,18 @@ export class ProductService {
   }
 
   getProductById(id: string): Observable<ProductModel>{
-    return this.http.get<ProductModel>("/api/products/"+id);
+    return this.http.get<ProductModel>("/api/products/id/"+id);
+  }
+
+  getProductByName(name: string): Observable<ProductModel>{
+    return this.http.get<ProductModel>("/api/products/name/"+name);
   }
 
   findProductByName(name: string): any{
     return this.http.post("/api/products/name", name);
+  }
+
+  saveNewProduct(product: ProductModel): Observable<ProductModel>{
+    return this.http.post<ProductModel>("/api/products", product);
   }
 }

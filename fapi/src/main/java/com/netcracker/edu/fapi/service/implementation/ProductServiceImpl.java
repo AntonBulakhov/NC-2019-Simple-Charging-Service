@@ -1,6 +1,5 @@
 package com.netcracker.edu.fapi.service.implementation;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.netcracker.edu.fapi.dto.Product;
 import com.netcracker.edu.fapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +16,7 @@ public class ProductServiceImpl  implements ProductService {
     private String backendURL;
 
     @Override
-    public Product findProductByName(String name) {
+    public Product getProductByName(String name) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(backendURL + "/api/products/name/" + name, Product.class);
     }
@@ -49,6 +48,12 @@ public class ProductServiceImpl  implements ProductService {
     @Override
     public Product getProductById(Long id) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(backendURL + "/api/products/" + id, Product.class);
+        return restTemplate.getForObject(backendURL + "/api/products/id/" + id, Product.class);
+    }
+
+    @Override
+    public Product saveProduct(Product product) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(backendURL + "/api/products", product, Product.class).getBody();
     }
 }

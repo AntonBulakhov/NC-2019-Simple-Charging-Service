@@ -5,6 +5,7 @@ import {ProductService} from "../../../../services/product-service";
 import {UserService} from "../../../../services/user-service";
 import {CategoryModel} from "../../../../models/category-model";
 import {CategoryService} from "../../../../services/category-service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'charging-addnewproduct',
@@ -16,14 +17,14 @@ export class NewproductComponent implements OnInit {
   public newProduct: ProductModel = new ProductModel();
   public seller: UserModel;
   public categories: CategoryModel[];
-  public productImage: File = null;
   public category: string;
   public ready: boolean;
   public productExists: boolean = false;
 
   constructor(private productService: ProductService,
               private userService: UserService,
-              private categoryService: CategoryService) { }
+              private categoryService: CategoryService,
+              private router: Router) { }
 
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe(cats=>{
@@ -36,15 +37,17 @@ export class NewproductComponent implements OnInit {
     });
   }
 
-  public saveImage(files){
-    this.productImage = files[0];
-  }
-
   public createNewProduct(): void{
-    this.newProduct.logoUrl = this.newProduct.name+"-logo.jpg";
     this.newProduct.user = this.seller;
     this.newProduct.category = this.getCategory(this.category);
-    console.log(this.newProduct);
+
+    this.productService.saveNewProduct(this.newProduct).subscribe((resp)=>{
+      console.log(resp);
+      let product:ProductModel = resp as ProductModel;
+      this.router.navigate(['/product/'+product.id]);
+    }, ()=>{
+      this.router.navigate(['/404']);
+        });
   }
 
   public ifExistsByName(name: string): void{

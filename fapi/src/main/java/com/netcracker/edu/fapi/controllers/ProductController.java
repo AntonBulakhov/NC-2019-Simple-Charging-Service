@@ -24,18 +24,43 @@ public class ProductController {
         return productService.getTopFourProducts();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public ResponseEntity<Product> getProductById(@PathVariable(name = "id") Long id){
-        return ResponseEntity.ok(productService.getProductById(id));
+        Product product = productService.getProductById(id);
+        if(product != null){
+            return ResponseEntity.ok(product);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    public ResponseEntity<Product> getProductByName(@PathVariable String name){
+        Product product = productService.getProductByName(name);
+        if(product != null){
+            return ResponseEntity.ok(product);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/name")
     public ResponseEntity<Boolean> findProductByName(@RequestBody String name){
-        Product product = productService.findProductByName(name);
+        Product product = productService.getProductByName(name);
         if (product == null) {
             return ResponseEntity.ok(false);
         }else {
             return ResponseEntity.ok(true);
+        }
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product){
+        Product product1 = productService.saveProduct(product);
+        if(product1 != null){
+            return ResponseEntity.ok(product1);
+        }else {
+            return ResponseEntity.badRequest().build();
         }
     }
 }

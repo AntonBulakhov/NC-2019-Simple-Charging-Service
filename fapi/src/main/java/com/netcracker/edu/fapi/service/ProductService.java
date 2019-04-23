@@ -8,5 +8,6 @@ public interface ProductService {
     List<Product> getAllProducts();
     List<Product> getTopFourProducts();
     Product getProductById(Long id);
-    Product findProductByName(String name);
+    Product getProductByName(String name);
+    Product saveProduct(Product product);
 }

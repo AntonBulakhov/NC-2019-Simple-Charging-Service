@@ -9,4 +9,5 @@ public interface ProductService {
     List<Product> findAll();
     Optional<Product> getProductById(Integer id);
     Product getProductByName(String name);
+    Product saveProduct(Product product);
 }
