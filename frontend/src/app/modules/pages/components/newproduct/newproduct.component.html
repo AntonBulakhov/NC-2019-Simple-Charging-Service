@@ -16,9 +16,8 @@
   <form class="col-6 justify-content-center" (ngSubmit)="createNewProduct()">
     <div class="form-group">
       <label for="exampleFormControlFile1">Product logo url</label>
-      <input type="text" class="form-control" id="exampleFormControlFile1" placeholder="Enter logo url"
-             name="logoUrl" [(ngModel)]="newProduct.logoUrl" required autocomplete="off" #logoUrl = "ngModel">
-      <img src="{{newProduct.logoUrl}}" *ngIf="newProduct.logoUrl != null" alt="" id="preShow" class="rounded img-thumbnail mt-3">
+      <input type="file" #file class="form-control-file" id="exampleFormControlFile1"
+             accept="image/jpeg" (change)="onChange(file.files)" required>
     </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Name of product</label>

@@ -20,6 +20,7 @@ export class NewproductComponent implements OnInit {
   public category: string;
   public ready: boolean;
   public productExists: boolean = false;
+  public productImage: File = null;
 
   constructor(private productService: ProductService,
               private userService: UserService,
@@ -37,17 +38,24 @@ export class NewproductComponent implements OnInit {
     });
   }
 
+  public onChange(files): void{
+    this.productImage = files[0];
+  }
+
   public createNewProduct(): void{
     this.newProduct.user = this.seller;
     this.newProduct.category = this.getCategory(this.category);
+    this.newProduct.logoUrl = this.newProduct.name+"-logo.jpg".trim();
 
-    this.productService.saveNewProduct(this.newProduct).subscribe((resp)=>{
-      console.log(resp);
-      let product:ProductModel = resp as ProductModel;
-      this.router.navigate(['/product/'+product.id]);
-    }, ()=>{
-      this.router.navigate(['/404']);
-        });
+    this.productService.saveProductImage(this.productImage, this.newProduct.logoUrl).subscribe(()=>{
+      this.productService.saveNewProduct(this.newProduct).subscribe((resp)=>{
+        console.log(resp);
+        let product:ProductModel = resp as ProductModel;
+        this.router.navigate(['/product/'+product.id]);
+      }, ()=>{
+        this.router.navigate(['/404']);
+      });
+    });
   }
 
   public ifExistsByName(name: string): void{

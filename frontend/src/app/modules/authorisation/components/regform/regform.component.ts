@@ -29,7 +29,7 @@ export class RegformComponent implements OnInit {
   }
 
   public regNewUser():void{
-    this.newUser.logoUrl = "userlogo.jpg";
+    this.newUser.logoUrl = "default-logo.jpg";
     this.newUser.role = this.getRole();
     this.userService.regNewUser(this.newUser).subscribe(()=>{
       this.router.navigate(['']);

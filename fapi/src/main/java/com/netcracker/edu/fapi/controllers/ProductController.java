@@ -2,9 +2,12 @@ package com.netcracker.edu.fapi.controllers;
 
 import com.netcracker.edu.fapi.dto.Product;
 import com.netcracker.edu.fapi.service.ProductService;
+import com.netcracker.edu.fapi.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,6 +16,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private StorageService storageService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Product> getAllProducts(){
@@ -61,6 +66,25 @@ public class ProductController {
             return ResponseEntity.ok(product1);
         }else {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/image")
+    public ResponseEntity saveProductImage(@RequestParam("image") MultipartFile file){
+        if(storageService.storeProductImage(file)){
+            return ResponseEntity.ok().build();
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/image/{name}")
+    public ResponseEntity<Resource> getProductImage(@PathVariable String name){
+        Resource res = storageService.getProductImage(name);
+        if(res != null){
+            return ResponseEntity.ok(res);
+        }else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

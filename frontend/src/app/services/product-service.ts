@@ -30,6 +30,12 @@ export class ProductService {
     return this.http.post("/api/products/name", name);
   }
 
+  saveProductImage(image: File, name: string): any{
+    let formdata = new FormData();
+    formdata.append("image", image, name);
+    return this.http.post("/api/products/image", formdata);
+  }
+
   saveNewProduct(product: ProductModel): Observable<ProductModel>{
     return this.http.post<ProductModel>("/api/products", product);
   }
