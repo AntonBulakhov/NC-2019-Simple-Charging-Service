@@ -5,6 +5,8 @@ import com.netcracker.edu.back.backend.entity.Subscription;
 import com.netcracker.edu.back.backend.service.ProductService;
 import com.netcracker.edu.back.backend.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*")
 @RequestMapping("/api/products")
 public class ProductController {
     @Autowired
@@ -20,9 +23,11 @@ public class ProductController {
     @Autowired
     private SubscriptionService subscriptionService;
 
+    private final int PRODUCT_COUNT_ON_PAGE = 4;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Product> getAllProducts(){
-        return productService.findAll();
+    public Page<Product> getAllProducts(@RequestParam(defaultValue = "0") int page){
+        return productService.getAll(new PageRequest(page, PRODUCT_COUNT_ON_PAGE));
     }
 
     @RequestMapping(value = "/top4", method = RequestMethod.GET)
@@ -30,7 +35,7 @@ public class ProductController {
         List<Product> products = new ArrayList<>();
         ArrayList<Subscription> subscriptions = (ArrayList<Subscription>)subscriptionService.getTopFourSubs();
         if(subscriptions.size() == 0){
-            products = productService.findAll();
+            products = productService.getAll();
             if(products.size() >= 4) products = products.subList(0,4);
         }else {
             if(subscriptions.size() < 4){

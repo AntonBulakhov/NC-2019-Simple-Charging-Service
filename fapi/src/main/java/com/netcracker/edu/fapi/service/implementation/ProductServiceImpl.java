@@ -22,9 +22,9 @@ public class ProductServiceImpl  implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts(int page) {
         RestTemplate restTemplate = new RestTemplate();
-        Product[] products  = restTemplate.getForObject(backendURL + "/api/products", Product[].class);
+        Product[] products  = restTemplate.getForObject(backendURL + "/api/products?page=" + page, Product[].class);
         List<Product> productList = products == null ? Collections.emptyList() : Arrays.asList(products);
         for (Product product: productList) {
             product.getUser().setPassword(null);

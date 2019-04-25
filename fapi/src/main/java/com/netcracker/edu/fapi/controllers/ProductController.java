@@ -20,8 +20,13 @@ public class ProductController {
     private StorageService storageService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts(@RequestParam int page){
+       List<Product> list = productService.getAllProducts(page);
+       if (list != null) {
+           return ResponseEntity.ok(list);
+       }else {
+           return ResponseEntity.notFound().build();
+       }
     }
 
     @RequestMapping(value = "/top4", method = RequestMethod.GET)

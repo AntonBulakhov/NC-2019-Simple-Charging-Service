@@ -4,6 +4,8 @@ import com.netcracker.edu.back.backend.entity.Product;
 import com.netcracker.edu.back.backend.repository.ProductRepository;
 import com.netcracker.edu.back.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public List<Product> findAll() {
-        return (List<Product>) productRepository.findAll();
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 
     @Override
@@ -32,5 +34,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product saveProduct(Product product) {
         return productRepository.save(product);
+    }
+
+    @Override
+    public Page<Product> getAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 }

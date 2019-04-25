@@ -9,8 +9,9 @@ import {ProductService} from "../../../../services/product-service";
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-
+  public page: number = 0;
   public products: ProductModel[];
+  public pages: Array<number>;
 
   constructor(private titleService : Title,
               private productService: ProductService) {
@@ -22,9 +23,21 @@ export class ProductsComponent implements OnInit {
   }
 
   private loadAllProducts(): void{
-    this.productService.getAllProducts().subscribe(productsArray =>{
-      this.products = productsArray as ProductModel[];
-    })
+    this.productService.getAllProducts(this.page).subscribe(data =>{
+      this.products = data['content'];
+      this.pages = new Array<number>(data['totalPages']);
+    });
   }
 
+  public setPage(i, event: any){
+    event.preventDefault();
+    if (i < 0) {
+      this.page = this.pages.length-1;
+    } else if(i > this.pages.length-1){
+      this.page = 0;
+    }else {
+      this.page = i;
+    }
+    this.loadAllProducts();
+  }
 }
