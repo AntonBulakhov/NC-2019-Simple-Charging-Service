@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private titleService : Title,
               private productService: ProductService) {
-    this.titleService.setTitle("Home")
+    this.titleService.setTitle("Home");
   }
 
   ngOnInit() {

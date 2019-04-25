@@ -8,6 +8,14 @@ export class UserService {
   constructor(private http:HttpClient){
   }
 
+  getAllUsers(page: number){
+    return this.http.get("/api/users?page="+page);
+  }
+
+  getAllCompanies(page: number){
+    return this.http.get("/api/users/companies?page="+page);
+  }
+
   regNewUser(user:UserModel):Observable<UserModel>{
     return this.http.post<UserModel>("/api/users", user);
   }

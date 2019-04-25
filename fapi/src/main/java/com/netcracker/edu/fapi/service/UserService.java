@@ -1,9 +1,11 @@
 package com.netcracker.edu.fapi.service;
 
 import com.netcracker.edu.fapi.dto.User;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
 
 public interface UserService {
+    Page<User> getAllUsers(int page);
+    Page<User> getAllCompanies(int page);
     User getUserById(int id);
     User findUserByLogin(String login);
     User saveUser(User user);

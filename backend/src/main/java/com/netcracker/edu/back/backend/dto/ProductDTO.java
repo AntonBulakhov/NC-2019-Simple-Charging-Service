@@ -1,19 +1,21 @@
-package com.netcracker.edu.fapi.dto;
+package com.netcracker.edu.back.backend.dto;
 
-public class Product {
+import com.netcracker.edu.back.backend.entity.Category;
+
+public class ProductDTO {
     private int id;
     private String name;
     private String description;
     private double price;
     private String logoUrl;
     private String videolink;
-    private User user;
+    private UserDTO user;
     private Category category;
 
-    public Product() {
+    public ProductDTO() {
     }
 
-    public Product(int id, String name, String description, double price, String logoUrl, String videolink, User user, Category category) {
+    public ProductDTO(int id, String name, String description, double price, String logoUrl, String videolink, UserDTO user, Category category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,11 +74,11 @@ public class Product {
         this.videolink = videolink;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 

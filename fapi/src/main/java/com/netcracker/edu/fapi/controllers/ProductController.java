@@ -5,6 +5,7 @@ import com.netcracker.edu.fapi.service.ProductService;
 import com.netcracker.edu.fapi.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,9 +21,9 @@ public class ProductController {
     private StorageService storageService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<Product>> getAllProducts(@RequestParam int page){
-       List<Product> list = productService.getAllProducts(page);
-       if (list != null) {
+    public ResponseEntity<Page<Product>> getAllProducts(@RequestParam int page){
+       Page<Product> list = productService.getAllProducts(page);
+       if (list.getContent() != null) {
            return ResponseEntity.ok(list);
        }else {
            return ResponseEntity.notFound().build();

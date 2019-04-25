@@ -3,7 +3,7 @@
 <div class="container-fluid mrt-75">
   <div class="row justify-content-end">
     <div class="col-8 d-flex justify-content-start">
-      <h3 class="text-white mb-0">List of users</h3>
+      <h3 class="mb-0">List of users</h3>
     </div>
     <div class="col-4 d-flex justify-content-center">
       <div class="dropdown">
@@ -12,7 +12,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
           <button class="dropdown-item btn btn-primary" type="button">All</button>
-          <button class="dropdown-item btn btn-primary" type="button">Failed subs</button>
+          <button class="dropdown-item btn btn-primary" type="button">Blocked</button>
           <button class="dropdown-item btn btn-primary" type="button">Admins</button>
           <button class="dropdown-item btn btn-primary" type="button">Users</button>
         </div>
@@ -34,23 +34,33 @@
       <th scope="col">Email</th>
       <th scope="col">First Name</th>
       <th scope="col">Second Name</th>
-      <th scope="col">Failed Subs</th>
+      <th scope="col">Blocked</th>
+      <th scope="col">Role</th>
       <th scope="col" style="width: 10%">Profile</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>anton@example.com</td>
-      <td>Anton</td>
-      <td>Bulakhov</td>
-      <td>0</td>
+    <tr *ngFor="let user of users; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{user.email}}</td>
+      <td>{{user.firstname}}</td>
+      <td>{{user.secondname}}</td>
+      <td>{{(user.blocked) ? "Yes": "No"}}</td>
+      <td>{{user.role.name.toLocaleUpperCase()}}</td>
       <td>
         <button type="button" class="btn btn-primary">View</button>
       </td>
     </tr>
     </tbody>
   </table>
+
+  <nav id="pages">
+    <ul class="pagination pagination-lg justify-content-center">
+      <li class="page-item" (click)="setPage(page-1, $event)"><a class="page-link" href="">&laquo;</a></li>
+      <li class="page-item" *ngFor="let page of pages; let i= index"  (click)="setPage(i, $event)" id="{{i}}"><a class="page-link" href="">{{i+1}}</a></li>
+      <li class="page-item" (click)="setPage(page+1, $event)"><a class="page-link" href="">&raquo;</a></li>
+    </ul>
+  </nav>
 </div>
 
 <charging-footer></charging-footer>

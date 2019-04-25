@@ -40,4 +40,9 @@ export class ProductsComponent implements OnInit {
     }
     this.loadAllProducts();
   }
+
+  public _getBlocked(number: string): string{
+    if(number == "0") return "No";
+    else return "Yes";
+  }
 }

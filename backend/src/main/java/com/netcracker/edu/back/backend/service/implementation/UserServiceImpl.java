@@ -1,9 +1,12 @@
 package com.netcracker.edu.back.backend.service.implementation;
 
+import com.netcracker.edu.back.backend.entity.Role;
 import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.repository.UserRepository;
 import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +23,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll() {
-        return (List<User>) userRepository.findAll();
+    public Page<User> findAllUsers(Pageable pageable, Role role) {
+        return userRepository.findAllByRoleNotIn(pageable, role);
+    }
+
+    @Override
+    public Page<User> findAllCompanies(Pageable pageable, Role role) {
+        return userRepository.findAllByRoleIn(pageable, role);
     }
 
     @Override

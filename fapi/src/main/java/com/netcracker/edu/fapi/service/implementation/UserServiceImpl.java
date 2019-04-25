@@ -3,7 +3,7 @@ package com.netcracker.edu.fapi.service.implementation;
 import com.netcracker.edu.fapi.dto.User;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,6 +12,18 @@ public class UserServiceImpl implements UserService {
 
     @Value("${backend.server.url}")
     private String backendURL;
+
+    @Override
+    public Page<User> getAllUsers(int page) {
+        RestTemplate restTemplate = new RestTemplate();
+        return  restTemplate.getForObject(backendURL + "/api/users?page=" + page, RestPageImpl.class);
+    }
+
+    @Override
+    public Page<User> getAllCompanies(int page) {
+        RestTemplate restTemplate = new RestTemplate();
+        return  restTemplate.getForObject(backendURL + "/api/users/companies?page=" + page, RestPageImpl.class);
+    }
 
     @Override
     public User getUserById(int id) {

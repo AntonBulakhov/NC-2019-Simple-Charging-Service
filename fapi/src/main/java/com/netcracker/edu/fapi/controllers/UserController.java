@@ -5,7 +5,7 @@ import com.netcracker.edu.fapi.service.StorageService;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +18,26 @@ public class UserController {
     private UserService userService;
     @Autowired
     private StorageService storageService;
+
+    @GetMapping("")
+    public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page){
+        Page<User> userPage = userService.getAllUsers(page);
+        if(userPage.getContent() != null){
+            return ResponseEntity.ok(userPage);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/companies")
+    public ResponseEntity<Page<User>> getAllCompanies(@RequestParam int page){
+        Page<User> userPage = userService.getAllCompanies(page);
+        if(userPage.getContent() != null){
+            return ResponseEntity.ok(userPage);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id){

@@ -1,11 +1,14 @@
 package com.netcracker.edu.back.backend.controller;
 
+import com.netcracker.edu.back.backend.converter.ProductToProductDTO;
+import com.netcracker.edu.back.backend.dto.ProductDTO;
 import com.netcracker.edu.back.backend.entity.Product;
 import com.netcracker.edu.back.backend.entity.Subscription;
 import com.netcracker.edu.back.backend.service.ProductService;
 import com.netcracker.edu.back.backend.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +26,20 @@ public class ProductController {
     @Autowired
     private SubscriptionService subscriptionService;
 
+    private ProductToProductDTO converter = new ProductToProductDTO();
+
     private final int PRODUCT_COUNT_ON_PAGE = 4;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<Product> getAllProducts(@RequestParam(defaultValue = "0") int page){
-        return productService.getAll(new PageRequest(page, PRODUCT_COUNT_ON_PAGE));
+    public Page<ProductDTO> getAllProducts(@RequestParam(defaultValue = "0") int page){
+        Page<Product> productPage = productService.getAll(new PageRequest(page, PRODUCT_COUNT_ON_PAGE));
+        List<Product> products = productPage.getContent();
+        List<ProductDTO> productDTOS = converter.convert(products);
+        return new PageImpl<>(productDTOS,new PageRequest(page,PRODUCT_COUNT_ON_PAGE),productPage.getTotalElements());
     }
 
     @RequestMapping(value = "/top4", method = RequestMethod.GET)
-    public List<Product> getTopFourProducts(){
+    public List<ProductDTO> getTopFourProducts(){
         List<Product> products = new ArrayList<>();
         ArrayList<Subscription> subscriptions = (ArrayList<Subscription>)subscriptionService.getTopFourSubs();
         if(subscriptions.size() == 0){
@@ -48,7 +56,7 @@ public class ProductController {
                 }
             }
         }
-        return products;
+        return converter.convert(products);
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)

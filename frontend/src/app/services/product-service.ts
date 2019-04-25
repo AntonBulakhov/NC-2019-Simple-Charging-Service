@@ -10,8 +10,8 @@ export class ProductService {
 
   }
 
-  getAllProducts(page: number):Observable<ProductModel[]>{
-    return this.http.get<ProductModel[]>("/api/products?page="+page);
+  getAllProducts(page: number){
+    return this.http.get("/api/products?page="+page);
   }
 
   getTopFourProducts():Observable<ProductModel[]>{
