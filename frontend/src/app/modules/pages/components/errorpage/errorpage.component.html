@@ -2,10 +2,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-12 text-center">
-        <span class="display-1 d-block text-primary font-weight-bold">404</span>
-        <div class="mb-4 lead">The page you are looking for was not found.</div>
+        <span class="display-1 d-block text-primary font-weight-bold">{{errorStatus}}</span>
+        <div class="mb-4 lead">{{errorMessage}}</div>
         <button class="btn btn-primary" [routerLink]="['/']">Back to Home</button>
       </div>
     </div>
   </div>
-</div>

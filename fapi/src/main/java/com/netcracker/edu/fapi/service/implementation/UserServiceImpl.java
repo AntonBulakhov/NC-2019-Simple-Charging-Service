@@ -2,16 +2,28 @@ package com.netcracker.edu.fapi.service.implementation;
 
 import com.netcracker.edu.fapi.dto.User;
 import com.netcracker.edu.fapi.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Service
-public class UserServiceImpl implements UserService {
+import java.util.HashSet;
+import java.util.Set;
+
+@Service("customUserDetailsService")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Value("${backend.server.url}")
     private String backendURL;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public Page<User> getAllUsers(int page) {
@@ -44,8 +56,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = findUserByLogin(s);
+        return new  org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), getAuthority(user));
+    }
+
+    @Override
     public User saveUser(User user) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.postForEntity(backendURL + "/api/users", user, User.class).getBody();
+    }
+
+    private Set<SimpleGrantedAuthority> getAuthority(User user) {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName().toUpperCase()));
+        return authorities;
     }
 }

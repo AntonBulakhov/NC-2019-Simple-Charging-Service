@@ -21,6 +21,7 @@ import {FormsModule} from "@angular/forms";
 import {UserService} from "../../services/user-service";
 import {RoleService} from "../../services/role-service";
 import {CategoryService} from "../../services/category-service";
+import { ErrorpageComponent } from './components/errorpage/errorpage.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {CategoryService} from "../../services/category-service";
     NewcompanyComponent,
     NewproductComponent,
     NotfoundComponent,
+    ErrorpageComponent,
   ],
   imports: [
     AuthorisationModule,

@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -19,6 +21,7 @@ public class UserController {
     @Autowired
     private StorageService storageService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("")
     public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page){
         Page<User> userPage = userService.getAllUsers(page);
@@ -29,6 +32,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/companies")
     public ResponseEntity<Page<User>> getAllCompanies(@RequestParam int page){
         Page<User> userPage = userService.getAllCompanies(page);

@@ -11,6 +11,7 @@ import {CompaniesComponent} from "./modules/pages/components/companies/companies
 import {NewproductComponent} from "./modules/pages/components/newproduct/newproduct.component";
 import {NewcompanyComponent} from "./modules/pages/components/newcompany/newcompany.component";
 import {NotfoundComponent} from "./modules/pages/components/notfound/notfound.component";
+import {ErrorpageComponent} from "./modules/pages/components/errorpage/errorpage.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'companies', component: CompaniesComponent},
   {path: 'newproduct', component: NewproductComponent},
   {path: 'newcompany', component: NewcompanyComponent},
+  {path: 'error', component: ErrorpageComponent},
   {path: '**', component: NotfoundComponent}
 ];
 
