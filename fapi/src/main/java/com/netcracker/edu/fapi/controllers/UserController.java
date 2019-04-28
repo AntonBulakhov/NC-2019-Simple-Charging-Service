@@ -49,6 +49,17 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("")
+    public ResponseEntity<User> saveNewUser(@RequestBody User newUser){
+        User user = userService.saveUser(newUser);
+        if(user != null){
+            return ResponseEntity.ok(user);
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Boolean> getUserByLogin(@RequestBody String login) {
         User user = userService.findUserByLogin(login);

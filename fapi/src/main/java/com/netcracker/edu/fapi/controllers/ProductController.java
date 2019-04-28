@@ -57,12 +57,7 @@ public class ProductController {
 
     @GetMapping("/user/id/{id}")
     public ResponseEntity<List<Product>> getProductsByUser(@PathVariable int id){
-        List<Product> products = productService.getProductsByUser(id);
-        if(!products.isEmpty()){
-            return ResponseEntity.ok(products);
-        }else {
-            return ResponseEntity.ok(null);
-        }
+        return ResponseEntity.ok(productService.getProductsByUser(id));
     }
 
     @PostMapping("/name")

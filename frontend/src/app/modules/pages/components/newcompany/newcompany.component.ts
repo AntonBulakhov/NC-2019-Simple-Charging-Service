@@ -13,7 +13,7 @@ import {RoleModel} from "../../../../models/role-model";
 })
 export class NewcompanyComponent implements OnInit {
 
-  public newSeller: UserModel;
+  public newSeller: UserModel = new UserModel();
   public roles: RoleModel[];
 
   public sellerImage: File = null;
