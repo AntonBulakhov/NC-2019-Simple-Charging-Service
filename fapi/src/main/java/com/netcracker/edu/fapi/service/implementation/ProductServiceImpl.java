@@ -32,12 +32,14 @@ public class ProductServiceImpl  implements ProductService {
     public List<Product> getTopFourProducts() {
         RestTemplate restTemplate = new RestTemplate();
         Product[] products = restTemplate.getForObject(backendURL + "/api/products/top4", Product[].class);
-        List<Product> productList = products == null ? Collections.emptyList() : Arrays.asList(products);
-//        for (Product product: productList) {
-//            product.getUser().setPassword(null);
-//            product.getUser().setLogin(null);
-//        }
-        return productList;
+        return products == null ? Collections.emptyList() : Arrays.asList(products);
+    }
+
+    @Override
+    public List<Product> getProductsByUser(int id) {
+        RestTemplate restTemplate = new RestTemplate();
+        Product[] products = restTemplate.getForObject(backendURL + "/api/products/user/id/"+id, Product[].class);
+        return products == null ? Collections.emptyList() : Arrays.asList(products);
     }
 
     @Override

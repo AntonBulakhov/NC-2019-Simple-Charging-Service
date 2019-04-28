@@ -11,23 +11,40 @@
 </div>
 <!--form-->
 <div class="container-fluid justify-content-center d-flex mb-5">
-  <form class="col-6 justify-content-center">
+  <form class="col-6 justify-content-center" (ngSubmit)="regNewSeller()">
     <div class="form-group">
       <label for="exampleFormControlFile1">Company logo</label>
-      <input type="file" class="form-control-file" id="exampleFormControlFile1">
+      <input type="file" #file class="form-control-file" id="exampleFormControlFile1"
+             accept="image/jpeg" (change)="onChange(file.files)" required>
     </div>
     <div class="form-group">
-      <label for="exampleFormControlInput1">Company name</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter name">
+      <div class="form-group col-md-6">
+        <label for="inputFName">Company Name</label>
+        <input type="text" name="firstname" class="form-control" id="inputFName" placeholder="Enter your first name" [(ngModel)]="newSeller.firstname"
+               required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputLogin">Login</label>
+        <input type="text" name="login" class="form-control" id="inputLogin" placeholder="Nickname" [(ngModel)]="newSeller.login"
+               required minlength="4" #login="ngModel" (focusout)="ifExistsByLogin(login.value)" (change)="userExistsByLogin = false">
+        <small [hidden]="login.valid || login.untouched" class="text-danger">Login is incorrect</small>
+        <small *ngIf="userExistsByLogin" class="text-danger">This login is already exists</small>
+      </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputEmail4">Email</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <label for="inputEmail">Email</label>
+        <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Enter email" [(ngModel)]="newSeller.email"
+               required pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}" #email="ngModel" (focusout)="ifExistsByEmail(email.value)"
+               autocomplete="off" (change)="userExistsByEmail = false">
+        <p [hidden]="email.valid || email.untouched" class="text-danger">Email is incorrect</p>
+        <p *ngIf="userExistsByEmail" class="text-danger">This email is already exists</p>
       </div>
       <div class="form-group col-md-6">
         <label for="inputPassword4">Password</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" name="password" class="form-control" id="inputPassword4" placeholder="Enter password"
+               [(ngModel)]="newSeller.password" required minlength="4" #password="ngModel">
+        <small [hidden]="password.valid || password.untouched" class="text-danger">Password is incorrect</small>
       </div>
     </div>
     <div class="container-fluid p-0 d-flex justify-content-between mt-4">

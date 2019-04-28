@@ -22,6 +22,10 @@ export class ProductService {
     return this.http.get<ProductModel>("/api/products/id/"+id);
   }
 
+  getProductByUser(id: string): Observable<ProductModel[]>{
+    return this.http.get<ProductModel[]>("/api/products/user/id/"+id);
+  }
+
   getProductByName(name: string): Observable<ProductModel>{
     return this.http.get<ProductModel>("/api/products/name/"+name);
   }

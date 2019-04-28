@@ -49,7 +49,6 @@ export class NewproductComponent implements OnInit {
 
     this.productService.saveProductImage(this.productImage, this.newProduct.logoUrl).subscribe(()=>{
       this.productService.saveNewProduct(this.newProduct).subscribe((resp)=>{
-        console.log(resp);
         let product:ProductModel = resp as ProductModel;
         this.router.navigate(['/product/'+product.id]);
       }, ()=>{

@@ -25,7 +25,7 @@ export class RegformComponent implements OnInit {
               private auth: AuthService,
               private route: ActivatedRoute) {
     route.queryParams.subscribe(param=>{
-      if(param['code']){
+      if(param['isA']){
         this.isAdmin = true;
       }
     })
@@ -38,9 +38,11 @@ export class RegformComponent implements OnInit {
   }
 
   public regNewUser():void{
-    this.newUser.logoUrl = "default-logo.jpg";
-    this.newUser.role = this.getRole();
-    this.auth.signUp(this.newUser);
+    if(!this.userExistsByEmail && !this.userExistsByLogin){
+      this.newUser.logoUrl = "default-logo.jpg";
+      this.newUser.role = this.getRole();
+      this.auth.signUp(this.newUser);
+    }
   }
 
   public getRole():RoleModel{

@@ -11,4 +11,5 @@ public interface ProductService {
     Product getProductById(Long id);
     Product getProductByName(String name);
     Product saveProduct(Product product);
+    List<Product> getProductsByUser(int id);
 }

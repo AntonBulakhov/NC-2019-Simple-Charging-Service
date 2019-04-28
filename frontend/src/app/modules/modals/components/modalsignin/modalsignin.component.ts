@@ -20,4 +20,10 @@ export class ModalsigninComponent implements OnInit {
     this.auth.signIn(this.loginUser);
   }
 
+  public clearInput():void{
+    let elements = document.getElementsByTagName("input");
+    for (let ii=0; ii < elements.length; ii++) {
+      elements[ii].value = "";
+    }
+  }
 }

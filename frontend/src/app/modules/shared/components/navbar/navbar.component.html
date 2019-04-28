@@ -32,10 +32,12 @@
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <button class="dropdown-item" type="button" routerLink="/profile/{{auth.user.id}}">Profile</button>
             <div class="dropdown-divider"></div>
-            <button class="dropdown-item" type="button" routerLink="/users">Users</button>
-            <button class="dropdown-item" type="button" routerLink="/companies">Companies</button>
-            <button class="dropdown-item" type="button" (click)="regNewAdmin()">New Admin</button>
-            <button class="dropdown-item" type="button" routerLink="/newcompany">New Company</button>
+            <button class="dropdown-item" type="button" routerLink="/users" *ngIf="auth.user.role.name == 'admin'">Users</button>
+            <button class="dropdown-item" type="button" routerLink="/companies" *ngIf="auth.user.role.name == 'admin'">Companies</button>
+            <button class="dropdown-item" type="button" (click)="regNewAdmin()" *ngIf="auth.user.role.name == 'admin'">New Admin</button>
+            <button class="dropdown-item" type="button" routerLink="/newcompany" *ngIf="auth.user.role.name == 'admin' ">New Company</button>
+            <button class="dropdown-item" type="button" routerLink="/newproduct" *ngIf="auth.user.role.name == 'seller' ">New Product</button>
+
             <div class="dropdown-divider"></div>
             <button class="dropdown-item" type="button" (click)="logOut()">Log out</button>
           </div>

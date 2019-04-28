@@ -28,4 +28,13 @@ export class UserService {
     return this.http.post("/api/users/login", login);
   }
 
+  saveUserImage(image: File, name: string): any{
+    let formdata = new FormData();
+    formdata.append("image", image, name);
+    return this.http.post("/api/users/image", formdata);
+  }
+
+  saveNewUser(user: UserModel):Observable<UserModel>{
+    return this.http.post<UserModel>("/api/users", user);
+  }
 }

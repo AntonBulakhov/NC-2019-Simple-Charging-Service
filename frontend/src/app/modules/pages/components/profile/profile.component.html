@@ -11,13 +11,14 @@
     <div class="media-body col-8">
       <form>
         <div class="form-group row justify-content-center">
-          <label for="fname" class="col-sm-4 col-form-label mr-3 font-weight-bold">First Name</label>
+          <label for="fname" class="col-sm-4 col-form-label mr-3 font-weight-bold">
+            {{(profileUser.role.name == 'seller')?'Company Name':'First Name'}}</label>
           <div class="">
             <input type="text" disabled class=" form-control-plaintext" id="fname" value="{{profileUser.firstname}}">
           </div>
         </div>
         <div class="form-group row justify-content-center">
-          <label for="sname" class="col-sm-4 col-form-label mr-3 font-weight-bold" >Second Name</label>
+          <label for="sname" class="col-sm-4 col-form-label mr-3 font-weight-bold" *ngIf="profileUser.role.name != 'seller'">Second Name</label>
           <div class="">
             <input type="text" disabled class=" form-control-plaintext" id="sname" value="{{profileUser.secondname}}">
           </div>
@@ -45,11 +46,52 @@
   </div>
 </div>
 
-<div class="container-fluid d-flex justify-content-center">
+<div class="container-fluid d-flex justify-content-center" *ngIf="profileUser.role.name == 'seller'" >
+  <h3 class="">Products</h3>
+</div>
+<div class="container-fluid" *ngIf="!productsExists && profileUser.role.name == 'seller'" id="alert2">
+  <div class="alert alert-danger justify-content-center d-flex" role="alert">
+    <h3>There is no products yet</h3>
+  </div>
+</div>
+<!--products-->
+<div class="container-fluid mb-4 justify-content-center" *ngIf="profileUser.role.name != 'seller'">
+  <div class="container">
+    <table class="table table-hover bg-light">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Category</th>
+        <th scope="col" style="width: 10%">View</th>
+        <th scope="col" style="width: 10%">Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of products, let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}$/month</td>
+        <td>{{product.category.name.toUpperCase()}}</td>
+        <td>
+          <button type="button" class="btn btn-primary" routerLink="/product/{{product.id}}">View</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="container-fluid d-flex justify-content-center" *ngIf="profileUser.role.name != 'seller'" >
   <h3 class="">Subscriptions</h3>
 </div>
 <!--subs-->
-<div class="container-fluid mb-4 justify-content-center">
+<div class="container-fluid mb-4 justify-content-center" *ngIf="profileUser.role.name != 'seller'">
   <div class="container">
     <table class="table table-hover bg-light">
       <thead>
@@ -82,17 +124,16 @@
   </div>
 </div>
 
-<div class="container-fluid d-flex justify-content-center">
+<div class="container-fluid d-flex justify-content-center" *ngIf="profileUser.role.name != 'seller'">
   <h3 class="">Wallets</h3>
 </div>
-
-<div class="container-fluid" *ngIf="!walletsExists" id="alert">
+<div class="container-fluid" *ngIf="!walletsExists && profileUser.role.name != 'seller'" id="alert">
   <div class="alert alert-danger justify-content-center d-flex" role="alert">
     <h3>There is no wallets yet</h3>
   </div>
 </div>
 <!--wallets-->
-<div class="container-fluid" *ngIf="walletsExists">
+<div class="container-fluid" *ngIf="walletsExists && profileUser.role.name != 'seller'">
   <div class="container">
     <table class="table table-hover bg-light">
       <caption><button class="btn btn-outline-primary" data-toggle="modal" data-target="#AddWalletModal" *ngIf="!maxWallets">Add wallet</button></caption>
@@ -122,7 +163,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="toUpModal">
+<div class="modal fade" id="toUpModal" *ngIf="profileUser.role.name != 'seller'">
   <div class="modal-dialog">
     <div class="modal-content">
       <form class="px-4 py-3" (ngSubmit)="f.form.valid && onSubmitToUp()" #f="ngForm">

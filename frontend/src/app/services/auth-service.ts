@@ -9,6 +9,8 @@ export class AuthService {
   public user: UserModel;
   public token: string;
 
+  public authError: boolean = false;
+
   constructor(private http: HttpClient,
               private router: Router){
     let user = JSON.parse(localStorage.getItem('user'));
@@ -47,7 +49,7 @@ export class AuthService {
         this.toErrorPage(error1);
       })
     }, error1 => {
-      this.toErrorPage(error1);
+      this.authError = true;
     })
   }
 

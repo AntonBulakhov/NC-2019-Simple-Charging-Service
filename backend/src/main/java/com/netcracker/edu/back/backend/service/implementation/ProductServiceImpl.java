@@ -1,6 +1,7 @@
 package com.netcracker.edu.back.backend.service.implementation;
 
 import com.netcracker.edu.back.backend.entity.Product;
+import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.repository.ProductRepository;
 import com.netcracker.edu.back.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product saveProduct(Product product) {
         return productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> getProductsByUser(User user) {
+        return productRepository.findAllByUser(user);
     }
 
     @Override

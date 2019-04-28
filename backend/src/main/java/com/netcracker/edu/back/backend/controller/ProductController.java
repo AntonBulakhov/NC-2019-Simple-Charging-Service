@@ -4,8 +4,10 @@ import com.netcracker.edu.back.backend.converter.ProductToProductDTO;
 import com.netcracker.edu.back.backend.dto.ProductDTO;
 import com.netcracker.edu.back.backend.entity.Product;
 import com.netcracker.edu.back.backend.entity.Subscription;
+import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.service.ProductService;
 import com.netcracker.edu.back.backend.service.SubscriptionService;
+import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,6 +27,8 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private SubscriptionService subscriptionService;
+    @Autowired
+    private UserService userService;
 
     private ProductToProductDTO converter = new ProductToProductDTO();
 
@@ -62,6 +66,13 @@ public class ProductController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public Optional<Product> getAllProducts(@PathVariable(name = "id") Integer id){
         return productService.getProductById(id);
+    }
+
+    @RequestMapping(value = "/user/id/{id}", method = RequestMethod.GET)
+    public List<ProductDTO> getProductsByUser(@PathVariable int id){
+        Optional<User> user = userService.findById(id);
+        List<Product> products = productService.getProductsByUser(user.get());
+        return converter.convert(products);
     }
 
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
