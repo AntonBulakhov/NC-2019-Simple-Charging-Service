@@ -35,7 +35,7 @@ public class UserController {
         return userService.findAllCompanies(new PageRequest(page, USERS_COUNT_ON_PAGE), role);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> getUserById(@PathVariable("id") int id){
         Optional<User> user = userService.findById(id);
         if (user.isPresent()){

@@ -1,10 +1,16 @@
 <div class="modal fade" id="AddWalletModal">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form class="px-4 py-3">
+      <form class="px-4 py-3" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
         <div class="form-group">
           <label for="walletName">Wallet Name</label>
-          <input type="text" class="form-control" id="walletName" placeholder="Enter wallet name" autocomplete="off">
+          <input type="text" class="form-control" id="walletName" name="name" [(ngModel)]="newWallet.name" #name="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required minlength="4" autocomplete="off"
+                 placeholder="Enter wallet name" (focusout)="walletNameCheck(name.value)"/>
+          <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+            <div *ngIf="name.errors.required">Name is invalid</div>
+          </div>
+          <small class="text-danger" *ngIf="walletNameExists">This name already exists</small>
         </div>
         <div class="d-flex justify-content-between mr-0">
           <button type="submit" class="btn btn-primary col-2">Add</button>

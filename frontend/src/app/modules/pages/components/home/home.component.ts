@@ -11,6 +11,7 @@ import {ProductService} from "../../../../services/product-service";
 export class HomeComponent implements OnInit {
 
   public products: ProductModel[];
+  public productsExists: boolean = false;
 
   constructor(private titleService : Title,
               private productService: ProductService) {
@@ -24,6 +25,9 @@ export class HomeComponent implements OnInit {
   private loadTopFourProducts():void{
     this.productService.getTopFourProducts().subscribe(productsArray =>{
       this.products = productsArray as ProductModel[];
+      if (this.products.length != 0){
+        this.productsExists = true;
+      }
     })
 
   }

@@ -16,12 +16,8 @@ export class UserService {
     return this.http.get("/api/users/companies?page="+page);
   }
 
-  regNewUser(user:UserModel):Observable<UserModel>{
-    return this.http.post<UserModel>("/api/users", user);
-  }
-
   getUSerById(id: string): Observable<UserModel>{
-    return this.http.get<UserModel>("/api/users/"+id);
+    return this.http.get<UserModel>("/api/users/id/"+id);
   }
 
   findUserByEmail(email:string): any{

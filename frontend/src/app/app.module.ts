@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {PagesModule} from "./modules/pages/pages.module";
+import {AuthInterceptor} from "./services/auth-interceptor-service";
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import {PagesModule} from "./modules/pages/pages.module";
     HttpClientModule,
     PagesModule,
   ],
-  providers: [],
+  providers: [AuthInterceptor,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

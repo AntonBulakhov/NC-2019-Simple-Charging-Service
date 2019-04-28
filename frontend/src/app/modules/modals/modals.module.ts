@@ -1,24 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ModaltoupComponent} from "./components/modaltoup/modaltoup.component";
 import {ModalsigninComponent} from "./components/modalsignin/modalsignin.component";
 import { ModaladdwalletComponent } from './components/modaladdwallet/modaladdwallet.component';
 import {RouterModule} from "@angular/router";
+import {AuthService} from "../../services/auth-service";
+import {FormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "../../services/auth-interceptor-service";
+import {BillingAccountService} from "../../services/billingaccount-service";
 
 @NgModule({
   declarations: [
-    ModaltoupComponent,
     ModalsigninComponent,
     ModaladdwalletComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [
-    ModaltoupComponent,
     ModalsigninComponent,
-    ModaladdwalletComponent
+    ModaladdwalletComponent,
+  ],
+  providers: [
+    AuthService,
+    AuthInterceptor,
+    BillingAccountService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]
 })
 export class ModalsModule { }

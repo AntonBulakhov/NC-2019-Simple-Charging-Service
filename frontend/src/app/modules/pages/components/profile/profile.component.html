@@ -1,44 +1,43 @@
 <charging-navbar></charging-navbar>
 <charging-modalsignin></charging-modalsignin>
-<charging-modaltoup></charging-modaltoup>
 <charging-modaladdwallet></charging-modaladdwallet>
 <!--profile-->
-<div class="container-fluid mrt-75 d-flex justify-content-center">
+<div class="container-fluid mrt-75 d-flex justify-content-center" *ngIf="loaded">
   <div class="media col-6">
     <div class="mt-3">
-      <img src="../../../../../assets/img/users/avatar.jpg" class="rounded" alt="Me" height="150px" width="150px">
-      <h2><button type="button" class="btn btn-primary mr-3 w-100">Edit</button></h2>
+      <img src="http://localhost:8081/api/users/image/{{profileUser.logoUrl}}" class="rounded" alt="Me" height="150px" width="150px">
+      <h2><button type="button" class="btn btn-primary mr-3 w-100" *ngIf="profileUser.id == auth.user.id">Edit</button></h2>
     </div>
-    <div class="media-body text-white col-8">
+    <div class="media-body col-8">
       <form>
         <div class="form-group row justify-content-center">
-          <label for="fname" class="col-sm-4 col-form-label mr-3">First Name</label>
+          <label for="fname" class="col-sm-4 col-form-label mr-3 font-weight-bold">First Name</label>
           <div class="">
-            <input type="text" readonly class=" form-control-plaintext" id="fname" value="Anton">
+            <input type="text" disabled class=" form-control-plaintext" id="fname" value="{{profileUser.firstname}}">
           </div>
         </div>
         <div class="form-group row justify-content-center">
-          <label for="sname" class="col-sm-4 col-form-label mr-3">Second Name</label>
+          <label for="sname" class="col-sm-4 col-form-label mr-3 font-weight-bold" >Second Name</label>
           <div class="">
-            <input type="text" readonly class=" form-control-plaintext" id="sname" value="Bulakhov">
+            <input type="text" disabled class=" form-control-plaintext" id="sname" value="{{profileUser.secondname}}">
           </div>
         </div>
         <div class="form-group row justify-content-center">
-          <label for="staticEmail" class="col-sm-4 col-form-label mr-3">Email</label>
+          <label for="staticEmail" class="col-sm-4 col-form-label mr-3 font-weight-bold">Email</label>
           <div class="">
-            <input type="text" readonly class=" form-control-plaintext" id="staticEmail" value="email@example.com">
+            <input type="text" disabled class=" form-control-plaintext" id="staticEmail" value="{{profileUser.email}}">
           </div>
         </div>
-        <div class="form-group row justify-content-center">
-          <label for="login" class="col-sm-4 col-form-label mr-3">Login</label>
+        <div class="form-group row justify-content-center" *ngIf="profileUser.id == auth.user.id">
+          <label for="login" class="col-sm-4 col-form-label mr-3 font-weight-bold">Login</label>
           <div class="">
-            <input type="text" readonly class=" form-control-plaintext" id="login" value="Antikrrr">
+            <input type="text" disabled class=" form-control-plaintext" id="login" value="{{profileUser.login}}">
           </div>
         </div>
-        <div class="form-group row justify-content-center">
-          <label for="inputPassword" class="col-sm-4 col-form-label mr-3">Password</label>
+        <div class="form-group row justify-content-center" *ngIf="profileUser.id == auth.user.id">
+          <label for="inputPassword" class="col-sm-4 col-form-label mr-3 font-weight-bold">Password</label>
           <div class="">
-            <input type="password"  class=" form-control-plaintext" id="inputPassword" placeholder="Password">
+            <input type="password" disabled class=" form-control-plaintext" id="inputPassword" value="{{profileUser.password}}">
           </div>
         </div>
       </form>
@@ -47,7 +46,7 @@
 </div>
 
 <div class="container-fluid d-flex justify-content-center">
-  <h3 class="text-white">Subscriptions</h3>
+  <h3 class="">Subscriptions</h3>
 </div>
 <!--subs-->
 <div class="container-fluid mb-4 justify-content-center">
@@ -84,13 +83,19 @@
 </div>
 
 <div class="container-fluid d-flex justify-content-center">
-  <h3 class="text-white">Wallets</h3>
+  <h3 class="">Wallets</h3>
+</div>
+
+<div class="container-fluid" *ngIf="!walletsExists" id="alert">
+  <div class="alert alert-danger justify-content-center d-flex" role="alert">
+    <h3>There is no wallets yet</h3>
+  </div>
 </div>
 <!--wallets-->
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="walletsExists">
   <div class="container">
     <table class="table table-hover bg-light">
-      <caption><button class="btn btn-outline-primary" data-toggle="modal" data-target="#AddWalletModal">Add wallet</button></caption>
+      <caption><button class="btn btn-outline-primary" data-toggle="modal" data-target="#AddWalletModal" *ngIf="!maxWallets">Add wallet</button></caption>
       <thead>
       <tr>
         <th scope="col">#</th>
@@ -101,18 +106,65 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Wallet 1</td>
-        <td>531$</td>
+      <tr *ngFor="let wallet of wallets; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{wallet.name}}</td>
+        <td>{{wallet.sum}}$</td>
         <td>
-          <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal">To Up</button>
+          <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal" (click)="selectedWallet=i">To Up</button>
         </td>
         <td>
-          <button type="button" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-danger" (click)="deleteWallet(i)">Delete</button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
+
+<div class="modal fade" id="toUpModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form class="px-4 py-3" (ngSubmit)="f.form.valid && onSubmitToUp()" #f="ngForm">
+        <div class="row">
+          <label for="cardNum">Number on card</label>
+          <input type="text" class="form-control" id="cardNum" autocomplete="off" #numberCard required>
+          <small *ngIf="!f.form.valid && f.submitted" class="text-danger">Number is invalid</small>
+        </div>
+        <div class="row">
+          <label for="cardName">Name on card</label>
+          <input type="text" class="form-control" id="cardName" autocomplete="off" required #nameCard>
+          <small *ngIf="f.submitted && !f.form.valid" class="text-danger">Name is invalid</small>
+        </div>
+        <div class="row">
+          <div class="col p-0 mr-2">
+            <label for="cardExp">Expiration</label>
+            <input type="text" class="form-control" id="cardExp" autocomplete="off" required #expCard>
+            <small *ngIf="f.submitted && !f.form.valid" class="text-danger">Expiration is invalid</small>
+          </div>
+          <div class="col p-0 ml-2">
+            <label for="cardCVV">CVV</label>
+            <input type="text" class="form-control" id="cardCVV" autocomplete="off" required #cvv>
+            <small *ngIf="f.submitted && !f.form.valid" class="text-danger">CVV is invalid</small>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-5">
+            <label for="cardSum">Sum</label>
+            <input type="text" id="cardSum" class="form-control" name="sum" [(ngModel)]="sum" #summ="ngModel"
+                   [ngClass]="{ 'is-invalid': f.submitted && summ.invalid }" required autocomplete="off"  pattern="[0-9]*.[0-9]{1,2}" />
+            <div *ngIf="f.submitted && summ.invalid" class="invalid-feedback">
+              <div *ngIf="summ.errors.required || summ.invalid">Sum is invalid</div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mr-0 mt-3">
+          <button type="submit" class="btn btn-primary col-2">Add</button>
+          <button type="button" class="btn btn-danger col-2" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<charging-footer></charging-footer>

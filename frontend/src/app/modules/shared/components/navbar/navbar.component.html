@@ -23,26 +23,27 @@
     </form>
     <div class="col row justify-content-end">
       <!--if authorized-->
-      <div class="col row justify-content-end">
+      <div class="col row justify-content-end" *ngIf="auth.user != null">
         <div class="dropdown col-6">
           <div class="row" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img class="mr-3 mt-auto rounded-circle" src="http://localhost:8081/api/users/image/default-logo.jpg" alt="" style="height: 35px">
-            <p class="text-white mb-auto mt-auto" style="margin-bottom: 0; cursor: default">Anton</p>
+            <img class="mr-3 mt-auto rounded-circle" src="http://localhost:8081/api/users/image/{{auth.user.logoUrl}}" alt="" style="height: 35px">
+            <p class="text-white mb-auto mt-auto" style="margin-bottom: 0; cursor: default">{{auth.user.firstname}}</p>
           </div>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <button class="dropdown-item" type="button" routerLink="/profile">Profile</button>
+            <button class="dropdown-item" type="button" routerLink="/profile/{{auth.user.id}}">Profile</button>
             <div class="dropdown-divider"></div>
             <button class="dropdown-item" type="button" routerLink="/users">Users</button>
             <button class="dropdown-item" type="button" routerLink="/companies">Companies</button>
-            <button class="dropdown-item" type="button" routerLink="/registration">New Admin</button>
+            <button class="dropdown-item" type="button" (click)="regNewAdmin()">New Admin</button>
             <button class="dropdown-item" type="button" routerLink="/newcompany">New Company</button>
             <div class="dropdown-divider"></div>
-            <button class="dropdown-item" type="button">Log out</button>
+            <button class="dropdown-item" type="button" (click)="logOut()">Log out</button>
           </div>
         </div>
       </div>
       <!--end-->
-      <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target="#myModal">Sign In</button>
+      <button *ngIf="auth.user == null" type="button" class="btn btn-primary mr-3" data-toggle="modal"
+              data-target="#myModal">Sign In</button>
     </div>
   </div>
 </nav>

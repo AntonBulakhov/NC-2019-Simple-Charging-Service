@@ -13,6 +13,8 @@ export class ProductsComponent implements OnInit {
   public products: ProductModel[];
   public pages: Array<number>;
 
+  public productsExists: boolean = false;
+
   constructor(private titleService : Title,
               private productService: ProductService) {
     this.titleService.setTitle("Products")
@@ -26,6 +28,9 @@ export class ProductsComponent implements OnInit {
     this.productService.getAllProducts(this.page).subscribe(data =>{
       this.products = data['content'];
       this.pages = new Array<number>(data['totalPages']);
+      if (this.products.length != 0){
+        this.productsExists = true;
+      }
     });
   }
 

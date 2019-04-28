@@ -35,11 +35,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 userName = tokenProvider.getUsernameFromToken(authToken);
             } catch (IllegalArgumentException e) {
-                logger.error("An error occurred during getting username from token.", e);
+                logger.error("An error occurred during getting email from token.", e);
             } catch (ExpiredJwtException e) {
                 logger.warn("The token is expired and not valid anymore.", e);
             } catch (SignatureException e) {
-                logger.error("Authentication failed. Username and password not valid.", e);
+                logger.error("Authentication failed. email and password not valid.", e);
             }
         } else {
             logger.warn("Couldn't find bearer string, will ignore the header.");

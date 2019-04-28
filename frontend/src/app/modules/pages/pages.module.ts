@@ -22,6 +22,10 @@ import {UserService} from "../../services/user-service";
 import {RoleService} from "../../services/role-service";
 import {CategoryService} from "../../services/category-service";
 import { ErrorpageComponent } from './components/errorpage/errorpage.component';
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "../../services/auth-interceptor-service";
+import {AuthService} from "../../services/auth-service";
+import {BillingAccountService} from "../../services/billingaccount-service";
 
 @NgModule({
   declarations: [
@@ -62,7 +66,11 @@ import { ErrorpageComponent } from './components/errorpage/errorpage.component';
     ProductService,
     UserService,
     RoleService,
-    CategoryService
+    CategoryService,
+    AuthService,
+    AuthInterceptor,
+    BillingAccountService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]
 })
 export class PagesModule { }

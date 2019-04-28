@@ -3,6 +3,7 @@ package com.netcracker.edu.fapi.controllers;
 import com.netcracker.edu.fapi.dto.AuthToken;
 import com.netcracker.edu.fapi.dto.User;
 import com.netcracker.edu.fapi.security.TokenProvider;
+import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,18 +12,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/api/users/auth")
 public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private TokenProvider tokenProvider;
 
-    @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
-    public ResponseEntity register(@RequestBody User loginUser){
+    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    public ResponseEntity generateToken(@RequestBody User loginUser){
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUser.getLogin(),
@@ -32,5 +38,31 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = tokenProvider.generateToken(authentication);
         return ResponseEntity.ok(new AuthToken(token));
+    }
+
+    @PostMapping("/sign-up")
+    public ResponseEntity regNewUser(@RequestBody User user){
+        User userResult = userService.saveUser(user);
+        if(userResult==null) return ResponseEntity.badRequest().build();
+
+        final Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        user.getLogin(),
+                        user.getPassword()
+                )
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        final String token = tokenProvider.generateToken(authentication);
+        return ResponseEntity.ok(new AuthToken(token));
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<User> authUser(Principal userInfo){
+        User user = userService.findUserByLogin(userInfo.getName());
+        if(user != null){
+            return ResponseEntity.ok(user);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }

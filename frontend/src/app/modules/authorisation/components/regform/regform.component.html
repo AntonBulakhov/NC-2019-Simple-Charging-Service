@@ -13,7 +13,7 @@
     <div class="form-group col-md-6">
       <label for="inputLogin">Login</label>
       <input type="text" name="login" class="form-control" id="inputLogin" placeholder="Nickname" [(ngModel)]="newUser.login"
-      required minlength="4" #login="ngModel" #login = "ngModel" (focusout)="ifExistsByLogin(login.value)" (change)="userExistsByLogin = false">
+      required minlength="4" #login="ngModel" (focusout)="ifExistsByLogin(login.value)" (change)="userExistsByLogin = false">
       <small [hidden]="login.valid || login.untouched" class="text-danger">Login is incorrect</small>
       <small *ngIf="userExistsByLogin" class="text-danger">This login is already exists</small>
     </div>

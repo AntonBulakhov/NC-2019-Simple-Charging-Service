@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserModel} from "../../../../models/user-model";
+import {AuthService} from "../../../../services/auth-service";
 
 @Component({
   selector: 'charging-modalsignin',
@@ -8,11 +9,15 @@ import {UserModel} from "../../../../models/user-model";
 })
 export class ModalsigninComponent implements OnInit {
 
-  public user:UserModel;
+  public loginUser:UserModel = new UserModel();
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
+  }
+
+  public onSubmit():void{
+    this.auth.signIn(this.loginUser);
   }
 
 }

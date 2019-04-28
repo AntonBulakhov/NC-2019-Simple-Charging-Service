@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private String backendURL;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCrypt;
 
     @Override
     public Page<User> getAllUsers(int page) {
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getUserById(int id) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(backendURL + "/api/users/" + id, User.class);
+        return restTemplate.getForObject(backendURL + "/api/users/id/" + id, User.class);
     }
 
     @Override
@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User saveUser(User user) {
         RestTemplate restTemplate = new RestTemplate();
+        user.setPassword(bCrypt.encode(user.getPassword()));
         return restTemplate.postForEntity(backendURL + "/api/users", user, User.class).getBody();
     }
 

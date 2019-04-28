@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../../../services/auth-service";
+import {NavigationExtras, Router} from "@angular/router";
 
 @Component({
   selector: 'charging-navbar',
@@ -7,8 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public auth: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
+  }
+
+  public logOut():void{
+    this.auth.logOut();
+  }
+
+  public regNewAdmin(){
+    let nav: NavigationExtras = {
+      queryParams:{
+        "isA": true,
+      }
+    };
+    this.router.navigate(['/registration'], nav)
   }
 }

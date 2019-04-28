@@ -5,6 +5,9 @@ import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {UserService} from "../../services/user-service";
 import {RoleService} from "../../services/role-service";
+import {AuthService} from "../../services/auth-service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "../../services/auth-interceptor-service";
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import {RoleService} from "../../services/role-service";
   ],
   providers:[
     UserService,
-    RoleService
+    RoleService,
+    AuthService,
+    AuthInterceptor,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]
 })
 export class AuthorisationModule { }

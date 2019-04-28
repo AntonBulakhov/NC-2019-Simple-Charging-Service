@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserModel} from "../../../../models/user-model";
 import {RoleModel} from "../../../../models/role-model";
 import {RoleService} from "../../../../services/role-service";
 import {UserService} from "../../../../services/user-service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../../../../services/auth-service";
 
 @Component({
   selector: 'charging-regform',
@@ -20,7 +21,15 @@ export class RegformComponent implements OnInit {
 
   constructor(private roleService: RoleService,
               private userService: UserService,
-              private router: Router) { }
+              private router: Router,
+              private auth: AuthService,
+              private route: ActivatedRoute) {
+    route.queryParams.subscribe(param=>{
+      if(param['code']){
+        this.isAdmin = true;
+      }
+    })
+  }
 
   ngOnInit() {
     this.roleService.getAllRoles().subscribe(roles=>{
@@ -31,12 +40,7 @@ export class RegformComponent implements OnInit {
   public regNewUser():void{
     this.newUser.logoUrl = "default-logo.jpg";
     this.newUser.role = this.getRole();
-    this.userService.regNewUser(this.newUser).subscribe(()=>{
-      this.router.navigate(['']);
-    },
-      error => {
-      this.router.navigate(['/404'])
-      });
+    this.auth.signUp(this.newUser);
   }
 
   public getRole():RoleModel{
