@@ -8,6 +8,9 @@ import {BillingAccountService} from "../../../../services/billingaccount-service
 import {BillingAccountModel} from "../../../../models/billingaccount-model";
 import {ProductModel} from "../../../../models/product-model";
 import {ProductService} from "../../../../services/product-service";
+import file from "../../../../../assets/imgSrc.json"
+import {SubscriptionService} from "../../../../services/subscription-service";
+import {SubscriptionModel} from "../../../../models/subscription-model";
 
 @Component({
   selector: 'charging-profile',
@@ -19,6 +22,7 @@ export class ProfileComponent implements OnInit {
   public profileUser: UserModel;
 
   //if user profile
+  public subscriptions: SubscriptionModel[];
   public wallets: BillingAccountModel[];
 
   //if company profile
@@ -33,13 +37,16 @@ export class ProfileComponent implements OnInit {
   walletsExists: boolean = false;
   productsExists: boolean = false;
 
+  public imgLink;
+
   constructor(public auth: AuthService,
               private titleService: Title,
               private activeRoute: ActivatedRoute,
               private userService: UserService,
               private router: Router,
               private baService: BillingAccountService,
-              private productService: ProductService) { }
+              private productService: ProductService,
+              private subsService: SubscriptionService) { }
 
   ngOnInit() {
     this.loadUserById();
@@ -50,17 +57,22 @@ export class ProfileComponent implements OnInit {
     if(id){
       this.userService.getUSerById(id).subscribe(data=>{
         this.profileUser = data;
+        this.imgLink = file;
 
         if(this.profileUser.role.name != "seller"){
-          this.baService.getWalletsByUserId(id).subscribe(data=>{
-            this.wallets = data as BillingAccountModel[];
-            if(this.wallets.length >= 3){
-              this.maxWallets = true;
-            }
-            if(this.wallets.length != 0){
-              this.walletsExists = true;
-            }
-            this.loaded = true;
+          this.subsService.getSubsByUser(id).subscribe(data=>{
+            this.subscriptions = data as SubscriptionModel[];
+
+            this.baService.getWalletsByUserId(id).subscribe(data=>{
+              this.wallets = data as BillingAccountModel[];
+              if(this.wallets.length >= 3){
+                this.maxWallets = true;
+              }
+              if(this.wallets.length != 0){
+                this.walletsExists = true;
+              }
+              this.loaded = true;
+            });
           });
         }else {
           this.productService.getProductByUser(this.profileUser.id).subscribe(data=>{

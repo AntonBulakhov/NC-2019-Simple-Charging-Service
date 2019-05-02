@@ -5,7 +5,7 @@
 <div class="container-fluid mrt-75 d-flex justify-content-center" *ngIf="loaded">
   <div class="media col-6">
     <div class="mt-3">
-      <img src="http://localhost:8081/api/users/image/{{profileUser.logoUrl}}" class="rounded" alt="Me" height="150px" width="150px">
+      <img src="{{imgLink.src}}/api/users/image/{{profileUser.logoUrl}}" class="rounded" alt="Me" height="150px" width="150px">
       <h2><button type="button" class="btn btn-primary mr-3 w-100" *ngIf="profileUser.id == auth.user.id">Edit</button></h2>
     </div>
     <div class="media-body col-8">
@@ -97,7 +97,7 @@
       <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Name</th>
+        <th scope="col">Product</th>
         <th scope="col">Price</th>
         <th scope="col">Days left</th>
         <th scope="col">Wallet</th>
@@ -106,12 +106,12 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Netflix</td>
-        <td>9.99$/month</td>
-        <td>27</td>
-        <td>Wallet 1</td>
+      <tr *ngFor="let sub of subscriptions; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{sub.product.name}}</td>
+        <td>{{sub.product.price - sub.product.price * (sub.discount/100)}}$/month</td>
+        <td>{{sub.time}}</td>
+        <td>{{sub.billingAccount.name}}</td>
         <td>
           <button type="button" class="btn btn-primary">Buy</button>
         </td>
@@ -142,7 +142,7 @@
         <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">Sum</th>
-        <th scope="col" style="width: 10%">To Up</th>
+        <th scope="col" style="width: 10%">Add funds</th>
         <th scope="col" style="width: 10%">Delete</th>
       </tr>
       </thead>
@@ -152,7 +152,7 @@
         <td>{{wallet.name}}</td>
         <td>{{wallet.sum}}$</td>
         <td>
-          <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal" (click)="selectedWallet=i">To Up</button>
+          <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal" (click)="selectedWallet=i">Add</button>
         </td>
         <td>
           <button type="button" class="btn btn-danger" (click)="deleteWallet(i)">Delete</button>

@@ -6,6 +6,7 @@ import {UserService} from "../../../../services/user-service";
 import {CategoryModel} from "../../../../models/category-model";
 import {CategoryService} from "../../../../services/category-service";
 import {Router} from "@angular/router";
+import {AuthService} from "../../../../services/auth-service";
 
 @Component({
   selector: 'charging-addnewproduct',
@@ -25,7 +26,8 @@ export class NewproductComponent implements OnInit {
   constructor(private productService: ProductService,
               private userService: UserService,
               private categoryService: CategoryService,
-              private router: Router) { }
+              private router: Router,
+              public auth: AuthService) { }
 
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe(cats=>{
@@ -33,7 +35,7 @@ export class NewproductComponent implements OnInit {
       this.ready = true;
       this.category = this.categories[0].name;
     });
-    this.userService.getUSerById("2").subscribe((user)=>{
+    this.userService.getUSerById(this.auth.user.id).subscribe((user)=>{
       this.seller = user as UserModel;
     });
   }

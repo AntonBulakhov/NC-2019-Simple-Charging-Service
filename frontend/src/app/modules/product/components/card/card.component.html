@@ -1,11 +1,11 @@
 <div class="col-3" id="card">
   <div class="card mb-4">
-    <img class="card-img-top" src="http://localhost:8081/api/products/image/{{product.logoUrl}}" alt="Netflix" id="logo">
+    <img *ngIf="loaded" class="card-img-top" src="{{srcLink.src}}/api/products/image/{{product.logoUrl}}" alt="Netflix" id="logo">
     <div class="dropdown-divider"></div>
     <div class="card-body">
       <h4 class="card-title" aria-describedby="companyHelpBlock"><a routerLink="/product/{{product.id}}" id="cardLink">{{product.name}}</a></h4>
       <small id="companyHelpBlock" class="form-text text-muted">
-        <p>Company: <a routerLink="/">{{product.user.firstname}}</a></p>
+        <p>Category: <a class="font-weight-bold">{{product.category.name.toUpperCase()}}</a></p>
       </small>
       <p class="card-text h-25">{{product.description}}</p>
       <div class="form-group row ml-1">
@@ -14,7 +14,7 @@
         <p class="text-dark">/month</p>
       </div>
       <div class="d-flex justify-content-between mt-3">
-        <button class="btn btn-primary col-4">Buy</button>
+        <button class="btn btn-primary col-4" routerLink="/subscribe/{{product.id}}">Buy</button>
         <button class="btn btn-outline-primary col-4" routerLink="/product/{{product.id}}">More</button>
       </div>
     </div>

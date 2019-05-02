@@ -3,6 +3,7 @@ import {ProductModel} from "../../../../models/product-model";
 import {Title} from "@angular/platform-browser";
 import {ProductService} from "../../../../services/product-service";
 import {ActivatedRoute} from "@angular/router";
+import file from "../../../../../assets/imgSrc.json"
 
 @Component({
   selector: 'charging-productpage',
@@ -14,6 +15,8 @@ export class ProductpageComponent implements OnInit {
   public product: ProductModel;
   loaded: boolean = false;
 
+  public imgLink;
+
   constructor(private titleService: Title,
               private productService: ProductService,
               private activeRoute: ActivatedRoute) { }
@@ -23,6 +26,7 @@ export class ProductpageComponent implements OnInit {
   }
 
   private loadProductById():void{
+    this.imgLink = file;
     const id = this.activeRoute.snapshot.params['id'];
     if(id){
       this.productService.getProductById(id).subscribe(productDTO=>{

@@ -1,10 +1,11 @@
 import {UserModel} from "./user-model";
+import {UsersafeModel} from "./usersafe-model";
 
 export class BillingAccountModel {
   id: string;
   sum: number;
   name: string;
-  user: UserModel;
+  user: UsersafeModel;
 
   static cloneBase(wallet: BillingAccountModel): BillingAccountModel{
     const cloneWallet: BillingAccountModel = new BillingAccountModel();

@@ -1,17 +1,21 @@
-package com.netcracker.edu.fapi.dto;
+package com.netcracker.edu.back.backend.dto;
 
-public class Subscription {
+import com.netcracker.edu.back.backend.entity.Product;
+
+import java.sql.Date;
+
+public class SubscriptionDTO {
     private int id;
     private int time;
     private byte blocked;
     private Double discount;
-    private Product product;
-    private BillingAccount billingAccount;
+    private ProductDTO product;
+    private BillingAccountDTO billingAccount;
 
-    public Subscription() {
+    public SubscriptionDTO() {
     }
 
-    public Subscription(int id, int time, byte blocked, Double discount, Product product, BillingAccount billingAccount) {
+    public SubscriptionDTO(int id, int time, byte blocked, Double discount, ProductDTO product, BillingAccountDTO billingAccount) {
         this.id = id;
         this.time = time;
         this.blocked = blocked;
@@ -52,19 +56,19 @@ public class Subscription {
         this.discount = discount;
     }
 
-    public Product getProduct() {
+    public ProductDTO getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductDTO product) {
         this.product = product;
     }
 
-    public BillingAccount getBillingAccount() {
+    public BillingAccountDTO getBillingAccount() {
         return billingAccount;
     }
 
-    public void setBillingAccount(BillingAccount billingAccount) {
+    public void setBillingAccount(BillingAccountDTO billingAccount) {
         this.billingAccount = billingAccount;
     }
 }

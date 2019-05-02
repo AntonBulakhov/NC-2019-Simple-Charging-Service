@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {BillingAccountModel} from "../models/billingaccount-model";
 import {UserModel} from "../models/user-model";
+import {UsersafeModel} from "../models/usersafe-model";
 
 @Injectable()
 export class BillingAccountService {
@@ -25,7 +26,7 @@ export class BillingAccountService {
     return this.http.delete("/api/baccounts/"+wallet.id);
   }
 
-  walletCheckByName(name: string, user: UserModel):any{
+  walletCheckByName(name: string, user: UsersafeModel):any{
     return this.http.get("/api/baccounts/user/"+user.id+"/name/"+name);
   }
 }

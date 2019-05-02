@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../../../services/auth-service";
 import {NavigationExtras, Router} from "@angular/router";
+import file from "../../../../../assets/imgSrc.json"
+
 
 @Component({
   selector: 'charging-navbar',
@@ -9,10 +11,13 @@ import {NavigationExtras, Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
+  public srcLink = null;
+
   constructor(public auth: AuthService,
               private router: Router) { }
 
   ngOnInit() {
+    this.srcLink = file;
   }
 
   public logOut():void{

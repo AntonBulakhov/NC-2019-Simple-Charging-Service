@@ -3,10 +3,11 @@ import {HttpClient} from "@angular/common/http";
 import {UserModel, AuthToken} from "../models/user-model";
 import {Observable} from "rxjs";
 import {NavigationExtras, Router} from "@angular/router";
+import {UsersafeModel} from "../models/usersafe-model";
 
 @Injectable()
 export class AuthService {
-  public user: UserModel;
+  public user: UsersafeModel;
   public token: string;
 
   public authError: boolean = false;
@@ -40,11 +41,11 @@ export class AuthService {
     this.getToken(authUser).subscribe(data=>{
       this.token = data.token;
       this.userAuth().subscribe(data=>{
-        localStorage.setItem("user", JSON.stringify(data));
-        localStorage.setItem("token", this.token);
         this.user = data;
+        localStorage.setItem("user", JSON.stringify(this.user));
+        localStorage.setItem("token", this.token);
         this.router.navigate(['']);
-        setTimeout(location.reload.bind(location), 100);
+       setTimeout(location.reload.bind(location), 100);
       }, error1 => {
         this.toErrorPage(error1);
       })

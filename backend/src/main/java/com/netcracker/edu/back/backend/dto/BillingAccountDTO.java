@@ -1,15 +1,15 @@
-package com.netcracker.edu.fapi.dto;
+package com.netcracker.edu.back.backend.dto;
 
-public class BillingAccount {
+public class BillingAccountDTO {
     private int id;
     private double sum;
     private String name;
-    private UserSafe user;
+    private UserDTO user;
 
-    public BillingAccount() {
+    public BillingAccountDTO() {
     }
 
-    public BillingAccount(int id, double sum, String name, UserSafe user) {
+    public BillingAccountDTO(int id, double sum, String name, UserDTO user) {
         this.id = id;
         this.sum = sum;
         this.name = name;
@@ -40,11 +40,11 @@ public class BillingAccount {
         this.name = name;
     }
 
-    public UserSafe getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserSafe user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 }

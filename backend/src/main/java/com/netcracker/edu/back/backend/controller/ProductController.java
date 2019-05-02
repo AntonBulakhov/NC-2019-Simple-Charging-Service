@@ -46,18 +46,13 @@ public class ProductController {
     public List<ProductDTO> getTopFourProducts(){
         List<Product> products = new ArrayList<>();
         ArrayList<Subscription> subscriptions = (ArrayList<Subscription>)subscriptionService.getTopFourSubs();
-        if(subscriptions.size() == 0){
+        System.out.println(subscriptions.size());
+        if(subscriptions.size() < 4){
             products = productService.getAll();
             if(products.size() >= 4) products = products.subList(0,4);
         }else {
-            if(subscriptions.size() < 4){
-                for (Subscription sub: subscriptions) {
-                    products.add(sub.getProduct());
-                }
-            }else {
-                for (int i = 0; i < 4; i++) {
-                    products.add(subscriptions.get(i).getProduct());
-                }
+            for (int i = 0; i < 4; i++) {
+                products.add(subscriptions.get(i).getProduct());
             }
         }
         return converter.convert(products);

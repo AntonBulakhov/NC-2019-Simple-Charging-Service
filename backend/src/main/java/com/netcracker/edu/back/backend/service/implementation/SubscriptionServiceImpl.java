@@ -1,5 +1,6 @@
 package com.netcracker.edu.back.backend.service.implementation;
 
+import com.netcracker.edu.back.backend.entity.BillingAccount;
 import com.netcracker.edu.back.backend.entity.Subscription;
 import com.netcracker.edu.back.backend.repository.SubscriptionRepository;
 import com.netcracker.edu.back.backend.service.SubscriptionService;
@@ -21,5 +22,20 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public List<Subscription> getTopFourSubs() {
         return subscriptionRepository.getTopFourSubs();
+    }
+
+    @Override
+    public List<Subscription> getAllByBillingAccount(BillingAccount billingAccount) {
+        return subscriptionRepository.getAllByBillingAccount(billingAccount);
+    }
+
+    @Override
+    public List<Subscription> getAllByBillingAccountIn(List<BillingAccount> billingAccounts) {
+        return subscriptionRepository.getAllByBillingAccountIn(billingAccounts);
+    }
+
+    @Override
+    public Subscription save(Subscription subscription) {
+        return subscriptionRepository.save(subscription);
     }
 }

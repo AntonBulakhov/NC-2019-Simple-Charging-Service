@@ -48,7 +48,7 @@
       <td>{{(user.blocked) ? "Yes": "No"}}</td>
       <td>{{user.role.name.toLocaleUpperCase()}}</td>
       <td>
-        <button type="button" class="btn btn-primary">View</button>
+        <button type="button" class="btn btn-primary" routerLink="/profile/{{user.id}}">View</button>
       </td>
     </tr>
     </tbody>

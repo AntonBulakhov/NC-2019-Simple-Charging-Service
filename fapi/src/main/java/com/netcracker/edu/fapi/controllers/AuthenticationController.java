@@ -1,7 +1,9 @@
 package com.netcracker.edu.fapi.controllers;
 
+import com.netcracker.edu.fapi.converter.UserToUserSafe;
 import com.netcracker.edu.fapi.dto.AuthToken;
 import com.netcracker.edu.fapi.dto.User;
+import com.netcracker.edu.fapi.dto.UserSafe;
 import com.netcracker.edu.fapi.security.TokenProvider;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +59,11 @@ public class AuthenticationController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> authUser(Principal userInfo){
+    public ResponseEntity<UserSafe> authUser(Principal userInfo){
+        UserToUserSafe converter = new UserToUserSafe();
         User user = userService.findUserByLogin(userInfo.getName());
         if(user != null){
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(converter.convert(user));
         }else{
             return ResponseEntity.notFound().build();
         }

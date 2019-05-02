@@ -7,13 +7,13 @@ public class Product {
     private double price;
     private String logoUrl;
     private String videolink;
-    private User user;
+    private UserSafe user;
     private Category category;
 
     public Product() {
     }
 
-    public Product(int id, String name, String description, double price, String logoUrl, String videolink, User user, Category category) {
+    public Product(int id, String name, String description, double price, String logoUrl, String videolink, UserSafe user, Category category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,11 +72,11 @@ public class Product {
         this.videolink = videolink;
     }
 
-    public User getUser() {
+    public UserSafe getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserSafe user) {
         this.user = user;
     }
 

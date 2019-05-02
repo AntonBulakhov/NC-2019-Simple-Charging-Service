@@ -26,6 +26,8 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "../../services/auth-interceptor-service";
 import {AuthService} from "../../services/auth-service";
 import {BillingAccountService} from "../../services/billingaccount-service";
+import {SubscriptionService} from "../../services/subscription-service";
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import {BillingAccountService} from "../../services/billingaccount-service";
     NewproductComponent,
     NotfoundComponent,
     ErrorpageComponent,
+    SubscribeComponent,
   ],
   imports: [
     AuthorisationModule,
@@ -70,7 +73,8 @@ import {BillingAccountService} from "../../services/billingaccount-service";
     AuthService,
     AuthInterceptor,
     BillingAccountService,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    SubscriptionService
   ]
 })
 export class PagesModule { }
