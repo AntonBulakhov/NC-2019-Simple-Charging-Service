@@ -12,7 +12,7 @@ import {BillingAccountService} from "../../services/billingaccount-service";
 @NgModule({
   declarations: [
     ModalsigninComponent,
-    ModaladdwalletComponent
+    ModaladdwalletComponent,
   ],
   imports: [
     CommonModule,

@@ -16,4 +16,8 @@ export class SubscriptionService {
   createSubscription(sub: SubscriptionModel):Observable<boolean>{
     return this.http.post<boolean>("/api/subscriptions", sub);
   }
+
+  checkSubscriptionExists(userID: string, productID: string):any{
+    return this.http.get("/api/subscriptions/exist/"+userID+"/"+productID);
+  }
 }

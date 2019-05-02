@@ -14,9 +14,11 @@
         <p class="text-dark">/month</p>
       </div>
       <div class="d-flex justify-content-between mt-3">
-        <button class="btn btn-primary col-4" routerLink="/subscribe/{{product.id}}">Buy</button>
+        <button class="btn btn-primary col-4" (click)="onBuy()">Buy</button>
         <button class="btn btn-outline-primary col-4" routerLink="/product/{{product.id}}">More</button>
       </div>
+      <small *ngIf="notAuth" class="text-danger font-weight-bold">Not authorized</small>
+      <small *ngIf="isSeller" class="text-danger font-weight-bold">Seller cannot buy</small>
     </div>
   </div>
 </div>

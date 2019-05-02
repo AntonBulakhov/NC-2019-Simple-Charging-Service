@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import {CardComponent} from "./components/card/card.component";
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
+import {AuthService} from "../../services/auth-service";
+import {ModalsModule} from "../modals/modals.module";
 
 @NgModule({
   declarations: [
@@ -11,12 +13,14 @@ import {BrowserModule} from "@angular/platform-browser";
   imports: [
     CommonModule,
     RouterModule,
-    BrowserModule
+    BrowserModule,
+    ModalsModule
   ],
   exports: [
     CardComponent
   ],
   providers:[
+    AuthService
   ]
 })
 export class ProductModule { }

@@ -18,7 +18,13 @@
   </div>
 </div>
 
-<div class="container-fluid d-flex justify-content-center mt-2" id="lower">
+<div class="container-fluid mt-3 already" *ngIf="subAlreadyExists" id="alert">
+  <div class="alert alert-primary justify-content-center d-flex" role="alert">
+    <h3>You already have this subscription</h3>
+  </div>
+</div>
+
+<div class="container-fluid d-flex justify-content-center mt-2" id="lower" *ngIf="!subAlreadyExists">
   <div class="col-7 rounded bg-light ">
     <form class="row mt-3" (ngSubmit)="onSubmit()">
       <div class="form-group col-6">

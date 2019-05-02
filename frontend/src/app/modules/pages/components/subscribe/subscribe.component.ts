@@ -9,6 +9,7 @@ import {BillingAccountModel} from "../../../../models/billingaccount-model";
 import {SubscriptionModel} from "../../../../models/subscription-model";
 import file from "../../../../../assets/imgSrc.json"
 import {SubscriptionService} from "../../../../services/subscription-service";
+import {error} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-subscribe',
@@ -25,6 +26,8 @@ export class SubscribeComponent implements OnInit {
 
   public loaded: boolean = false;
   public imgLink;
+
+  public subAlreadyExists: boolean;
 
   public newSubscribtion: SubscriptionModel = new SubscriptionModel();
 
@@ -73,7 +76,7 @@ export class SubscribeComponent implements OnInit {
     })
   }
 
-  findWalletByName():BillingAccountModel{
+  public findWalletByName():BillingAccountModel{
     return this.wallets.find(obj=> obj.name == this.walletName);
   }
 
@@ -83,12 +86,24 @@ export class SubscribeComponent implements OnInit {
       this.productService.getProductById(id).subscribe(value=>{
         this.product = value;
 
-        this.baService.getWalletsByUserId(this.auth.user.id).subscribe(data=>{
-          this.wallets = data as BillingAccountModel[];
-          this.walletName = this.wallets[0].name;
-          this.month = 1;
-          this.loaded = true;
-        })
+        this.subService.checkSubscriptionExists(this.auth.user.id, this.product.id).subscribe(data=>{
+          this.subAlreadyExists = data;
+
+          if(!this.subAlreadyExists){
+            this.baService.getWalletsByUserId(this.auth.user.id).subscribe(data=>{
+              this.wallets = data as BillingAccountModel[];
+              this.walletName = this.wallets[0].name;
+              this.month = 1;
+              this.loaded = true;
+            }, error1 => {
+              this.toErrorPage(error1);
+            })
+          }else {
+            this.loaded = true;
+          }
+        }, error1=>{
+          this.toErrorPage(error1);
+        });
       })
     }
   }

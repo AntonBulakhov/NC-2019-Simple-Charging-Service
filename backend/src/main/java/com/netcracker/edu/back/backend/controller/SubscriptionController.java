@@ -57,7 +57,16 @@ public class SubscriptionController {
         subscription.setBillingAccount(billingAccount.get());
         subscription.setProduct(product.get());
 
-        System.out.println(subscription.getPurchacedate());
         return subConverter.convert(subscriptionService.save(subscription));
+    }
+
+    @RequestMapping(value = "/exist/{id}/{productId}", method = RequestMethod.GET)
+    public SubscriptionDTO checkSub(@PathVariable int id, @PathVariable int productId){
+        Optional<User> user = userService.findById(id);
+        Optional<Product> product = productService.getProductById(productId);
+        List<BillingAccount> billingAccounts = billingAccountService.findAllByUser(user.get());
+
+        Subscription subscription = subscriptionService.checkSub(product.get(), billingAccounts);
+        return subscription == null? null : subConverter.convert(subscription);
     }
 }

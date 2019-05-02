@@ -46,7 +46,6 @@ public class ProductController {
     public List<ProductDTO> getTopFourProducts(){
         List<Product> products = new ArrayList<>();
         ArrayList<Subscription> subscriptions = (ArrayList<Subscription>)subscriptionService.getTopFourSubs();
-        System.out.println(subscriptions.size());
         if(subscriptions.size() < 4){
             products = productService.getAll();
             if(products.size() >= 4) products = products.subList(0,4);

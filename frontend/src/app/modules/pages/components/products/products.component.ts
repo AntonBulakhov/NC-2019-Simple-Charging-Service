@@ -13,7 +13,8 @@ export class ProductsComponent implements OnInit {
   public products: ProductModel[];
   public pages: Array<number>;
 
-  public productsExists: boolean = false;
+  public productsExists: boolean;
+  public loaded: boolean;
 
   constructor(private titleService : Title,
               private productService: ProductService) {
@@ -30,7 +31,10 @@ export class ProductsComponent implements OnInit {
       this.pages = new Array<number>(data['totalPages']);
       if (this.products.length != 0){
         this.productsExists = true;
+      }else {
+        this.productsExists = false;
       }
+      this.loaded = true;
     });
   }
 
@@ -44,10 +48,5 @@ export class ProductsComponent implements OnInit {
       this.page = i;
     }
     this.loadAllProducts();
-  }
-
-  public _getBlocked(number: string): string{
-    if(number == "0") return "No";
-    else return "Yes";
   }
 }

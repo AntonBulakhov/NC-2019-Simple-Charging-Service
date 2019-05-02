@@ -7,4 +7,5 @@ import java.util.List;
 public interface SubscriptionService {
     Subscription save(Subscription subscription);
     List<Subscription> getSubsByUser(int id);
+    Subscription checkSub(int id, int productId);
 }

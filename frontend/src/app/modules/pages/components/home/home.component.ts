@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
 
   public products: ProductModel[];
   public productsExists: boolean = false;
+  public loaded: boolean;
 
   constructor(private titleService : Title,
               private productService: ProductService) {
@@ -27,7 +28,10 @@ export class HomeComponent implements OnInit {
       this.products = productsArray as ProductModel[];
       if (this.products.length != 0){
         this.productsExists = true;
+      }else {
+        this.productsExists = false;
       }
+      this.loaded = true;
     })
 
   }

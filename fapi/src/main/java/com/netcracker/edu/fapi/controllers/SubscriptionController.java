@@ -36,4 +36,15 @@ public class SubscriptionController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping("/exist/{id}/{productId}")
+    public ResponseEntity<Boolean> checkSubExist(@PathVariable int id, @PathVariable int productId){
+        Subscription subscription = subscriptionService.checkSub(id, productId);
+        if(subscription != null){
+            return ResponseEntity.ok(true);
+        }else {
+            return ResponseEntity.ok(false);
+        }
+    }
 }

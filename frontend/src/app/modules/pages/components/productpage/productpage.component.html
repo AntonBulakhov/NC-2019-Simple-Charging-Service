@@ -16,7 +16,9 @@
         <p class="text-dark">/month</p>
       </div>
       <div class="w-100 mt-3 mb-4">
-        <button class="btn btn-primary col-3" routerLink="/subscribe/{{product.id}}">Buy</button>
+        <button class="btn btn-primary col-3" (click)="onBuy()">Buy</button>
+        <small *ngIf="notAuth" class="text-danger font-weight-bold col-12">Not authorized</small>
+        <small *ngIf="isSeller" class="text-danger font-weight-bold col-12">Seller cannot buy</small>
       </div>
     </div>
   </div>

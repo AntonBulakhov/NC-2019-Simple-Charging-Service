@@ -1,6 +1,7 @@
 package com.netcracker.edu.back.backend.repository;
 
 import com.netcracker.edu.back.backend.entity.BillingAccount;
+import com.netcracker.edu.back.backend.entity.Product;
 import com.netcracker.edu.back.backend.entity.Subscription;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,4 +14,6 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Lon
 
     List<Subscription> getAllByBillingAccount(BillingAccount billingAccount);
     List<Subscription> getAllByBillingAccountIn(List<BillingAccount> billingAccounts);
+
+    Subscription getByProductAndBillingAccountIn(Product product, List<BillingAccount> billingAccounts);
 }
