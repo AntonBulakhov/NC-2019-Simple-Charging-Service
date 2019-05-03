@@ -4,17 +4,15 @@ import com.netcracker.edu.back.backend.entity.BillingAccount;
 import com.netcracker.edu.back.backend.entity.Subscription;
 import com.netcracker.edu.back.backend.service.BillingAccountService;
 import com.netcracker.edu.back.backend.service.SubscriptionService;
-import com.netcracker.edu.back.backend.service.implementation.SubscriptionServiceImpl;
+import org.joda.time.LocalDate;
+import org.joda.time.MonthDay;
+import org.joda.time.Months;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.TimerTask;
 
 @Component
 public class ChargingService{
@@ -23,18 +21,25 @@ public class ChargingService{
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 25000)
+    //@Scheduled(cron = "0 0 0 1 * ?")
     public void chargeMoney() {
-        System.out.println(subscriptionService.findAll());
         ArrayList<Subscription> subscriptions = (ArrayList<Subscription>) subscriptionService.findAll();
         ArrayList<BillingAccount> billingAccounts = new ArrayList<>();
 
         for(Subscription sub: subscriptions){
             BillingAccount billingAccount = sub.getBillingAccount();
-            System.out.println(billingAccount.getSum());
-            billingAccount.setSum(billingAccount.getSum() - sub.getProduct().getPrice() * (1 - (sub.getDiscount()/100)));
-            System.out.println(billingAccount.getSum());
-            billingAccounts.add(billingAccount);
+
+            double price = sub.getProduct().getPrice() * (1 - (sub.getDiscount()/100));
+            if(billingAccount.getSum() < price){
+                sub.setBlocked((byte) 1);
+                subscriptionService.save(sub);
+            }else {
+                sub.setBlocked((byte)0);
+                subscriptionService.save(sub);
+                billingAccount.setSum(billingAccount.getSum() - price);
+                billingAccounts.add(billingAccount);
+            }
         }
 
         for(BillingAccount ba: billingAccounts){

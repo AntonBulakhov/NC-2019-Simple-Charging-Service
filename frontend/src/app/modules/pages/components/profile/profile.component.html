@@ -1,6 +1,7 @@
 <charging-navbar></charging-navbar>
 <charging-modalsignin></charging-modalsignin>
 <charging-modaladdwallet></charging-modaladdwallet>
+<charging-spinner *ngIf="!loaded"></charging-spinner>
 <!--profile-->
 <div class="container-fluid mrt-75 d-flex justify-content-center" *ngIf="loaded">
   <div class="media col-6">
@@ -101,17 +102,19 @@
         <th scope="col">Price</th>
         <th scope="col">Days left</th>
         <th scope="col">Wallet</th>
+        <th scope="col">Status</th>
         <th scope="col" style="width: 10%">Buy More</th>
         <th scope="col" style="width: 10%">Unsubscribe</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let sub of subscriptions; let i = index">
+      <tr *ngFor="let sub of subscriptions; let i = index" id="{{sub.id}}" [className]="sub.blocked ? 'border border-danger':''">
         <th scope="row">{{i+1}}</th>
         <td>{{sub.product.name}}</td>
         <td>{{sub.product.price - sub.product.price * (sub.discount/100)}}$/month</td>
         <td>{{sub.time}}</td>
         <td>{{sub.billingAccount.name}}</td>
+        <td>{{sub.blocked ? "Blocked" : "Active"}}</td>
         <td>
           <button type="button" class="btn btn-primary">Buy</button>
         </td>
@@ -207,4 +210,4 @@
   </div>
 </div>
 
-<charging-footer></charging-footer>
+<charging-footer *ngIf="loaded"></charging-footer>

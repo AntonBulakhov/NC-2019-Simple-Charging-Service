@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
   public pages: Array<number>;
 
   public productsExists: boolean;
-  public loaded: boolean;
+  public loaded: boolean = false;
 
   constructor(private titleService : Title,
               private productService: ProductService) {
@@ -34,7 +34,7 @@ export class ProductsComponent implements OnInit {
       }else {
         this.productsExists = false;
       }
-      this.loaded = true;
+      setTimeout(()=>{this.loaded = true}, 500);
     });
   }
 

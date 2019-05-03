@@ -5,21 +5,24 @@ import {CarouselComponent} from "./components/carousel/carousel.component";
 import {RouterModule} from "@angular/router";
 import {AuthService} from "../../services/auth-service";
 import {CommonModule} from "@angular/common";
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
     FooterComponent,
     NavbarComponent,
-    CarouselComponent
+    CarouselComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
   ],
-  exports:[
+  exports: [
     NavbarComponent,
     FooterComponent,
-    CarouselComponent
+    CarouselComponent,
+    SpinnerComponent
   ],
   providers: [
     AuthService

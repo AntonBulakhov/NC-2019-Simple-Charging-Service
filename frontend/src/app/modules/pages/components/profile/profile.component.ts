@@ -46,7 +46,9 @@ export class ProfileComponent implements OnInit {
               private router: Router,
               private baService: BillingAccountService,
               private productService: ProductService,
-              private subsService: SubscriptionService) { }
+              private subsService: SubscriptionService) {
+    titleService.setTitle("Profile");
+  }
 
   ngOnInit() {
     this.loadUserById();
@@ -71,7 +73,7 @@ export class ProfileComponent implements OnInit {
               if(this.wallets.length != 0){
                 this.walletsExists = true;
               }
-              this.loaded = true;
+              setTimeout(()=>{this.loaded = true}, 500);
             });
           });
         }else {
@@ -80,7 +82,7 @@ export class ProfileComponent implements OnInit {
             if(this.products.length != 0){
               this.productsExists = true;
             }
-            this.loaded = true;
+            setTimeout(()=>{this.loaded = true}, 500);
           })
         }
       }, error1 => {

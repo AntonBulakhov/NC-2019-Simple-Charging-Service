@@ -14,6 +14,8 @@ export class UsersComponent implements OnInit {
   public page: number = 0;
   public pages: Array<number>;
 
+  public loaded: boolean = false;
+
   constructor(private userService: UserService,
               private titleService: Title,
               private router: Router) {
@@ -40,6 +42,8 @@ export class UsersComponent implements OnInit {
     this.userService.getAllUsers(this.page).subscribe(data=>{
       this.pages = new Array<number>(data['totalPages']);
       this.users = data['content'];
+
+      setTimeout(()=>{this.loaded = true}, 500);
     }, error1 => {
       let nav: NavigationExtras = {
         queryParams:{

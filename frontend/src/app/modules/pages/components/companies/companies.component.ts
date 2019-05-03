@@ -13,6 +13,8 @@ export class CompaniesComponent implements OnInit {
   public page: number = 0;
   public pages: Array<number>;
 
+  public loaded: boolean = false;
+
   constructor(private userService: UserService,
               private titleService: Title) {
     this.titleService.setTitle("Companies");
@@ -38,6 +40,7 @@ export class CompaniesComponent implements OnInit {
     this.userService.getAllCompanies(this.page).subscribe(data=>{
       this.pages = new Array<number>(data['totalPages']);
       this.users = data['content'];
+      setTimeout(()=>{this.loaded = true}, 500)
     });
   }
 
