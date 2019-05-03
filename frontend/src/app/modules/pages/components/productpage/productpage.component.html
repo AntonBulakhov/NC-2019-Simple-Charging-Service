@@ -1,7 +1,9 @@
 <charging-navbar></charging-navbar>
 <charging-modalsignin></charging-modalsignin>
 
-<div class="container-fluid d-flex justify-content-center mrt-75">
+<charging-spinner *ngIf="!loaded"></charging-spinner>
+
+<div class="container-fluid d-flex justify-content-center" id="mainDiv">
   <div class="col-7 rounded media bg-light" id="productCard" *ngIf="loaded">
     <img src="{{imgLink.src}}/api/products/image/{{product.logoUrl}}" class="mt-3 mb-3 img-thumbnail" alt="logo" id="logo">
     <div class="media-body ml-4 mt-3 h-75 align-content-around">
@@ -24,4 +26,4 @@
   </div>
 </div>
 
-<charging-footer></charging-footer>
+<charging-footer *ngIf="loaded"></charging-footer>

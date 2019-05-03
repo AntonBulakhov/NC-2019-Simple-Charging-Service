@@ -24,7 +24,9 @@ export class ProductpageComponent implements OnInit {
               private productService: ProductService,
               private activeRoute: ActivatedRoute,
               private auth: AuthService,
-              private router: Router) { }
+              private router: Router) {
+    titleService.setTitle("Product")
+  }
 
   ngOnInit() {
     this.loadProductById();
@@ -36,7 +38,7 @@ export class ProductpageComponent implements OnInit {
     if(id){
       this.productService.getProductById(id).subscribe(productDTO=>{
         this.product = productDTO;
-        this.loaded = true;
+        setTimeout(()=>{this.loaded = true}, 500);
       })
     }
   }

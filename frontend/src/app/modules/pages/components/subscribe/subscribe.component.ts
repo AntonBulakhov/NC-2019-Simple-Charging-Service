@@ -37,7 +37,9 @@ export class SubscribeComponent implements OnInit {
                private router: Router,
                private titleService: Title,
                public auth: AuthService,
-               public subService: SubscriptionService) { }
+               public subService: SubscriptionService) {
+    titleService.setTitle("Subscribe");
+  }
 
   ngOnInit() {
     this.imgLink = file;
@@ -94,7 +96,8 @@ export class SubscribeComponent implements OnInit {
               this.wallets = data as BillingAccountModel[];
               this.walletName = this.wallets[0].name;
               this.month = 1;
-              this.loaded = true;
+
+              setTimeout(()=>{this.loaded = true}, 500);
             }, error1 => {
               this.toErrorPage(error1);
             })
