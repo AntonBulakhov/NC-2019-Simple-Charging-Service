@@ -52,7 +52,7 @@ public class ProductController {
         if(product != null){
             return ResponseEntity.ok(product);
         }else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(null);
         }
     }
 

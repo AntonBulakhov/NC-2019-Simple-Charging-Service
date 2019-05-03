@@ -1,0 +1,14 @@
+<charging-navbar></charging-navbar>
+<charging-spinner *ngIf="!loaded"></charging-spinner>
+
+<div class="container-fluid mrt-75 alertDiv" *ngIf="!productExists && loaded" id="alert">
+  <div class="alert alert-danger justify-content-center d-flex" role="alert">
+    <h3>Nothing found</h3>
+  </div>
+</div>
+
+<div class="container-fluid d-flex justify-content-center mrt-75" *ngIf="productExists && loaded">
+  <charging-card [product]="product"></charging-card>
+</div>
+
+<charging-footer *ngIf="loaded"></charging-footer>

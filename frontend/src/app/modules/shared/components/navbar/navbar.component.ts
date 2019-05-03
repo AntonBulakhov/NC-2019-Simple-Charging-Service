@@ -13,6 +13,8 @@ export class NavbarComponent implements OnInit {
 
   public srcLink = null;
 
+  public searchString: string;
+
   constructor(public auth: AuthService,
               private router: Router) { }
 
@@ -22,6 +24,11 @@ export class NavbarComponent implements OnInit {
 
   public logOut():void{
     this.auth.logOut();
+  }
+
+  public search():void{
+    this.router.navigate(['/search/'+this.searchString]);
+    setTimeout(()=>{window.location.reload()}, 100);
   }
 
   public regNewAdmin(){

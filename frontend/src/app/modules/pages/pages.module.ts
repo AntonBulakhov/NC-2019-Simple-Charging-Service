@@ -28,6 +28,7 @@ import {AuthService} from "../../services/auth-service";
 import {BillingAccountService} from "../../services/billingaccount-service";
 import {SubscriptionService} from "../../services/subscription-service";
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
     NotfoundComponent,
     ErrorpageComponent,
     SubscribeComponent,
+    SearchComponent,
   ],
   imports: [
     AuthorisationModule,

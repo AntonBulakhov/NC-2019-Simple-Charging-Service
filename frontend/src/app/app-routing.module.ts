@@ -13,6 +13,7 @@ import {NewcompanyComponent} from "./modules/pages/components/newcompany/newcomp
 import {NotfoundComponent} from "./modules/pages/components/notfound/notfound.component";
 import {ErrorpageComponent} from "./modules/pages/components/errorpage/errorpage.component";
 import {SubscribeComponent} from "./modules/pages/components/subscribe/subscribe.component";
+import {SearchComponent} from "./modules/pages/components/search/search.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'newcompany', component: NewcompanyComponent},
   {path: 'error', component: ErrorpageComponent},
   {path: 'subscribe/:id', component: SubscribeComponent},
+  {path: 'search/:name', component: SearchComponent},
   {path: '**', component: NotfoundComponent}
 ];
 

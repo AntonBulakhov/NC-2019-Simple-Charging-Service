@@ -6,6 +6,7 @@ import {RouterModule} from "@angular/router";
 import {AuthService} from "../../services/auth-service";
 import {CommonModule} from "@angular/common";
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
   ],
   exports: [
     NavbarComponent,
