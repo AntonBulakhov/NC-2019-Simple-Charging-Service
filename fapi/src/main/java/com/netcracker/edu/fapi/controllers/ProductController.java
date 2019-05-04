@@ -22,8 +22,8 @@ public class ProductController {
     private StorageService storageService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<Page<Product>> getAllProducts(@RequestParam int page){
-       Page<Product> list = productService.getAllProducts(page);
+    public ResponseEntity<Page<Product>> getAllProducts(@RequestParam int page, @RequestParam String order, @RequestParam String filter){
+       Page<Product> list = productService.getAllProducts(page, order, filter);
        if (list.getContent() != null) {
            return ResponseEntity.ok(list);
        }else {

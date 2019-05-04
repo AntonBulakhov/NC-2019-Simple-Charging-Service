@@ -1,5 +1,6 @@
 package com.netcracker.edu.back.backend.service;
 
+import com.netcracker.edu.back.backend.entity.Category;
 import com.netcracker.edu.back.backend.entity.Product;
 import com.netcracker.edu.back.backend.entity.User;
 import org.springframework.data.domain.Page;
@@ -15,4 +16,5 @@ public interface ProductService {
     Product saveProduct(Product product);
     Page<Product> getAll(Pageable pageable);
     List<Product> getProductsByUser(User user);
+    Page<Product> findAllByCategory(Category category, Pageable pageable);
 }

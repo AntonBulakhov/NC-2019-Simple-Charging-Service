@@ -1,5 +1,6 @@
 package com.netcracker.edu.back.backend.service.implementation;
 
+import com.netcracker.edu.back.backend.entity.Category;
 import com.netcracker.edu.back.backend.entity.Product;
 import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.repository.ProductRepository;
@@ -45,5 +46,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> getAll(Pageable pageable) {
         return productRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Product> findAllByCategory(Category category, Pageable pageable) {
+        return productRepository.findAllByCategory(category, pageable);
     }
 }

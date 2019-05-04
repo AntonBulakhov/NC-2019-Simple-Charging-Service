@@ -23,9 +23,10 @@ public class ProductServiceImpl  implements ProductService {
     }
 
     @Override
-    public Page<Product> getAllProducts(int page) {
+    public Page<Product> getAllProducts(int page, String order, String filter) {
         RestTemplate restTemplate = new RestTemplate();
-        return  restTemplate.getForObject(backendURL + "/api/products?page=" + page, RestPageImpl.class);
+        return  restTemplate.getForObject(backendURL + "/api/products?page=" + page +
+                "&order="+order+"&filter="+filter, RestPageImpl.class);
     }
 
     @Override

@@ -2,9 +2,11 @@ package com.netcracker.edu.back.backend.controller;
 
 import com.netcracker.edu.back.backend.converter.ProductToProductDTO;
 import com.netcracker.edu.back.backend.dto.ProductDTO;
+import com.netcracker.edu.back.backend.entity.Category;
 import com.netcracker.edu.back.backend.entity.Product;
 import com.netcracker.edu.back.backend.entity.Subscription;
 import com.netcracker.edu.back.backend.entity.User;
+import com.netcracker.edu.back.backend.service.CategoryService;
 import com.netcracker.edu.back.backend.service.ProductService;
 import com.netcracker.edu.back.backend.service.SubscriptionService;
 import com.netcracker.edu.back.backend.service.UserService;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,14 +32,49 @@ public class ProductController {
     private SubscriptionService subscriptionService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CategoryService categoryService;
 
     private ProductToProductDTO converter = new ProductToProductDTO();
 
     private final int PRODUCT_COUNT_ON_PAGE = 4;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<ProductDTO> getAllProducts(@RequestParam(defaultValue = "0") int page){
-        Page<Product> productPage = productService.getAll(new PageRequest(page, PRODUCT_COUNT_ON_PAGE));
+    public Page<ProductDTO> getAllProducts(@RequestParam(defaultValue = "0") int page, @RequestParam String order, @RequestParam String filter){
+        Page<Product> productPage = null;
+        if(order.equals("null") && filter.equals("null")){
+            productPage = productService.getAll(new PageRequest(page, PRODUCT_COUNT_ON_PAGE));
+        }
+        if(!order.equals("null") && filter.equals("null")){
+            switch (order){
+                case "lprice":{
+                    productPage = productService.getAll(new PageRequest(page, PRODUCT_COUNT_ON_PAGE, Sort.by("price").ascending()));
+                    break;
+                }
+                case "hprice":{
+                    productPage = productService.getAll(new PageRequest(page, PRODUCT_COUNT_ON_PAGE, Sort.by("price").descending()));
+                    break;
+                }
+            }
+        }
+        if(order.equals("null") && !filter.equals("null")){
+            Category category = categoryService.getCategoryByName(filter);
+            productPage = productService.findAllByCategory(category, new PageRequest(page, PRODUCT_COUNT_ON_PAGE));
+        }
+        if(!order.equals("null") && !filter.equals("null")){
+            Category category = categoryService.getCategoryByName(filter);
+            switch (order){
+                case "lprice":{
+                    productPage = productService.findAllByCategory(category, new PageRequest(page, PRODUCT_COUNT_ON_PAGE, Sort.by("price").ascending()));
+                    break;
+                }
+                case "hprice":{
+                    productPage = productService.findAllByCategory(category, new PageRequest(page, PRODUCT_COUNT_ON_PAGE, Sort.by("price").descending()));
+                    break;
+                }
+            }
+        }
+
         List<Product> products = productPage.getContent();
         List<ProductDTO> productDTOS = converter.convert(products);
         return new PageImpl<>(productDTOS,new PageRequest(page,PRODUCT_COUNT_ON_PAGE),productPage.getTotalElements());

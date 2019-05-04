@@ -8,13 +8,13 @@
     <div class="col-2 d-flex justify-content-end">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Type
+          {{filterParam == null? "Type": filterParam.toUpperCase()}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button class="dropdown-item btn btn-primary" type="button">All</button>
-          <button class="dropdown-item btn btn-primary" type="button">TV&Movies</button>
-          <button class="dropdown-item btn btn-primary" type="button">Music</button>
-          <button class="dropdown-item btn btn-primary" type="button">Software</button>
+          <button class="dropdown-item btn btn-primary" type="button" (click)="loadAllProducts()">All</button>
+          <button class="dropdown-item btn btn-primary" type="button" (click)="loadFilter('movies')">TV&Movies</button>
+          <button class="dropdown-item btn btn-primary" type="button" (click)="loadFilter('music')">Music</button>
+          <button class="dropdown-item btn btn-primary" type="button" (click)="loadFilter('soft')">Software</button>
         </div>
       </div>
     </div>
@@ -24,8 +24,8 @@
           Begin from
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
-          <button class="dropdown-item btn btn-primary" type="button">Lowest price</button>
-          <button class="dropdown-item btn btn-primary" type="button">Highest price</button>
+          <button class="dropdown-item btn btn-primary" type="button" (click)="lowestPrice()">Lowest price</button>
+          <button class="dropdown-item btn btn-primary" type="button" (click)="highestPrice()">Highest price</button>
         </div>
       </div>
     </div>
