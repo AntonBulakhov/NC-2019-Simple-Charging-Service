@@ -8,20 +8,20 @@
     <div class="col-2 d-flex justify-content-end">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{filterParam == null? "Type": filterParam.toUpperCase()}}
+          {{filterParam == null? "Category": filterParam[0].toUpperCase() + filterParam.substr(1, filterParam.length)}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button class="dropdown-item btn btn-primary" type="button" (click)="loadAllProducts()">All</button>
-          <button class="dropdown-item btn btn-primary" type="button" (click)="loadFilter('movies')">TV&Movies</button>
+          <button class="dropdown-item btn btn-primary" type="button" (click)="loadAllProducts()">ALL</button>
+          <button class="dropdown-item btn btn-primary" type="button" (click)="loadFilter('movies')">Movies</button>
           <button class="dropdown-item btn btn-primary" type="button" (click)="loadFilter('music')">Music</button>
-          <button class="dropdown-item btn btn-primary" type="button" (click)="loadFilter('soft')">Software</button>
+          <button class="dropdown-item btn btn-primary" type="button" (click)="loadFilter('soft')">Soft</button>
         </div>
       </div>
     </div>
     <div class="col-2">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Begin from
+          {{price == null? "Price": price[0].toUpperCase() + price.substr(1, price.length)}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
           <button class="dropdown-item btn btn-primary" type="button" (click)="lowestPrice()">Lowest price</button>

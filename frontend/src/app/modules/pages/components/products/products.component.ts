@@ -18,6 +18,7 @@ export class ProductsComponent implements OnInit {
   public productsExists: boolean;
   public loaded: boolean = false;
 
+  public price: string = null;
   public orderParam: string = null;
   public filterParam: string = null;
 
@@ -37,7 +38,6 @@ export class ProductsComponent implements OnInit {
     this.products = null;
     this.pages = null;
 
-    this.orderParam = null;
     this.filterParam = null;
 
     this.productService.getAllProducts(this.page, this.orderParam, this.filterParam).subscribe(data =>{
@@ -56,6 +56,8 @@ export class ProductsComponent implements OnInit {
     this.loaded = false;
     this.products = null;
     this.pages = null;
+
+    this.price = "low price";
     this.orderParam = 'lprice';
 
     this.productService.getAllProducts(0, this.orderParam, this.filterParam).subscribe(data =>{
@@ -74,6 +76,8 @@ export class ProductsComponent implements OnInit {
     this.loaded = false;
     this.products = null;
     this.pages = null;
+
+    this.price = "high price";
     this.orderParam = 'hprice';
 
     this.productService.getAllProducts(0, this.orderParam, this.filterParam).subscribe(data =>{
@@ -92,7 +96,6 @@ export class ProductsComponent implements OnInit {
     this.loaded = false;
     this.products = null;
     this.pages = null;
-
     this.filterParam = param;
 
     this.productService.getAllProducts(0, this.orderParam, this.filterParam).subscribe(data =>{
