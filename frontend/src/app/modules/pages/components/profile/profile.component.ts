@@ -67,11 +67,13 @@ export class ProfileComponent implements OnInit {
 
             this.baService.getWalletsByUserId(id).subscribe(data=>{
               this.wallets = data as BillingAccountModel[];
-              if(this.wallets.length >= 3){
-                this.maxWallets = true;
-              }
-              if(this.wallets.length != 0){
-                this.walletsExists = true;
+              if(this.wallets != null){
+                if(this.wallets.length >= 3){
+                  this.maxWallets = true;
+                }
+                if(this.wallets.length != 0){
+                  this.walletsExists = true;
+                }
               }
               setTimeout(()=>{this.loaded = true}, 500);
             });
