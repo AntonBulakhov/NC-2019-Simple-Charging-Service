@@ -13,8 +13,11 @@ import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+
+import static java.math.BigDecimal.ROUND_CEILING;
 
 @RestController
 @RequestMapping("/api/subscriptions")
@@ -53,7 +56,10 @@ public class SubscriptionController {
         Optional<Product> product = productService.getProductById(sub.getProduct().getId());
         Optional<BillingAccount> billingAccount = billingAccountService.finById(sub.getBillingAccount().getId());
         BillingAccount ba = billingAccount.get();
-        ba.setSum(ba.getSum() - product.get().getPrice());
+
+        double price =  product.get().getPrice() * (1 - (sub.getDiscount()/100));
+        BigDecimal decimal = BigDecimal.valueOf(ba.getSum() - price/30).setScale(2, ROUND_CEILING);
+        ba.setSum(decimal.doubleValue());
 
         Subscription subscription = subConverter.reverse(sub);
         subscription.setBillingAccount(billingAccount.get());
