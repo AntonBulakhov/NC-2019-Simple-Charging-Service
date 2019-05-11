@@ -26,9 +26,10 @@ public class SubscriptionToSubscriptionDTO implements Converter<Subscription, Su
     }
 
     private int getDaysLeft(Subscription sub){
-        Date start = sub.getPurchacedate();
+        Calendar currenttime = Calendar.getInstance();
+        Date today = new Date((currenttime.getTime()).getTime());
         Date end = sub.getEnddate();
-        long time = end.getTime() - start.getTime();
+        long time = end.getTime() - today.getTime();
         return (int) (time / (24 * 60 * 60 * 1000));
     }
 

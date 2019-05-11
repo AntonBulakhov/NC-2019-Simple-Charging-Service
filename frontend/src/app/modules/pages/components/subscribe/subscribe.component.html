@@ -26,7 +26,13 @@
   </div>
 </div>
 
-<div class="container-fluid d-flex justify-content-center mt-2" id="lower" *ngIf="!subAlreadyExists && loaded">
+<div class="container-fluid mt-3 already" *ngIf="loaded && !hasWallets">
+  <div class="alert alert-danger justify-content-center d-flex" role="alert">
+    <h3>You dont have any wallet. You can add it in your profile...</h3>
+  </div>
+</div>
+
+<div class="container-fluid d-flex justify-content-center mt-2" id="lower" *ngIf="!subAlreadyExists && loaded && hasWallets">
   <div class="col-7 rounded bg-light ">
     <form class="row mt-3" (ngSubmit)="onSubmit()">
       <div class="form-group col-6">
@@ -40,11 +46,12 @@
       </div>
       <div class="form-group col-6">
         <label for="exampleFormControlSelect2">Choose wallet</label>
-        <select name="name" class="form-control" id="exampleFormControlSelect2" [(ngModel)]="walletName">
+        <select name="name" class="form-control" id="exampleFormControlSelect2" [(ngModel)]="walletName" (change)="notEnoughMoney = false">
           <option *ngFor="let wallet of wallets">{{wallet.name}}</option>
         </select>
+        <small class="text-danger" *ngIf="notEnoughMoney">Not enough money</small>
       </div>
-      <div class="container-fluid p-0 d-flex justify-content-center">
+      <div class="container-fluid p-0 d-flex justify-content-center mt-3">
         <button class="btn btn-primary w-25" type="submit">Buy</button>
       </div>
     </form>

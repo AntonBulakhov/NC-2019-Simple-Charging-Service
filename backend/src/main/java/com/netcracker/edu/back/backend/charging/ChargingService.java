@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @Component
 public class ChargingService{
@@ -24,21 +25,28 @@ public class ChargingService{
     @Scheduled(fixedDelay = 25000)
     //@Scheduled(cron = "0 0 0 1 * ?")
     public void chargeMoney() {
+        Calendar currenttime = Calendar.getInstance();
+        Date today = new Date((currenttime.getTime()).getTime());
+
         ArrayList<Subscription> subscriptions = (ArrayList<Subscription>) subscriptionService.findAll();
         ArrayList<BillingAccount> billingAccounts = new ArrayList<>();
 
         for(Subscription sub: subscriptions){
-            BillingAccount billingAccount = sub.getBillingAccount();
+            if((sub.getEnddate().getTime()/100000000 - today.getTime()/100000000) < 0){
+                subscriptionService.delete(sub);
+            }else if(sub.getBlocked() == 0) {
+                BillingAccount billingAccount = sub.getBillingAccount();
 
-            double price = sub.getProduct().getPrice() * (1 - (sub.getDiscount()/100));
-            if(billingAccount.getSum() < price){
-                sub.setBlocked((byte) 1);
-                subscriptionService.save(sub);
-            }else {
-                sub.setBlocked((byte)0);
-                subscriptionService.save(sub);
-                billingAccount.setSum(billingAccount.getSum() - price);
-                billingAccounts.add(billingAccount);
+                double price = sub.getProduct().getPrice() * (1 - (sub.getDiscount()/100));
+                if(billingAccount.getSum() < price){
+                    sub.setBlocked((byte) 1);
+                    subscriptionService.save(sub);
+                }else {
+                    sub.setBlocked((byte)0);
+                    subscriptionService.save(sub);
+                    billingAccount.setSum(billingAccount.getSum() - price);
+                    billingAccounts.add(billingAccount);
+                }
             }
         }
 

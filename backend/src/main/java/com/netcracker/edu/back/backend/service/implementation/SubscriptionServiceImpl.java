@@ -44,4 +44,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public Subscription checkSub(Product product, List<BillingAccount> billingAccounts) {
         return subscriptionRepository.getByProductAndBillingAccountIn(product, billingAccounts);
     }
+
+    @Override
+    public void delete(Subscription sub) {
+        subscriptionRepository.delete(sub);
+    }
 }

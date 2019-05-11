@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   public sum: number;
 
   walletsExists: boolean = false;
+  subsExists: boolean = false;
   productsExists: boolean = false;
 
   public imgLink;
@@ -64,6 +65,11 @@ export class ProfileComponent implements OnInit {
         if(this.profileUser.role.name != "seller"){
           this.subsService.getSubsByUser(id).subscribe(data=>{
             this.subscriptions = data as SubscriptionModel[];
+            if(this.subscriptions != null){
+              this.subsExists = true;
+            }else{
+              this.subsExists = false;
+            }
 
             this.baService.getWalletsByUserId(id).subscribe(data=>{
               this.wallets = data as BillingAccountModel[];

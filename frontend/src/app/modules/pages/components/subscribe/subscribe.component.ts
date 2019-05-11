@@ -27,6 +27,9 @@ export class SubscribeComponent implements OnInit {
   public loaded: boolean = false;
   public imgLink;
 
+  hasWallets: boolean = false;
+  notEnoughMoney: boolean = false;
+
   public subAlreadyExists: boolean;
 
   public newSubscribtion: SubscriptionModel = new SubscriptionModel();
@@ -49,33 +52,37 @@ export class SubscribeComponent implements OnInit {
   public onSubmit():void{
     this.newSubscribtion.product = this.product;
     this.newSubscribtion.billingAccount = this.findWalletByName();
-    this.newSubscribtion.blocked = "0";
-    this.newSubscribtion.time = this.month;
+    if(this.newSubscribtion.billingAccount.sum < +this.product.price){
+      this.notEnoughMoney = true;
+    }else {
+      this.newSubscribtion.blocked = "0";
+      this.newSubscribtion.time = this.month;
 
-    switch (this.month) {
-      case 1: {
-        this.newSubscribtion.discount = 0;
-        break;
+      switch (this.month) {
+        case 1: {
+          this.newSubscribtion.discount = 0;
+          break;
+        }
+        case 3:{
+          this.newSubscribtion.discount = 5;
+          break;
+        }
+        case 6:{
+          this.newSubscribtion.discount = 10;
+          break;
+        }
+        case 12:{
+          this.newSubscribtion.discount = 20;
+          break;
+        }
       }
-      case 3:{
-        this.newSubscribtion.discount = 5;
-        break;
-      }
-      case 6:{
-        this.newSubscribtion.discount = 10;
-        break;
-      }
-      case 12:{
-        this.newSubscribtion.discount = 20;
-        break;
-      }
+
+      this.subService.createSubscription(this.newSubscribtion).subscribe(()=>{
+        this.router.navigate(['/']);
+      }, error1 => {
+        this.toErrorPage(error1);
+      })
     }
-
-    this.subService.createSubscription(this.newSubscribtion).subscribe(()=>{
-      this.router.navigate(['/']);
-    }, error1 => {
-      this.toErrorPage(error1);
-    })
   }
 
   public findWalletByName():BillingAccountModel{
@@ -94,8 +101,13 @@ export class SubscribeComponent implements OnInit {
           if(!this.subAlreadyExists){
             this.baService.getWalletsByUserId(this.auth.user.id).subscribe(data=>{
               this.wallets = data as BillingAccountModel[];
-              this.walletName = this.wallets[0].name;
-              this.month = 1;
+              if(this.wallets == null){
+                this.hasWallets = false;
+              }else {
+                this.hasWallets = true;
+                this.walletName = this.wallets[0].name;
+                this.month = 1;
+              }
 
               setTimeout(()=>{this.loaded = true}, 500);
             }, error1 => {

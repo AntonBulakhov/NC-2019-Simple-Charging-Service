@@ -13,4 +13,5 @@ public interface SubscriptionService {
     List<Subscription> getAllByBillingAccount(BillingAccount billingAccount);
     List<Subscription> getAllByBillingAccountIn(List<BillingAccount> billingAccounts);
     Subscription checkSub(Product product, List<BillingAccount> billingAccounts);
+    void delete(Subscription sub);
 }
