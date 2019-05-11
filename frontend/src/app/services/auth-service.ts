@@ -29,12 +29,8 @@ export class AuthService {
     return this.http.post<AuthToken>("/api/users/auth/token", user);
   }
 
-  // public regNewUser(user: UserModel): Observable<AuthToken>{
-  //   return this.http.post<AuthToken>('api/users/auth/sign-up',user);
-  // }
-
-  public regNewUser(user: UserModel): Observable<UserModel>{
-    return this.http.post<UserModel>('api/users/auth/sign-up',user);
+  public regNewUser(user: UserModel): Observable<AuthToken>{
+    return this.http.post<AuthToken>('api/users/auth/sign-up',user);
   }
 
   public userAuth():Observable<UserModel>{
@@ -58,25 +54,17 @@ export class AuthService {
     })
   }
 
-  // public signUp(authUser: UserModel):void{
-  //   this.regNewUser(authUser).subscribe(data=>{
-  //     this.token = data.token;
-  //     this.userAuth().subscribe(data=>{
-  //       localStorage.setItem("user", JSON.stringify(data));
-  //       localStorage.setItem("token", this.token);
-  //       this.user = data;
-  //       this.router.navigate(['']);
-  //     }, error1 => {
-  //       this.toErrorPage(error1);
-  //     })
-  //   }, error1 => {
-  //     this.toErrorPage(error1);
-  //   })
-  // }
-
   public signUp(authUser: UserModel):void{
     this.regNewUser(authUser).subscribe(data=>{
-      this.router.navigate(['']);
+      this.token = data.token;
+      this.userAuth().subscribe(data=>{
+        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", this.token);
+        this.user = data;
+        this.router.navigate(['']);
+      }, error1 => {
+        this.toErrorPage(error1);
+      })
     }, error1 => {
       this.toErrorPage(error1);
     })
