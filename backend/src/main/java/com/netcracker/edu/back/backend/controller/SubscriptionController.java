@@ -52,12 +52,18 @@ public class SubscriptionController {
     public SubscriptionDTO saveSubscription(@RequestBody SubscriptionDTO sub){
         Optional<Product> product = productService.getProductById(sub.getProduct().getId());
         Optional<BillingAccount> billingAccount = billingAccountService.finById(sub.getBillingAccount().getId());
+        BillingAccount ba = billingAccount.get();
+        ba.setSum(ba.getSum() - product.get().getPrice());
 
         Subscription subscription = subConverter.reverse(sub);
         subscription.setBillingAccount(billingAccount.get());
         subscription.setProduct(product.get());
 
-        return subConverter.convert(subscriptionService.save(subscription));
+        SubscriptionDTO dto = subConverter.convert(subscriptionService.save(subscription));
+
+        billingAccountService.save(ba);
+
+        return dto;
     }
 
     @RequestMapping(value = "/exist/{id}/{productId}", method = RequestMethod.GET)

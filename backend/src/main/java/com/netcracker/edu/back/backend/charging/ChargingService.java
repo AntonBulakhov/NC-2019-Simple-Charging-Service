@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static java.math.BigDecimal.ROUND_CEILING;
 
 @Component
 public class ChargingService{
@@ -22,8 +25,8 @@ public class ChargingService{
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @Scheduled(fixedDelay = 25000)
-    //@Scheduled(cron = "0 0 0 1 * ?")
+//    @Scheduled(fixedDelay = 25000)
+    @Scheduled(cron = "0 0 0 * * ?")
     public void chargeMoney() {
         Calendar currenttime = Calendar.getInstance();
         Date today = new Date((currenttime.getTime()).getTime());
@@ -44,7 +47,8 @@ public class ChargingService{
                 }else {
                     sub.setBlocked((byte)0);
                     subscriptionService.save(sub);
-                    billingAccount.setSum(billingAccount.getSum() - price);
+                    BigDecimal decimal = BigDecimal.valueOf(billingAccount.getSum() - price/30).setScale(2, ROUND_CEILING);
+                    billingAccount.setSum(decimal.doubleValue());
                     billingAccounts.add(billingAccount);
                 }
             }
