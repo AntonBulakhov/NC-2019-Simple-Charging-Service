@@ -122,7 +122,7 @@
         <td>{{sub.billingAccount.name}}</td>
         <td>{{sub.blocked ? "Blocked" : "Active"}}</td>
         <td>
-          <button type="button" class="btn btn-primary">Buy</button>
+          <button type="button" class="btn btn-primary" (click)="buyMore(sub.id)" data-toggle="modal" data-target="#buyMoreModal">Buy</button>
         </td>
         <td>
           <button type="button" class="btn btn-danger" (click)="unsub(sub.id)">Unsub</button>
@@ -176,6 +176,8 @@
     </table>
   </div>
 </div>
+
+<!--modals-->
 <div class="modal fade" id="toUpModal" *ngIf="loaded">
   <div class="modal-dialog" *ngIf="profileUser.role.name != 'seller'">
     <div class="modal-content">
@@ -214,6 +216,27 @@
         </div>
         <div class="d-flex justify-content-between mr-0 mt-3">
           <button type="submit" class="btn btn-primary col-2">Add</button>
+          <button type="button" class="btn btn-danger col-2" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="buyMoreModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form class="px-4 py-3" (ngSubmit)="buyMoreSub()">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Months</label>
+          <select name="month" class="form-control" id="exampleFormControlSelect1" [(ngModel)]="selectedSub.time">
+            <option>1</option>
+            <option>3</option>
+            <option>6</option>
+          </select>
+        </div>
+        <div class="d-flex justify-content-between mr-0">
+          <button type="submit" class="btn btn-primary col-2">Buy</button>
           <button type="button" class="btn btn-danger col-2" data-dismiss="modal">Close</button>
         </div>
       </form>

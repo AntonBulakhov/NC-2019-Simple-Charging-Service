@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,5 +91,19 @@ public class SubscriptionController {
         Optional<Subscription> sub = subscriptionService.findById(id);
         subscriptionService.delete(sub.get());
         return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/upd", method = RequestMethod.POST)
+    public SubscriptionDTO update(@RequestBody SubscriptionDTO subscription){
+        Optional<Subscription> oSub = subscriptionService.findById(subscription.getId());
+        Subscription sub = oSub.get();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(sub.getEnddate());
+        calendar.add(Calendar.MONTH, subscription.getTime());
+
+
+        sub.setEnddate(new Date(calendar.getTime().getTime()));
+        return subConverter.convert(subscriptionService.save(sub));
     }
 }

@@ -9,4 +9,5 @@ public interface SubscriptionService {
     List<Subscription> getSubsByUser(int id);
     Subscription checkSub(int id, int productId);
     void delete(int id);
+    Subscription update(Subscription sub);
 }

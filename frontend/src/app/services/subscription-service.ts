@@ -24,4 +24,8 @@ export class SubscriptionService {
   deleteSubscription(id: string): any{
     return this.http.delete("/api/subscriptions/del/"+id);
   }
+
+  buyMoreSub(sub: SubscriptionModel): Observable<SubscriptionModel>{
+    return this.http.put<SubscriptionModel>("/api/subscriptions", sub);
+  }
 }

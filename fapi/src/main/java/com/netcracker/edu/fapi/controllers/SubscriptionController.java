@@ -54,4 +54,15 @@ public class SubscriptionController {
         subscriptionService.delete(id);
         return ResponseEntity.ok().build();
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PutMapping("")
+    public ResponseEntity<Subscription> update(@RequestBody Subscription sub){
+        Subscription subscription = subscriptionService.update(sub);
+        if(subscription != null){
+            return ResponseEntity.ok(subscription);
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

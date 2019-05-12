@@ -39,4 +39,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(backendURL+ "/api/subscriptions/del/"+id);
     }
+
+    @Override
+    public Subscription update(Subscription sub) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForObject(backendURL + "/api/subscriptions/upd", sub, Subscription.class);
+    }
 }

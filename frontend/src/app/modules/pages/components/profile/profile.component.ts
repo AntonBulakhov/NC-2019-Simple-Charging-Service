@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
   loaded: boolean = false;
   maxWallets: boolean = false;
 
+  public selectedSub: SubscriptionModel = new SubscriptionModel();
   public  selectedWallet: number;
   public sum: number;
 
@@ -153,5 +154,18 @@ export class ProfileComponent implements OnInit {
 
   public disableEditMode():void{
     this.editMode = false;
+  }
+
+  public buyMore(selectedId: string):void{
+    this.selectedSub = SubscriptionModel.cloneBase(this.subscriptions.find(obj=> obj.id == selectedId));
+    this.selectedSub.time = 1;
+  }
+
+  public buyMoreSub():void{
+    this.subsService.buyMoreSub(this.selectedSub).subscribe(value => {
+      setTimeout(location.reload.bind(location), 200);
+    }, error1 => {
+
+    })
   }
 }
