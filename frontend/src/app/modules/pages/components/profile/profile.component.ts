@@ -21,6 +21,9 @@ export class ProfileComponent implements OnInit {
 
   public profileUser: UserModel;
 
+  //edit mode
+  public editMode: boolean = false;
+
   //if user profile
   public subscriptions: SubscriptionModel[];
   public wallets: BillingAccountModel[];
@@ -144,4 +147,11 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  public enableEditMode():void{
+    this.editMode = true;
+  }
+
+  public disableEditMode():void{
+    this.editMode = false;
+  }
 }
