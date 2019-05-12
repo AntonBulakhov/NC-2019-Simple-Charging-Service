@@ -105,6 +105,14 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  public unsub(id: string): void{
+    this.subsService.deleteSubscription(id).subscribe(() => {
+      setTimeout(location.reload.bind(location), 200);
+    }, error=>{
+
+    });
+  }
+
   public onSubmitToUp():void{
     this.wallets[this.selectedWallet].sum += Number(this.sum);
     this.baService.updateWallet(this.wallets[this.selectedWallet]).subscribe(()=>{

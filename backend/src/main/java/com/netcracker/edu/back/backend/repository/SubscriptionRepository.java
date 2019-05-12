@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface SubscriptionRepository extends CrudRepository<Subscription, Long> {
+public interface SubscriptionRepository extends CrudRepository<Subscription, Integer> {
     @Query("select s from Subscription s group by s.product order by count(s.id) desc")
     List<Subscription> getTopFourSubs();
 

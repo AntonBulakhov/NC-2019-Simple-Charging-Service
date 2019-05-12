@@ -5,6 +5,7 @@ import com.netcracker.edu.back.backend.entity.Product;
 import com.netcracker.edu.back.backend.entity.Subscription;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SubscriptionService {
     Subscription save(Subscription subscription);
@@ -14,4 +15,5 @@ public interface SubscriptionService {
     List<Subscription> getAllByBillingAccountIn(List<BillingAccount> billingAccounts);
     Subscription checkSub(Product product, List<BillingAccount> billingAccounts);
     void delete(Subscription sub);
+    Optional<Subscription> findById(int id);
 }

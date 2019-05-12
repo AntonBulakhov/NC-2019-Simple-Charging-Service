@@ -8,4 +8,5 @@ public interface SubscriptionService {
     Subscription save(Subscription subscription);
     List<Subscription> getSubsByUser(int id);
     Subscription checkSub(int id, int productId);
+    void delete(int id);
 }

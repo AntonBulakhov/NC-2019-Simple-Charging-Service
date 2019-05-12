@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
@@ -43,6 +44,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public Subscription checkSub(Product product, List<BillingAccount> billingAccounts) {
         return subscriptionRepository.getByProductAndBillingAccountIn(product, billingAccounts);
+    }
+
+    @Override
+    public Optional<Subscription> findById(int id) {
+        return subscriptionRepository.findById(id);
     }
 
     @Override

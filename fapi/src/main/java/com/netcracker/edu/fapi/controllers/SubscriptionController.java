@@ -47,4 +47,11 @@ public class SubscriptionController {
             return ResponseEntity.ok(false);
         }
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @DeleteMapping("/del/{id}")
+    public ResponseEntity deleteSub(@PathVariable int id){
+        subscriptionService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }

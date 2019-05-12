@@ -20,4 +20,8 @@ export class SubscriptionService {
   checkSubscriptionExists(userID: string, productID: string):any{
     return this.http.get("/api/subscriptions/exist/"+userID+"/"+productID);
   }
+
+  deleteSubscription(id: string): any{
+    return this.http.delete("/api/subscriptions/del/"+id);
+  }
 }

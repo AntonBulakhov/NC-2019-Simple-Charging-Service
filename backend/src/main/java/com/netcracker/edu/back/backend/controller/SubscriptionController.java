@@ -11,7 +11,9 @@ import com.netcracker.edu.back.backend.service.ProductService;
 import com.netcracker.edu.back.backend.service.SubscriptionService;
 import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -80,5 +82,12 @@ public class SubscriptionController {
 
         Subscription subscription = subscriptionService.checkSub(product.get(), billingAccounts);
         return subscription == null? null : subConverter.convert(subscription);
+    }
+
+    @RequestMapping(value = "/del/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteSub(@PathVariable int id){
+        Optional<Subscription> sub = subscriptionService.findById(id);
+        subscriptionService.delete(sub.get());
+        return ResponseEntity.ok().build();
     }
 }
