@@ -53,7 +53,7 @@ export class NewproductComponent implements OnInit {
     this.newProduct.category = this.getCategory(this.category);
     this.newProduct.logoUrl = this.newProduct.name+"-logo.jpg".trim();
 
-    this.productService.saveProductImage(this.productImage, this.newProduct.logoUrl).subscribe(()=>{
+    this.productService.saveProductImage(this.productImage, this.newProduct.logoUrl.trim()).subscribe(()=>{
       this.productService.saveNewProduct(this.newProduct).subscribe((resp)=>{
         let product:ProductModel = resp as ProductModel;
         this.router.navigate(['/product/'+product.id]);

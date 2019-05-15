@@ -40,14 +40,14 @@ public class ChargingService{
             }else {
                 BillingAccount billingAccount = sub.getBillingAccount();
 
-                double price = sub.getProduct().getPrice() * (1 - (sub.getDiscount()/100));
+                double price = sub.getProduct().getPrice() * (1 - (sub.getDiscount()/100))/30;
                 if(billingAccount.getSum() < price){
                     sub.setBlocked((byte) 1);
                     subscriptionService.save(sub);
                 }else {
                     sub.setBlocked((byte)0);
                     subscriptionService.save(sub);
-                    BigDecimal decimal = BigDecimal.valueOf(billingAccount.getSum() - price/30).setScale(2, ROUND_CEILING);
+                    BigDecimal decimal = BigDecimal.valueOf(billingAccount.getSum() - price).setScale(2, ROUND_CEILING);
                     billingAccount.setSum(decimal.doubleValue());
                     billingAccounts.add(billingAccount);
                 }

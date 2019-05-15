@@ -44,6 +44,7 @@ export class NewcompanyComponent implements OnInit {
       this.userService.saveUserImage(this.sellerImage, this.newSeller.logoUrl).subscribe(()=>{
         this.userService.saveNewUser(this.newSeller).subscribe(resp=>{
           let user: UserModel = resp as UserModel;
+          console.log(resp);
           this.router.navigate(['/profile/'+user.id]);
         }, error1 => {
           let nav: NavigationExtras = {

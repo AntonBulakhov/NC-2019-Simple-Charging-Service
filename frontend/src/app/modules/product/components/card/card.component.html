@@ -7,7 +7,7 @@
       <small id="companyHelpBlock" class="form-text text-muted">
         <p>Category: <a class="font-weight-bold">{{product.category.name.toUpperCase()}}</a></p>
       </small>
-      <p class="card-text h-25">{{product.description}}</p>
+      <p class="card-text h-25">{{product.description.substr(0, 100)}}...</p>
       <div class="form-group row ml-1">
         <p class="text-dark mr-2">Price: </p>
         <h5>{{product.price}}$</h5>

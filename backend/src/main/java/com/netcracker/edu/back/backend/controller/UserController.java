@@ -81,6 +81,7 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public User saveUser(@RequestBody User user){
-        return userService.save(user);
+        userService.save(user);
+        return userService.findByLogin(user.getLogin());
     }
 }
