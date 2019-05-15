@@ -12,4 +12,5 @@ public interface ProductService {
     Product getProductByName(String name);
     Product saveProduct(Product product);
     List<Product> getProductsByUser(int id);
+    void deleteProduct(int id);
 }

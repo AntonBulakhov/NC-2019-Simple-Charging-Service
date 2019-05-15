@@ -17,6 +17,16 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private SubscriptionRepository subscriptionRepository;
 
     @Override
+    public void deleteAllByProduct(Product product) {
+        subscriptionRepository.deleteAllByProductIn(product);
+    }
+
+    @Override
+    public Integer countAllByProduct(Product product) {
+        return subscriptionRepository.countAllByProduct(product);
+    }
+
+    @Override
     public List<Subscription> findAll() {
         return (List<Subscription>)subscriptionRepository.findAll();
     }

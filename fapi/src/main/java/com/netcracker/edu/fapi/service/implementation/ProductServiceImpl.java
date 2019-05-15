@@ -17,6 +17,12 @@ public class ProductServiceImpl  implements ProductService {
     private String backendURL;
 
     @Override
+    public void deleteProduct(int id) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.delete(backendURL + "/api/products/id/"+id);
+    }
+
+    @Override
     public Product getProductByName(String name) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(backendURL + "/api/products/name/" + name, Product.class);

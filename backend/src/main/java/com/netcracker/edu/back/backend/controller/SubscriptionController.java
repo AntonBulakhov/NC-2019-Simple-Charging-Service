@@ -37,6 +37,12 @@ public class SubscriptionController {
 
     private SubscriptionToSubscriptionDTO subConverter = new SubscriptionToSubscriptionDTO();
 
+    @RequestMapping(value = "/product/id/{id}", method = RequestMethod.GET)
+    public Integer getSubsCount(@PathVariable int id){
+        Optional<Product> product = productService.getProductById(id);
+        return subscriptionService.countAllByProduct(product.get());
+    }
+
     @RequestMapping(value = "/get_all", method = RequestMethod.GET)
     public List<Subscription> getAllSubscriptions(){
         return subscriptionService.findAll();

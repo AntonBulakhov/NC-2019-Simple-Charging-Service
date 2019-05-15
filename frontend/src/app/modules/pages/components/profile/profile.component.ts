@@ -31,6 +31,10 @@ export class ProfileComponent implements OnInit {
   //if company profile
   public products: ProductModel[];
 
+  //to delete product
+  public productToDelete: string;
+  public subsCountOnProduct: number = 0;
+
   loaded: boolean = false;
   maxWallets: boolean = false;
 
@@ -167,5 +171,19 @@ export class ProfileComponent implements OnInit {
     }, error1 => {
 
     })
+  }
+
+  //delete product
+  public setProductToDelete(id: string):void{
+    this.productToDelete = id;
+    this.subsService.getSubsCountByPRoduct(id).subscribe(value => {
+      this.subsCountOnProduct = value;
+    })
+  }
+
+  public deleteProduct():void{
+    this.productService.deleteProduct(this.productToDelete).subscribe(()=>{
+      setTimeout(location.reload.bind(location), 200);
+    });
   }
 }

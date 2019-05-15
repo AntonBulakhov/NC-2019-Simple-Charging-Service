@@ -16,6 +16,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private String backendURL;
 
     @Override
+    public Integer getSubsCount(int id) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(backendURL + "/api/subscriptions/product/id/"+id, Integer.class);
+    }
+
+    @Override
     public List<Subscription> getSubsByUser(int id) {
         RestTemplate restTemplate = new RestTemplate();
         Subscription[] subs = restTemplate.getForObject(backendURL + "/api/subscriptions/user/"+id, Subscription[].class);

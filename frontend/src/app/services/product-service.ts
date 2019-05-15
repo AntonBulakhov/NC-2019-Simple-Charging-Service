@@ -10,6 +10,10 @@ export class ProductService {
 
   }
 
+  deleteProduct(id: string):any{
+    return this.http.delete("/api/products/id/"+id);
+  }
+
   getAllProducts(page: number, order: string, filter: string){
     return this.http.get("/api/products?page="+page+
       (order!=undefined?"&order="+order:"&order=null")+(filter!=undefined?"&filter="+filter:"&filter=null"));

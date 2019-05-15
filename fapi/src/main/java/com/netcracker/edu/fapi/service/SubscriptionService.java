@@ -10,4 +10,5 @@ public interface SubscriptionService {
     Subscription checkSub(int id, int productId);
     void delete(int id);
     Subscription update(Subscription sub);
+    Integer getSubsCount(int id);
 }

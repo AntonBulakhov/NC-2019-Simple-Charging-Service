@@ -6,7 +6,10 @@ import {SubscriptionModel} from "../models/subscription-model";
 @Injectable()
 export class SubscriptionService {
   constructor(private http: HttpClient){
+  }
 
+  getSubsCountByPRoduct(productId: string): Observable<number>{
+    return this.http.get<number>("/api/subscriptions/product/id/"+productId);
   }
 
   getSubsByUser(id: string):Observable<SubscriptionModel[]>{

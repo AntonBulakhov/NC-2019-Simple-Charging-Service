@@ -100,4 +100,11 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PreAuthorize("hasRole('SELLER')")
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity deleteProduct(@PathVariable int id){
+        productService.deleteProduct(id);
+        return ResponseEntity.ok().build();
+    }
 }

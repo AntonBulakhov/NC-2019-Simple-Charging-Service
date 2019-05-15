@@ -17,4 +17,5 @@ public interface ProductService {
     Page<Product> getAll(Pageable pageable);
     List<Product> getProductsByUser(User user);
     Page<Product> findAllByCategory(Category category, Pageable pageable);
+    void delete(Product product);
 }

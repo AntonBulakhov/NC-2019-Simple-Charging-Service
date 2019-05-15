@@ -80,6 +80,14 @@ public class ProductController {
         return new PageImpl<>(productDTOS,new PageRequest(page,PRODUCT_COUNT_ON_PAGE),productPage.getTotalElements());
     }
 
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteProduct(@PathVariable int id){
+        Optional<Product> product = productService.getProductById(id);
+        subscriptionService.deleteAllByProduct(product.get());
+        productService.delete(product.get());
+        return ResponseEntity.ok().build();
+    }
+
     @RequestMapping(value = "/top4", method = RequestMethod.GET)
     public List<ProductDTO> getTopFourProducts(){
         List<Product> products = new ArrayList<>();

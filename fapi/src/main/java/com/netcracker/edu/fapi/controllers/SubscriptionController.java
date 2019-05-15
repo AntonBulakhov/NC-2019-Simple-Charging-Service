@@ -15,6 +15,12 @@ public class SubscriptionController {
     @Autowired
     private SubscriptionService subscriptionService;
 
+    @PreAuthorize("hasRole('SELLER')")
+    @GetMapping("/product/id/{id}")
+    public Integer getSubsCount(@PathVariable int id){
+        return subscriptionService.getSubsCount(id);
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/user/{id}")
     public ResponseEntity<List<Subscription>> getSubsByUser(@PathVariable int id){
