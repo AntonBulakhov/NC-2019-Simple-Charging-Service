@@ -14,6 +14,7 @@ import {NotfoundComponent} from "./modules/pages/components/notfound/notfound.co
 import {ErrorpageComponent} from "./modules/pages/components/errorpage/errorpage.component";
 import {SubscribeComponent} from "./modules/pages/components/subscribe/subscribe.component";
 import {SearchComponent} from "./modules/pages/components/search/search.component";
+import {AboutComponent} from "./modules/pages/components/about/about.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'newproduct', component: NewproductComponent},
   {path: 'newcompany', component: NewcompanyComponent},
   {path: 'error', component: ErrorpageComponent},
+  {path: 'about', component: AboutComponent},
   {path: 'subscribe/:id', component: SubscribeComponent},
   {path: 'search/:name', component: SearchComponent},
   {path: '**', component: NotfoundComponent}

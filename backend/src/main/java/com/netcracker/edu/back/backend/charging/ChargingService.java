@@ -25,8 +25,8 @@ public class ChargingService{
     @Autowired
     private SubscriptionService subscriptionService;
 
-//    @Scheduled(fixedDelay = 25000)
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(cron = "0 0 0 * * ?")
     public void chargeMoney() {
         Calendar currenttime = Calendar.getInstance();
         Date today = new Date((currenttime.getTime()).getTime());
@@ -37,7 +37,7 @@ public class ChargingService{
         for(Subscription sub: subscriptions){
             if((sub.getEnddate().getTime()/100000000 - today.getTime()/100000000) < 0){
                 subscriptionService.delete(sub);
-            }else if(sub.getBlocked() == 0) {
+            }else {
                 BillingAccount billingAccount = sub.getBillingAccount();
 
                 double price = sub.getProduct().getPrice() * (1 - (sub.getDiscount()/100));

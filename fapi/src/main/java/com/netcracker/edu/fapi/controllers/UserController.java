@@ -23,8 +23,8 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("")
-    public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page){
-        Page<User> userPage = userService.getAllUsers(page);
+    public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page, @RequestParam String filter){
+        Page<User> userPage = userService.getAllUsers(page, filter);
         if(userPage.getContent() != null){
             return ResponseEntity.ok(userPage);
         }else {

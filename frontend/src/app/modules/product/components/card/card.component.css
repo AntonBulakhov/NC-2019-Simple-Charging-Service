@@ -6,3 +6,7 @@
 #logo{
   max-height: 200px;
 }
+img{
+  min-height: 180px;
+  max-height: 180px;
+}

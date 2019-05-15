@@ -98,24 +98,20 @@ export class SubscribeComponent implements OnInit {
         this.subService.checkSubscriptionExists(this.auth.user.id, this.product.id).subscribe(data=>{
           this.subAlreadyExists = data;
 
-          if(!this.subAlreadyExists){
-            this.baService.getWalletsByUserId(this.auth.user.id).subscribe(data=>{
-              this.wallets = data as BillingAccountModel[];
-              if(this.wallets == null){
-                this.hasWallets = false;
-              }else {
-                this.hasWallets = true;
-                this.walletName = this.wallets[0].name;
-                this.month = 1;
-              }
+          this.baService.getWalletsByUserId(this.auth.user.id).subscribe(data=>{
+            this.wallets = data as BillingAccountModel[];
+            if(this.wallets == null){
+              this.hasWallets = false;
+            }else {
+              this.hasWallets = true;
+              this.walletName = this.wallets[0].name;
+              this.month = 1;
+            }
 
-              setTimeout(()=>{this.loaded = true}, 500);
-            }, error1 => {
-              this.toErrorPage(error1);
-            })
-          }else {
-            this.loaded = true;
-          }
+            setTimeout(()=>{this.loaded = true}, 500);
+          }, error1 => {
+            this.toErrorPage(error1);
+          })
         }, error1=>{
           this.toErrorPage(error1);
         });

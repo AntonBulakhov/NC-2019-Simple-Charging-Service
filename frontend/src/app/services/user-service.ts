@@ -8,8 +8,9 @@ export class UserService {
   constructor(private http:HttpClient){
   }
 
-  getAllUsers(page: number){
-    return this.http.get("/api/users?page="+page);
+  getAllUsers(page: number, filter: string){
+    return this.http.get("/api/users?page="+page+
+      (filter!=undefined?"&filter="+filter:"&filter=null"));
   }
 
   getAllCompanies(page: number){

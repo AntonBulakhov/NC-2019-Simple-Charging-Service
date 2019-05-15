@@ -18,6 +18,16 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
+    public Page<User> findAllBlockedUsers(Pageable pageable, byte blocked, Role role) {
+        return userRepository.findAllByBlockedAndRoleNotIn(pageable, blocked, role);
+    }
+
+    @Override
+    public Page<User> findAllInRole(Pageable pageable, Role role) {
+        return userRepository.findAllByRoleIn(pageable, role);
+    }
+
+    @Override
     public Optional<User> findById(int id) {
         return userRepository.findById(id);
     }

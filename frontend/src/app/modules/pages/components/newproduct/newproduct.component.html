@@ -45,7 +45,7 @@
         <label for="price1">Price per 1 month</label>
         <input type="text" class="form-control" id="price1" placeholder="Price in $"
                name="price" [(ngModel)]="newProduct.price"
-        required autocomplete="off" #price = "ngModel" pattern="[0-9]*.[0-9]{1,2}">
+        required autocomplete="off" #price = "ngModel" currencyMask [options]="{ align: 'left'}" min="0.5">
         <small [hidden]="price.valid || price.untouched" class="text-danger">Price is incorrect</small>
       </div>
     </div>

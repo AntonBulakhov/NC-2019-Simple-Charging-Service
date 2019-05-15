@@ -24,9 +24,31 @@ public class UserController {
     private final int USERS_COUNT_ON_PAGE = 10;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Page<User> getAllUsers(@RequestParam int page){
-        Role role = roleService.findRoleByName("seller");
-        return userService.findAllUsers(new PageRequest(page, USERS_COUNT_ON_PAGE), role);
+    public Page<User> getAllUsers(@RequestParam int page, @RequestParam String filter){
+        Role role;
+        Page<User> result;
+        switch (filter){
+            case "admins":{
+                role = roleService.findRoleByName("admin");
+                result = userService.findAllInRole(new PageRequest(page, USERS_COUNT_ON_PAGE), role);
+                return result;
+            }
+            case "users":{
+                role = roleService.findRoleByName("user");
+                result = userService.findAllInRole(new PageRequest(page, USERS_COUNT_ON_PAGE), role);
+                return result;
+            }
+            case "blocked":{
+                role = roleService.findRoleByName("seller");
+                result = userService.findAllBlockedUsers(new PageRequest(page, USERS_COUNT_ON_PAGE), (byte)1, role);
+                return result;
+            }
+            default:{
+                role = roleService.findRoleByName("seller");
+                result = userService.findAllUsers(new PageRequest(page, USERS_COUNT_ON_PAGE), role);
+                return result;
+            }
+        }
     }
 
     @RequestMapping(value = "/companies", method = RequestMethod.GET)

@@ -12,6 +12,8 @@ public interface UserService {
     Optional<User> findById(int id);
     Page<User> findAllUsers(Pageable pageable, Role role);
     Page<User> findAllCompanies(Pageable pageable, Role role);
+    Page<User> findAllInRole(Pageable pageable, Role role);
+    Page<User> findAllBlockedUsers(Pageable pageable, byte blocked, Role role);
     User findByLogin(String login);
     User findByEmail(String email);
     User save(User user);

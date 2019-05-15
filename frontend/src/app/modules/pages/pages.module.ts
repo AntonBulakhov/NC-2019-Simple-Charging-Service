@@ -29,6 +29,8 @@ import {BillingAccountService} from "../../services/billingaccount-service";
 import {SubscriptionService} from "../../services/subscription-service";
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { SearchComponent } from './components/search/search.component';
+import { AboutComponent } from './components/about/about.component';
+import {CurrencyMaskModule} from "ng2-currency-mask";
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { SearchComponent } from './components/search/search.component';
     ErrorpageComponent,
     SubscribeComponent,
     SearchComponent,
+    AboutComponent,
   ],
   imports: [
     AuthorisationModule,
@@ -53,9 +56,11 @@ import { SearchComponent } from './components/search/search.component';
     ModalsModule,
     BrowserModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    CurrencyMaskModule
   ],
   exports:[
+    AboutComponent,
     HomeComponent,
     ProductsComponent,
     RegistrationComponent,

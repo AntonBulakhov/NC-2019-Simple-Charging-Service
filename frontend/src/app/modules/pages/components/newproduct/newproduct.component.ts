@@ -7,6 +7,7 @@ import {CategoryModel} from "../../../../models/category-model";
 import {CategoryService} from "../../../../services/category-service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../services/auth-service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'charging-addnewproduct',
@@ -27,7 +28,10 @@ export class NewproductComponent implements OnInit {
               private userService: UserService,
               private categoryService: CategoryService,
               private router: Router,
-              public auth: AuthService) { }
+              public auth: AuthService,
+              private titleService: Title) {
+    titleService.setTitle("New product")
+  }
 
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe(cats=>{

@@ -12,12 +12,6 @@ export class AppComponent {
   constructor(private  http: HttpClient){
 
   }
-
-  public clickFunction():void{
-    this.http.get("/api/").subscribe(value => {
-      console.log(value)
-    })
-  }
 }
 
 

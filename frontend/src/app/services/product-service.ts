@@ -11,7 +11,8 @@ export class ProductService {
   }
 
   getAllProducts(page: number, order: string, filter: string){
-    return this.http.get("/api/products?page="+page+(order!=undefined?"&order="+order:"&order=null")+(filter!=undefined?"&filter="+filter:"&filter=null"));
+    return this.http.get("/api/products?page="+page+
+      (order!=undefined?"&order="+order:"&order=null")+(filter!=undefined?"&filter="+filter:"&filter=null"));
   }
 
   getTopFourProducts():Observable<ProductModel[]>{
