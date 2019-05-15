@@ -35,6 +35,9 @@ export class ProfileComponent implements OnInit {
   public productToDelete: string;
   public subsCountOnProduct: number = 0;
 
+  //to delete wallet
+  public walletToDelete: string;
+
   loaded: boolean = false;
   maxWallets: boolean = false;
 
@@ -138,20 +141,6 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  public deleteWallet(id: number):void{
-    this.baService.deleteWallet(this.wallets[id]).subscribe(()=>{
-      setTimeout(location.reload.bind(location), 100);
-    }, error1 =>{
-      let nav: NavigationExtras = {
-        queryParams:{
-          "code": error1.status,
-          "message": error1.statusText
-        }
-      };
-      this.router.navigate(['/error'], nav);
-    });
-  }
-
   public enableEditMode():void{
     this.editMode = true;
   }
@@ -171,6 +160,25 @@ export class ProfileComponent implements OnInit {
     }, error1 => {
 
     })
+  }
+
+  //delete wallet
+  public setWalletToDelete(id: string):void{
+    this.walletToDelete = id;
+  }
+
+  public deleteWallet():void{
+    this.baService.deleteWallet(this.walletToDelete).subscribe(()=>{
+      setTimeout(location.reload.bind(location), 100);
+    }, error1 =>{
+      let nav: NavigationExtras = {
+        queryParams:{
+          "code": error1.status,
+          "message": error1.statusText
+        }
+      };
+      this.router.navigate(['/error'], nav);
+    });
   }
 
   //delete product

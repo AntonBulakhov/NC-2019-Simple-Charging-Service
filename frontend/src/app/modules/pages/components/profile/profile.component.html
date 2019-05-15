@@ -157,7 +157,7 @@
           <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal" (click)="selectedWallet=i">Add</button>
         </td>
         <td>
-          <button type="button" class="btn btn-danger" disabled (click)="deleteWallet(i)">Delete</button>
+          <button type="button" class="btn btn-danger" (click)="setWalletToDelete(wallet.id)" data-toggle="modal" data-target="#deleteWallet">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -242,6 +242,20 @@
       </div>
       <div class="container-fluid justify-content-between d-flex mt-3 mb-3">
         <button type="submit" class="btn btn-primary col-2" (click)="deleteProduct()">Yes</button>
+        <button type="button" class="btn btn-danger col-2" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteWallet">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="container-fluid mt-3">
+        <h4>Do you want to delete this wallet (this action will delete linked subscriptions too)?</h4>
+      </div>
+      <div class="container-fluid justify-content-between d-flex mt-3 mb-3">
+        <button type="submit" class="btn btn-primary col-2" (click)="deleteWallet()">Yes</button>
         <button type="button" class="btn btn-danger col-2" data-dismiss="modal">Cancel</button>
       </div>
     </div>

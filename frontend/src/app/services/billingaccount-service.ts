@@ -22,8 +22,8 @@ export class BillingAccountService {
     return this.http.post<BillingAccountModel>("/api/baccounts", newW);
   }
 
-  deleteWallet(wallet: BillingAccountModel):any{
-    return this.http.delete("/api/baccounts/"+wallet.id);
+  deleteWallet(id: string):any{
+    return this.http.delete("/api/baccounts/"+id);
   }
 
   walletCheckByName(name: string, user: UsersafeModel):any{

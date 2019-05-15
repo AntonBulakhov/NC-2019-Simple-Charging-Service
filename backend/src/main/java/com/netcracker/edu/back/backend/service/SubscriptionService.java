@@ -13,6 +13,7 @@ public interface SubscriptionService {
     List<Subscription> getTopFourSubs();
     Integer countAllByProduct(Product product);
     void deleteAllByProduct(Product product);
+    void deleteAllByBillingAccountIn(BillingAccount billingAccount);
     List<Subscription> getAllByBillingAccount(BillingAccount billingAccount);
     List<Subscription> getAllByBillingAccountIn(List<BillingAccount> billingAccounts);
     Subscription checkSub(Product product, List<BillingAccount> billingAccounts);

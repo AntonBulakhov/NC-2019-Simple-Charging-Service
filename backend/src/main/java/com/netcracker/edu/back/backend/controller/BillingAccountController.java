@@ -3,6 +3,7 @@ package com.netcracker.edu.back.backend.controller;
 import com.netcracker.edu.back.backend.entity.BillingAccount;
 import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.service.BillingAccountService;
+import com.netcracker.edu.back.backend.service.SubscriptionService;
 import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ public class BillingAccountController {
     private BillingAccountService billingAccountService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private SubscriptionService subscriptionService;
 
     @RequestMapping(value = "/all/user/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<BillingAccount>> getBillingAccountsByUser(@PathVariable int id){
@@ -47,8 +50,11 @@ public class BillingAccountController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteBillingAccount(@PathVariable int id){
+    public ResponseEntity deleteBillingAccount(@PathVariable int id){
+        Optional<BillingAccount> ba = billingAccountService.finById(id);
+        subscriptionService.deleteAllByBillingAccountIn(ba.get());
         billingAccountService.deleteBillingAccount(id);
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/user/{id}/name/{name}")

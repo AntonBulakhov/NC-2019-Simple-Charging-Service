@@ -18,6 +18,9 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Int
     @Transactional
     void deleteAllByProductIn(Product product);
 
+    @Transactional
+    void deleteAllByBillingAccountIn(BillingAccount billingAccount);
+
     List<Subscription> getAllByBillingAccount(BillingAccount billingAccount);
     List<Subscription> getAllByBillingAccountIn(List<BillingAccount> billingAccounts);
 

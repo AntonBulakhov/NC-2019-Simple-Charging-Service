@@ -17,6 +17,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private SubscriptionRepository subscriptionRepository;
 
     @Override
+    public void deleteAllByBillingAccountIn(BillingAccount billingAccount) {
+        subscriptionRepository.deleteAllByBillingAccountIn(billingAccount);
+    }
+
+    @Override
     public void deleteAllByProduct(Product product) {
         subscriptionRepository.deleteAllByProductIn(product);
     }
