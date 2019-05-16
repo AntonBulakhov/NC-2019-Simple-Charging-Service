@@ -48,7 +48,7 @@
   <h3 class="" *ngIf="profileUser.role.name == 'seller' ">Products</h3>
 </div>
 <div class="container-fluid"  id="alert2" *ngIf="loaded">
-  <div class="alert alert-danger justify-content-center d-flex" role="alert" *ngIf="!productsExists && profileUser.role.name == 'seller'">
+  <div class="alert alert-warning justify-content-center d-flex" role="alert" *ngIf="!productsExists && profileUser.role.name == 'seller'">
     <h3>There is no products yet</h3>
   </div>
 </div>
@@ -89,7 +89,7 @@
   <h3 class="" *ngIf="profileUser.role.name != 'seller' && profileUser.blocked == 0">Subscriptions</h3>
 </div>
 <div class="container-fluid"  id="alert3" *ngIf="loaded">
-  <div class="alert alert-danger justify-content-center d-flex" role="alert" *ngIf="profileUser.role.name != 'seller' && !subsExists && profileUser.blocked == 0">
+  <div class="alert alert-warning justify-content-center d-flex" role="alert" *ngIf="profileUser.role.name != 'seller' && !subsExists && profileUser.blocked == 0">
     <h3>There is no subscriptions yet</h3>
   </div>
 </div>
@@ -133,7 +133,7 @@
   <h3 class="" *ngIf="profileUser.role.name != 'seller' && profileUser.blocked == 0">Wallets</h3>
 </div>
 <div class="container-fluid" *ngIf="loaded" id="alert">
-  <div class="alert alert-danger justify-content-center d-flex" role="alert" *ngIf="profileUser.role.name != 'seller' && !walletsExists && profileUser.blocked == 0">
+  <div class="alert alert-warning justify-content-center d-flex" role="alert" *ngIf="profileUser.role.name != 'seller' && !walletsExists && profileUser.blocked == 0">
     <h3>There is no wallets yet</h3>
   </div>
 </div>
