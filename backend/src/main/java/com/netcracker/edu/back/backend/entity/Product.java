@@ -10,7 +10,6 @@ public class Product {
     private String description;
     private double price;
     private String logoUrl;
-    private String videolink;
     private User user;
     private Category category;
 
@@ -64,16 +63,6 @@ public class Product {
         this.logoUrl = logoUrl;
     }
 
-    @Basic
-    @Column(name = "videolink")
-    public String getVideolink() {
-        return videolink;
-    }
-
-    public void setVideolink(String videolink) {
-        this.videolink = videolink;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,13 +72,12 @@ public class Product {
                 Double.compare(product.price, price) == 0 &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(description, product.description) &&
-                Objects.equals(logoUrl, product.logoUrl) &&
-                Objects.equals(videolink, product.videolink);
+                Objects.equals(logoUrl, product.logoUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, price, logoUrl, videolink);
+        return Objects.hash(id, name, description, price, logoUrl);
     }
 
     @ManyToOne

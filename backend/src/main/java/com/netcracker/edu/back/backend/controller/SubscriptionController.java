@@ -13,7 +13,6 @@ import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.sql.Date;

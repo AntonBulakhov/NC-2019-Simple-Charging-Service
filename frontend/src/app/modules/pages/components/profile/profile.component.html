@@ -13,7 +13,7 @@
       <h2><button type="button" class="btn btn-success mr-3 w-100" *ngIf="auth.user.role.name == 'admin' && profileUser.blocked == 1 && profileUser.id != auth.user.id" (click)="unblockUser()">Unblock</button></h2>
     </div>
     <div class="media-body col-8">
-      <form class="mt-5">
+      <form class="mt-4">
         <div class="form-group row justify-content-center">
           <label for="fname" class="col-sm-4 col-form-label mr-3 font-weight-bold">
             {{(profileUser.role.name == 'seller')?'Company Name':'First Name'}}</label>

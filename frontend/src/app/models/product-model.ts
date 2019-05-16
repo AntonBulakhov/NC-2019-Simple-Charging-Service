@@ -7,7 +7,6 @@ export class ProductModel {
   description: string;
   name: string;
   logoUrl: string;
-  videoLink: string;
   price: string;
   user: UsersafeModel;
   category: CategoryModel;
@@ -18,7 +17,6 @@ export class ProductModel {
     cloneProductModel.description = product.description;
     cloneProductModel.name = product.name;
     cloneProductModel.logoUrl = product.logoUrl;
-    cloneProductModel.videoLink = product.videoLink;
     cloneProductModel.price = product.price;
     cloneProductModel.user = product.user;
     cloneProductModel.category = product.category;

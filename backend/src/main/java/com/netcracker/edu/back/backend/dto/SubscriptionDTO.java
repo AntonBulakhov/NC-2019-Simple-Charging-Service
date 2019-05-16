@@ -1,9 +1,5 @@
 package com.netcracker.edu.back.backend.dto;
 
-import com.netcracker.edu.back.backend.entity.Product;
-
-import java.sql.Date;
-
 public class SubscriptionDTO {
     private int id;
     private int time;

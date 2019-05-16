@@ -8,20 +8,18 @@ public class ProductDTO {
     private String description;
     private double price;
     private String logoUrl;
-    private String videolink;
     private UserDTO user;
     private Category category;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(int id, String name, String description, double price, String logoUrl, String videolink, UserDTO user, Category category) {
+    public ProductDTO(int id, String name, String description, double price, String logoUrl, UserDTO user, Category category) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.logoUrl = logoUrl;
-        this.videolink = videolink;
         this.user = user;
         this.category = category;
     }
@@ -64,14 +62,6 @@ public class ProductDTO {
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
-    }
-
-    public String getVideolink() {
-        return videolink;
-    }
-
-    public void setVideolink(String videolink) {
-        this.videolink = videolink;
     }
 
     public UserDTO getUser() {
