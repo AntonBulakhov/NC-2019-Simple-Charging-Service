@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private BCryptPasswordEncoder bCrypt;
 
     @Override
+    public User isBlocked(String login) {
+        return findUserByLogin(login);
+    }
+
+    @Override
     public void blockUser(int id) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.put(backendURL + "/api/users/block/id/" + id, User.class);

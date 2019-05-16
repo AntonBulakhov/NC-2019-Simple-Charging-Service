@@ -48,6 +48,6 @@ export class UserService {
   }
 
   isBlocked(login: string):Observable<boolean>{
-    return this.http.get<boolean>("/api/users/blocked");
+    return this.http.get<boolean>("/api/users/blocked/"+login);
   }
 }

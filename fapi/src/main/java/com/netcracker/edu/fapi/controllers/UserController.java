@@ -32,6 +32,17 @@ public class UserController {
         }
     }
 
+    @GetMapping("/blocked/{login}")
+    public ResponseEntity<Boolean> isBlocked(@PathVariable String login){
+        User user = userService.isBlocked(login);
+        if(user != null){
+            if(user.getBlocked() == 1) return ResponseEntity.ok(true);
+            else return ResponseEntity.ok(false);
+        }else {
+            return ResponseEntity.ok(false);
+        }
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/block/id/{id}")
     public ResponseEntity blockUser(@PathVariable int id){

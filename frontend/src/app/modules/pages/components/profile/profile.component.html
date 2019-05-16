@@ -9,8 +9,8 @@
       <img src="{{imgLink.src}}/api/users/image/{{profileUser.logoUrl}}" class="rounded" alt="Me" height="150px" width="150px">
 <!--      <h2 *ngIf="profileUser.id == auth.user.id && !editMode"><button type="button" class="btn btn-primary mr-3 w-100" (click)="enableEditMode()">Edit</button></h2>-->
 <!--      <h2><button type="button" class="btn btn-primary mr-3 w-100" *ngIf="profileUser.id == auth.user.id && editMode" (click)="disableEditMode()">Turn off</button></h2>-->
-      <h2><button type="button" class="btn btn-danger mr-3 w-100" *ngIf="auth.user.role.name == 'admin' && profileUser.blocked == 0" (click)="blockUser()">Turn off</button></h2>
-      <h2><button type="button" class="btn btn-danger mr-3 w-100" *ngIf="auth.user.role.name == 'admin' && profileUser.blocked == 1" (click)="unblockUser()">Turn off</button></h2>
+      <h2><button type="button" class="btn btn-danger mr-3 w-100" *ngIf="auth.user.role.name == 'admin' && profileUser.blocked == 0 && profileUser.id != auth.user.id" (click)="blockUser()">Block</button></h2>
+      <h2><button type="button" class="btn btn-success mr-3 w-100" *ngIf="auth.user.role.name == 'admin' && profileUser.blocked == 1 && profileUser.id != auth.user.id" (click)="unblockUser()">Unblock</button></h2>
     </div>
     <div class="media-body col-8">
       <form class="mt-5">
