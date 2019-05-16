@@ -38,6 +38,12 @@
   </div>
 </div>
 
+<div class="container-fluid"  id="alertBlocked" *ngIf="loaded">
+  <div class="alert alert-danger justify-content-center d-flex" role="alert" *ngIf="profileUser.blocked == 1">
+    <h3>This user is blocked...</h3>
+  </div>
+</div>
+
 <div class="container-fluid d-flex justify-content-center" *ngIf="loaded" >
   <h3 class="" *ngIf="profileUser.role.name == 'seller' ">Products</h3>
 </div>
@@ -56,8 +62,8 @@
         <th scope="col">Name</th>
         <th scope="col">Price</th>
         <th scope="col">Category</th>
-        <th scope="col" style="width: 10%">View</th>
-        <th scope="col" style="width: 10%">Delete</th>
+        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">View</th>
+        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Delete</th>
       </tr>
       </thead>
       <tbody>
@@ -66,10 +72,10 @@
         <td>{{product.name}}</td>
         <td>{{product.price}}$/month</td>
         <td>{{product.category.name.toUpperCase()}}</td>
-        <td>
+        <td *ngIf="auth.user.id == auth.user.id">
           <button type="button" class="btn btn-primary" routerLink="/product/{{product.id}}">View</button>
         </td>
-        <td>
+        <td *ngIf="auth.user.id == auth.user.id">
           <button type="button" class="btn btn-danger" (click)="setProductToDelete(product.id)" data-toggle="modal" data-target="#deleteProduct">Delete</button>
         </td>
       </tr>
@@ -99,8 +105,8 @@
         <th scope="col">Days left</th>
         <th scope="col">Wallet</th>
         <th scope="col">Status</th>
-        <th scope="col" style="width: 10%">Buy More</th>
-        <th scope="col" style="width: 10%">Unsubscribe</th>
+        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Buy More</th>
+        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Unsubscribe</th>
       </tr>
       </thead>
       <tbody>
@@ -111,10 +117,10 @@
         <td [ngClass]="sub.time < 5? 'text-danger':''">{{sub.time}}</td>
         <td>{{sub.billingAccount.name}}</td>
         <td>{{sub.blocked ? "Blocked" : "Active"}}</td>
-        <td>
+        <td *ngIf="auth.user.id == auth.user.id">
           <button type="button" class="btn btn-primary" (click)="buyMore(sub.id)" data-toggle="modal" data-target="#buyMoreModal">Buy</button>
         </td>
-        <td>
+        <td *ngIf="auth.user.id == auth.user.id">
           <button type="button" class="btn btn-danger" (click)="unsub(sub.id)">Unsub</button>
         </td>
       </tr>
@@ -133,7 +139,7 @@
 </div>
 <div class="container-fluid" *ngIf="loaded">
   <div class="justify-content-center d-flex" role="alert" *ngIf="profileUser.role.name != 'seller' && !walletsExists && profileUser.blocked == 0">
-    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#AddWalletModal" *ngIf="!maxWallets">Add wallet</button>
+    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#AddWalletModal" *ngIf="!maxWallets && profileUser.id == auth.user.id">Add wallet</button>
   </div>
 </div>
 <!--wallets-->
@@ -146,8 +152,8 @@
         <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">Sum</th>
-        <th scope="col" style="width: 10%">Add funds</th>
-        <th scope="col" style="width: 10%">Delete</th>
+        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Add funds</th>
+        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Delete</th>
       </tr>
       </thead>
       <tbody>
@@ -155,10 +161,10 @@
         <th scope="row">{{i+1}}</th>
         <td>{{wallet.name}}</td>
         <td>{{wallet.sum}}$</td>
-        <td>
+        <td *ngIf="auth.user.id == auth.user.id">
           <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal" (click)="selectedWallet=i">Add</button>
         </td>
-        <td>
+        <td *ngIf="auth.user.id == auth.user.id">
           <button type="button" class="btn btn-danger" (click)="setWalletToDelete(wallet.id)" data-toggle="modal" data-target="#deleteWallet">Delete</button>
         </td>
       </tr>
