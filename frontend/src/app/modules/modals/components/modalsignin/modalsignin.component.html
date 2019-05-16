@@ -4,6 +4,9 @@
       <div class="alert alert-danger d-flex justify-content-center" role="alert" *ngIf="auth.authError">
         Login or password is wrong. Try again...
       </div>
+      <div class="alert alert-danger d-flex justify-content-center" role="alert" *ngIf="auth.userBlocked">
+        This user is blocked...
+      </div>
       <form class="px-4 py-3" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="inputLogin">Login</label>

@@ -4,16 +4,19 @@ import {UserModel, AuthToken} from "../models/user-model";
 import {Observable} from "rxjs";
 import {NavigationExtras, Router} from "@angular/router";
 import {UsersafeModel} from "../models/usersafe-model";
+import {UserService} from "./user-service";
 
 @Injectable()
 export class AuthService {
   public user: UsersafeModel;
   public token: string;
 
+  public userBlocked: boolean = false;
   public authError: boolean = false;
 
   constructor(private http: HttpClient,
-              private router: Router){
+              private router: Router,
+              private userService: UserService){
     let user = JSON.parse(localStorage.getItem('user'));
     let token = localStorage.getItem('token');
     if(user && token){
@@ -38,20 +41,26 @@ export class AuthService {
   }
 
   public signIn(authUser: UserModel):void{
-    this.getToken(authUser).subscribe(data=>{
-      this.token = data.token;
-      this.userAuth().subscribe(data=>{
-        this.user = data;
-        localStorage.setItem("user", JSON.stringify(this.user));
-        localStorage.setItem("token", this.token);
-        this.router.navigate(['']);
-       setTimeout(location.reload.bind(location), 100);
-      }, error1 => {
-        this.toErrorPage(error1);
-      })
-    }, error1 => {
-      this.authError = true;
-    })
+    this.userService.isBlocked(authUser.login).subscribe(value => {
+      if(!value){
+        this.getToken(authUser).subscribe(data=>{
+          this.token = data.token;
+          this.userAuth().subscribe(data=>{
+            this.user = data;
+            localStorage.setItem("user", JSON.stringify(this.user));
+            localStorage.setItem("token", this.token);
+            this.router.navigate(['']);
+            setTimeout(location.reload.bind(location), 100);
+          }, error1 => {
+            this.toErrorPage(error1);
+          })
+        }, error1 => {
+          this.authError = true;
+        });
+      }else {
+        this.userBlocked = value;
+      }
+    });
   }
 
   public signUp(authUser: UserModel):void{

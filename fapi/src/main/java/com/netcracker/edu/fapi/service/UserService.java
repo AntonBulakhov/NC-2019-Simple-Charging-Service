@@ -10,4 +10,6 @@ public interface UserService {
     User findUserByLogin(String login);
     User saveUser(User user);
     User findUserByEmail(String email);
+    void blockUser(int id);
+    void unblockUser(int id);
 }

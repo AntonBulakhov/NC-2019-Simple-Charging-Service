@@ -38,4 +38,16 @@ export class UserService {
   saveNewUser(user: UserModel):Observable<UserModel>{
     return this.http.post<UserModel>("/api/users", user);
   }
+
+  blockUser(id: string):any{
+    return this.http.put("/api/users/block/id/"+id, null);
+  }
+
+  unblockUser(id: string):any{
+    return this.http.put("/api/users/unblock/id/"+id, null);
+  }
+
+  isBlocked(login: string):Observable<boolean>{
+    return this.http.get<boolean>("/api/users/blocked");
+  }
 }

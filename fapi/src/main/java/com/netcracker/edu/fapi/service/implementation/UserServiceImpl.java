@@ -26,6 +26,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private BCryptPasswordEncoder bCrypt;
 
     @Override
+    public void blockUser(int id) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put(backendURL + "/api/users/block/id/" + id, User.class);
+    }
+
+    @Override
+    public void unblockUser(int id) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put(backendURL + "/api/users/unblock/id/" + id, User.class);
+    }
+
+    @Override
     public Page<User> getAllUsers(int page, String filter) {
         RestTemplate restTemplate = new RestTemplate();
         return  restTemplate.getForObject(backendURL + "/api/users?page=" + page + "&filter=" + filter, RestPageImpl.class);

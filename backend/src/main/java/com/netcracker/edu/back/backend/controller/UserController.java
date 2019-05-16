@@ -51,6 +51,22 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/block/id/{id}", method = RequestMethod.PUT)
+    public User blockUser(@PathVariable int id){
+        Optional<User> user = userService.findById(id);
+        User entity = user.get();
+        entity.setBlocked((byte)1);
+        return userService.save(entity);
+    }
+
+    @RequestMapping(value = "/unblock/id/{id}", method = RequestMethod.PUT)
+    public User unblockUser(@PathVariable int id){
+        Optional<User> user = userService.findById(id);
+        User entity = user.get();
+        entity.setBlocked((byte)0);
+        return userService.save(entity);
+    }
+
     @RequestMapping(value = "/companies", method = RequestMethod.GET)
     public Page<User> getAllCompanies(@RequestParam int page){
         Role role = roleService.findRoleByName("seller");

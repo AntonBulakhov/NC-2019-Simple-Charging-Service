@@ -194,4 +194,17 @@ export class ProfileComponent implements OnInit {
       setTimeout(location.reload.bind(location), 200);
     });
   }
+
+  //block user
+  public blockUser():void{
+    this.userService.blockUser(this.profileUser.id).subscribe(()=>{
+      setTimeout(location.reload.bind(location), 200);
+    });
+  }
+
+  public unblockUser():void{
+    this.userService.unblockUser(this.profileUser.id).subscribe(()=>{
+      setTimeout(location.reload.bind(location), 200);
+    });
+  }
 }

@@ -6,7 +6,7 @@ export class UserModel {
   login: string;
   password: string;
   logoUrl: string;
-  blocked: boolean;
+  blocked: number;
   firstname: string;
   secondname: string;
   role: RoleModel;

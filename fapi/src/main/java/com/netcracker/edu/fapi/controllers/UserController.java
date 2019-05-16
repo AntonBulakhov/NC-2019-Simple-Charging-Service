@@ -33,6 +33,20 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/block/id/{id}")
+    public ResponseEntity blockUser(@PathVariable int id){
+        userService.blockUser(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/unblock/id/{id}")
+    public ResponseEntity unblockUser(@PathVariable int id){
+        userService.unblockUser(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/companies")
     public ResponseEntity<Page<User>> getAllCompanies(@RequestParam int page){
         Page<User> userPage = userService.getAllCompanies(page);
