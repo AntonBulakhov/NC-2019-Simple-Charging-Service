@@ -31,6 +31,7 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { SearchComponent } from './components/search/search.component';
 import { AboutComponent } from './components/about/about.component';
 import {CurrencyMaskModule} from "ng2-currency-mask";
+import {NgxMaskModule} from "ngx-mask";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {CurrencyMaskModule} from "ng2-currency-mask";
     BrowserModule,
     RouterModule,
     FormsModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    NgxMaskModule,
   ],
   exports:[
     AboutComponent,
@@ -70,7 +72,8 @@ import {CurrencyMaskModule} from "ng2-currency-mask";
     CompaniesComponent,
     NewcompanyComponent,
     NewproductComponent,
-    NotfoundComponent
+    NotfoundComponent,
+
   ],
   providers: [
     ProductService,

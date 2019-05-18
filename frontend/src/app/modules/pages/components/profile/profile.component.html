@@ -133,7 +133,8 @@
   <h3 class="" *ngIf="profileUser.role.name != 'seller' && profileUser.blocked == 0 && profileUser.id == auth.user.id">Wallets</h3>
 </div>
 <div class="container-fluid" *ngIf="loaded" id="alert">
-  <div class="alert alert-warning justify-content-center d-flex" role="alert" *ngIf="profileUser.role.name != 'seller' && !walletsExists && profileUser.blocked == 0">
+  <div class="alert alert-warning justify-content-center d-flex" role="alert"
+       *ngIf="profileUser.role.name != 'seller' && !walletsExists && profileUser.blocked == 0 && profileUser.id == auth.user.id">
     <h3>There is no wallets yet</h3>
   </div>
 </div>
@@ -180,23 +181,27 @@
       <form class="px-4 py-3" (ngSubmit)="f.form.valid && onSubmitToUp()" #f="ngForm">
         <div class="row">
           <label for="cardNum">Number on card</label>
-          <input type="text" class="form-control" id="cardNum" autocomplete="off" #numberCard required>
+          <input type="text" class="form-control" id="cardNum" autocomplete="off" #numberCard required
+          mask="0000-0000-0000-0000">
           <small *ngIf="!f.form.valid && f.submitted" class="text-danger">Number is invalid</small>
         </div>
         <div class="row">
           <label for="cardName">Name on card</label>
-          <input type="text" class="form-control" id="cardName" autocomplete="off" required #nameCard>
+          <input type="text" class="form-control" id="cardName" autocomplete="off" required #nameCard
+                 oninput="this.value = this.value.toUpperCase()">
           <small *ngIf="f.submitted && !f.form.valid" class="text-danger">Name is invalid</small>
         </div>
         <div class="row">
           <div class="col p-0 mr-2">
             <label for="cardExp">Expiration</label>
-            <input type="text" class="form-control" id="cardExp" autocomplete="off" required #expCard>
+            <input type="text" class="form-control" id="cardExp" autocomplete="off" required #expCard
+            mask="00/00" placeholder="MM/YY">
             <small *ngIf="f.submitted && !f.form.valid" class="text-danger">Expiration is invalid</small>
           </div>
           <div class="col p-0 ml-2">
             <label for="cardCVV">CVV</label>
-            <input type="text" class="form-control" id="cardCVV" autocomplete="off" required #cvv>
+            <input type="text" class="form-control" id="cardCVV" autocomplete="off" required #cvv
+            mask="000">
             <small *ngIf="f.submitted && !f.form.valid" class="text-danger">CVV is invalid</small>
           </div>
         </div>

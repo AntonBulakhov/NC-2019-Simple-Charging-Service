@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {PagesModule} from "./modules/pages/pages.module";
 import {AuthInterceptor} from "./services/auth-interceptor-service";
+import {IConfig, NgxMaskModule} from "ngx-mask";
 
+
+export var options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
   declarations: [
@@ -17,6 +20,7 @@ import {AuthInterceptor} from "./services/auth-interceptor-service";
     AppRoutingModule,
     HttpClientModule,
     PagesModule,
+    NgxMaskModule.forRoot(options)
   ],
   providers: [AuthInterceptor,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
