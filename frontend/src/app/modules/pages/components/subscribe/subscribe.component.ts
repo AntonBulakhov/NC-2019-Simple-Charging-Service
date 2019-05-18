@@ -32,7 +32,7 @@ export class SubscribeComponent implements OnInit {
 
   public subAlreadyExists: boolean;
 
-  public newSubscribtion: SubscriptionModel = new SubscriptionModel();
+  public newSubscription: SubscriptionModel = new SubscriptionModel();
 
   constructor( private activeRoute: ActivatedRoute,
                private productService: ProductService,
@@ -54,34 +54,34 @@ export class SubscribeComponent implements OnInit {
   }
 
   public onSubmit():void{
-    this.newSubscribtion.product = this.product;
-    this.newSubscribtion.billingAccount = this.findWalletByName();
-    if(this.newSubscribtion.billingAccount.sum < +this.product.price){
+    this.newSubscription.product = this.product;
+    this.newSubscription.billingAccount = this.findWalletByName();
+    if(this.newSubscription.billingAccount.sum < +this.product.price){
       this.notEnoughMoney = true;
     }else {
-      this.newSubscribtion.blocked = "0";
-      this.newSubscribtion.time = this.month;
+      this.newSubscription.blocked = "0";
+      this.newSubscription.time = this.month;
 
       switch (this.month) {
         case 1: {
-          this.newSubscribtion.discount = 0;
+          this.newSubscription.discount = 0;
           break;
         }
         case 3:{
-          this.newSubscribtion.discount = 5;
+          this.newSubscription.discount = 5;
           break;
         }
         case 6:{
-          this.newSubscribtion.discount = 10;
+          this.newSubscription.discount = 10;
           break;
         }
         case 12:{
-          this.newSubscribtion.discount = 20;
+          this.newSubscription.discount = 20;
           break;
         }
       }
 
-      this.subService.createSubscription(this.newSubscribtion).subscribe(()=>{
+      this.subService.createSubscription(this.newSubscription).subscribe(()=>{
         this.router.navigate(['/']);
       }, error1 => {
         this.toErrorPage(error1);
