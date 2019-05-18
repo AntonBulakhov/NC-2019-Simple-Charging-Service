@@ -162,7 +162,7 @@
         <td>{{wallet.name}}</td>
         <td>{{wallet.sum}}$</td>
         <td *ngIf="auth.user.id == auth.user.id">
-          <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal" (click)="selectedWallet=i">Add funds</button>
+          <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal" (click)="selectedWallet=i">Recharge</button>
         </td>
         <td *ngIf="auth.user.id == auth.user.id">
           <button type="button" class="btn btn-danger" (click)="setWalletToDelete(wallet.id)" data-toggle="modal" data-target="#deleteWallet">Delete</button>
