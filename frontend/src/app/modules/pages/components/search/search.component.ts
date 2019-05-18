@@ -15,6 +15,8 @@ export class SearchComponent implements OnInit {
   public loaded: boolean = false;
   public productExists: boolean = false;
 
+  private keyword: string;
+
   constructor(private activeRoute: ActivatedRoute,
               private productService: ProductService,
               private router: Router,
@@ -27,12 +29,14 @@ export class SearchComponent implements OnInit {
   }
 
   private searchProduct():void{
-    const name = this.activeRoute.snapshot.params['name'];
-    if(name){
-      this.productService.getProductByName(name).subscribe(data=>{
+    this.keyword = sessionStorage.getItem("search");
+    console.log(this.keyword);
+    if(this.keyword){
+      this.productService.getProductByName(this.keyword).subscribe(data=>{
         this.product = data;
         if(this.product!= null){
           this.productExists = true;
+          sessionStorage.clear();
         }
         setTimeout(()=>{this.loaded = true}, 500);
       }, error1 => {

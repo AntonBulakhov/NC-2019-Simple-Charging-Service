@@ -27,7 +27,8 @@ export class NavbarComponent implements OnInit {
   }
 
   public search():void{
-    this.router.navigate(['/search/'+this.searchString]);
+    sessionStorage.setItem("search", this.searchString);
+    this.router.navigate(['/search']);
     setTimeout(()=>{window.location.reload()}, 100);
   }
 

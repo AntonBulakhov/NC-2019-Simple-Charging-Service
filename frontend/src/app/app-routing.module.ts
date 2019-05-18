@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: 'error', component: ErrorpageComponent},
   {path: 'about', component: AboutComponent},
   {path: 'subscribe/:id', component: SubscribeComponent},
-  {path: 'search/:name', component: SearchComponent},
+  {path: 'search', component: SearchComponent},
   {path: '**', component: NotfoundComponent}
 ];
 
