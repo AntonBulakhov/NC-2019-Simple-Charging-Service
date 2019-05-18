@@ -21,9 +21,6 @@ export class ProfileComponent implements OnInit {
 
   public profileUser: UserModel;
 
-  //edit mode
-  public editMode: boolean = false;
-
   //if user profile
   public subscriptions: SubscriptionModel[];
   public wallets: BillingAccountModel[];
@@ -141,14 +138,6 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  public enableEditMode():void{
-    this.editMode = true;
-  }
-
-  public disableEditMode():void{
-    this.editMode = false;
-  }
-
   public buyMore(selectedId: string):void{
     this.selectedSub = SubscriptionModel.cloneBase(this.subscriptions.find(obj=> obj.id == selectedId));
     this.selectedSub.time = 1;
@@ -207,4 +196,6 @@ export class ProfileComponent implements OnInit {
       setTimeout(location.reload.bind(location), 200);
     });
   }
+
+  //delete subscription
 }

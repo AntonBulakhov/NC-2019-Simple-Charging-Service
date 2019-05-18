@@ -62,8 +62,8 @@
         <th scope="col">Name</th>
         <th scope="col">Price</th>
         <th scope="col">Category</th>
-        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">View</th>
-        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Delete</th>
+        <th scope="col" style="width: 10%" *ngIf="profileUser.id == auth.user.id"></th>
+        <th scope="col" style="width: 10%" *ngIf="profileUser.id == auth.user.id"></th>
       </tr>
       </thead>
       <tbody>
@@ -72,10 +72,10 @@
         <td>{{product.name}}</td>
         <td>{{product.price}}$/month</td>
         <td>{{product.category.name.toUpperCase()}}</td>
-        <td *ngIf="auth.user.id == auth.user.id">
+        <td *ngIf="profileUser.id == auth.user.id">
           <button type="button" class="btn btn-primary" routerLink="/product/{{product.id}}">View</button>
         </td>
-        <td *ngIf="auth.user.id == auth.user.id">
+        <td *ngIf="profileUser.id == auth.user.id">
           <button type="button" class="btn btn-danger" (click)="setProductToDelete(product.id)" data-toggle="modal" data-target="#deleteProduct">Delete</button>
         </td>
       </tr>
@@ -105,8 +105,8 @@
         <th scope="col">Days left</th>
         <th scope="col">Wallet</th>
         <th scope="col">Status</th>
-        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Buy More</th>
-        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Unsubscribe</th>
+        <th scope="col" style="width: 10%" *ngIf="profileUser.id == auth.user.id"></th>
+        <th scope="col" style="width: 10%" *ngIf="profileUser.id == auth.user.id"></th>
       </tr>
       </thead>
       <tbody>
@@ -117,11 +117,11 @@
         <td [ngClass]="sub.time < 5? 'text-danger':''">{{sub.time}}</td>
         <td>{{sub.billingAccount.name}}</td>
         <td>{{sub.blocked ? "Blocked" : "Active"}}</td>
-        <td *ngIf="auth.user.id == auth.user.id">
-          <button type="button" class="btn btn-primary" (click)="buyMore(sub.id)" data-toggle="modal" data-target="#buyMoreModal">Buy</button>
+        <td *ngIf="profileUser.id == auth.user.id">
+          <button type="button" class="btn btn-primary" (click)="buyMore(sub.id)" data-toggle="modal" data-target="#buyMoreModal">Extend</button>
         </td>
-        <td *ngIf="auth.user.id == auth.user.id">
-          <button type="button" class="btn btn-danger" (click)="unsub(sub.id)">Unsub</button>
+        <td *ngIf="profileUser.id == auth.user.id">
+          <button type="button" class="btn btn-danger" (click)="unsub(sub.id)">Unsubscribe</button>
         </td>
       </tr>
       </tbody>
@@ -130,7 +130,7 @@
 </div>
 
 <div class="container-fluid d-flex justify-content-center"  *ngIf="loaded">
-  <h3 class="" *ngIf="profileUser.role.name != 'seller' && profileUser.blocked == 0">Wallets</h3>
+  <h3 class="" *ngIf="profileUser.role.name != 'seller' && profileUser.blocked == 0 && profileUser.id == auth.user.id">Wallets</h3>
 </div>
 <div class="container-fluid" *ngIf="loaded" id="alert">
   <div class="alert alert-warning justify-content-center d-flex" role="alert" *ngIf="profileUser.role.name != 'seller' && !walletsExists && profileUser.blocked == 0">
@@ -144,7 +144,7 @@
 </div>
 <!--wallets-->
 <div class="container-fluid" *ngIf="loaded">
-  <div class="container" *ngIf="walletsExists && profileUser.role.name != 'seller' && profileUser.blocked == 0">
+  <div class="container" *ngIf="walletsExists && profileUser.role.name != 'seller' && profileUser.blocked == 0 && profileUser.id == auth.user.id">
     <table class="table table-hover bg-light">
       <caption><button class="btn btn-outline-primary" data-toggle="modal" data-target="#AddWalletModal" *ngIf="!maxWallets">Add wallet</button></caption>
       <thead>
@@ -152,8 +152,8 @@
         <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">Sum</th>
-        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Add funds</th>
-        <th scope="col" style="width: 10%" *ngIf="auth.user.id == auth.user.id">Delete</th>
+        <th scope="col" style="width: 10%"></th>
+        <th scope="col" style="width: 10%"></th>
       </tr>
       </thead>
       <tbody>
@@ -162,7 +162,7 @@
         <td>{{wallet.name}}</td>
         <td>{{wallet.sum}}$</td>
         <td *ngIf="auth.user.id == auth.user.id">
-          <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal" (click)="selectedWallet=i">Add</button>
+          <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#toUpModal" (click)="selectedWallet=i">Add funds</button>
         </td>
         <td *ngIf="auth.user.id == auth.user.id">
           <button type="button" class="btn btn-danger" (click)="setWalletToDelete(wallet.id)" data-toggle="modal" data-target="#deleteWallet">Delete</button>
@@ -269,5 +269,6 @@
     </div>
   </div>
 </div>
+
 
 <charging-footer *ngIf="loaded"></charging-footer>

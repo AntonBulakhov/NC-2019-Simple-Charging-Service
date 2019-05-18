@@ -6,10 +6,16 @@ import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.security.Principal;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -71,7 +77,18 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'SELLER')")
     @GetMapping("/id/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id){
-        return ResponseEntity.ok(userService.getUserById(id));
+        UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.getUserById(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean hasAdminRole = authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+
+        if(user.getLogin().equals(principal.getUsername()) || hasAdminRole){
+            return ResponseEntity.ok(user);
+        }else {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PreAuthorize("hasRole('ADMIN')")
