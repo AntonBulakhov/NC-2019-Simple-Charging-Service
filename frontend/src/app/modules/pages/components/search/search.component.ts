@@ -36,7 +36,6 @@ export class SearchComponent implements OnInit {
         this.product = data;
         if(this.product!= null){
           this.productExists = true;
-          sessionStorage.clear();
         }
         setTimeout(()=>{this.loaded = true}, 500);
       }, error1 => {
