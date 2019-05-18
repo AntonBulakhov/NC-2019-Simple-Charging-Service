@@ -25,6 +25,9 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(sessionStorage.getItem("search") == null){
+      this.router.navigate(['']);
+    }
     this.searchProduct();
   }
 
@@ -37,7 +40,7 @@ export class SearchComponent implements OnInit {
         if(this.product!= null){
           this.productExists = true;
         }
-        setTimeout(()=>{this.loaded = true}, 500);
+        setTimeout(()=>{this.loaded = true; sessionStorage.clear()}, 500);
       }, error1 => {
         this.toErrorPage(error1);
       })

@@ -27,9 +27,13 @@ export class NewcompanyComponent implements OnInit {
               private roleService: RoleService) { }
 
   ngOnInit() {
-    this.roleService.getAllRoles().subscribe(roles=>{
-      this.roles = roles as RoleModel[];
-    })
+    if(this.auth.user == null || this.auth.user.role.name != "admin"){
+      this.router.navigate(['']);
+    }else {
+      this.roleService.getAllRoles().subscribe(roles=>{
+        this.roles = roles as RoleModel[];
+      })
+    }
   }
 
   public onChange(files): void{

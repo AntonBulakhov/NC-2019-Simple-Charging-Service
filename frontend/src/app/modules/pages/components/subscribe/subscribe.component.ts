@@ -45,8 +45,12 @@ export class SubscribeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.imgLink = file;
-    this.loadProductById();
+    if(this.auth.user == null || this.auth.user.role.name == "seller"){
+      this.router.navigate(['']);
+    }else {
+      this.imgLink = file;
+      this.loadProductById();
+    }
   }
 
   public onSubmit():void{

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserModel} from "../../../../models/user-model";
 import {UserService} from "../../../../services/user-service";
 import {Title} from "@angular/platform-browser";
+import {NavigationExtras, Router} from "@angular/router";
 
 @Component({
   selector: 'charging-companies',
@@ -16,7 +17,8 @@ export class CompaniesComponent implements OnInit {
   public loaded: boolean = false;
 
   constructor(private userService: UserService,
-              private titleService: Title) {
+              private titleService: Title,
+              private router: Router) {
     this.titleService.setTitle("Companies");
   }
 
@@ -41,6 +43,14 @@ export class CompaniesComponent implements OnInit {
       this.pages = new Array<number>(data['totalPages']);
       this.users = data['content'];
       setTimeout(()=>{this.loaded = true}, 500)
+    }, error1 => {
+      let nav: NavigationExtras = {
+        queryParams:{
+          "code": error1.status,
+          "message": error1.statusText
+        }
+      };
+      this.router.navigate(['/error'], nav)
     });
   }
 
