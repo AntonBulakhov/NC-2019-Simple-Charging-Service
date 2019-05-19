@@ -35,6 +35,9 @@ export class ProfileComponent implements OnInit {
   //to delete wallet
   public walletToDelete: string;
 
+  //to delete subscription
+  public subToDelete: string;
+
   loaded: boolean = false;
   maxWallets: boolean = false;
 
@@ -111,14 +114,6 @@ export class ProfileComponent implements OnInit {
         this.router.navigate(['/error'], nav)
       });
     }
-  }
-
-  public unsub(id: string): void{
-    this.subsService.deleteSubscription(id).subscribe(() => {
-      setTimeout(location.reload.bind(location), 200);
-    }, error=>{
-
-    });
   }
 
   public onSubmitToUp():void{
@@ -198,4 +193,19 @@ export class ProfileComponent implements OnInit {
   }
 
   //delete subscription
+  public unsub(): void{
+    this.subsService.deleteSubscription(this.findSubId(this.subToDelete)).subscribe(() => {
+      setTimeout(location.reload.bind(location), 200);
+    }, error=>{
+
+    });
+  }
+
+  private findSubId(name: string): string{
+    return this.subscriptions.find(obj=> obj.product.name == name).id;
+  }
+
+  public setUnsub(sub: string){
+    this.subToDelete = sub;
+  }
 }
