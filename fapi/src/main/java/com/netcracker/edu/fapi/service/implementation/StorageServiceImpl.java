@@ -6,6 +6,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -16,6 +17,17 @@ import java.nio.file.Paths;
 public class StorageServiceImpl implements StorageService {
 
     private Path rootLocation = Paths.get("fapi/src/main/resources/images");
+
+    @Override
+    public void deleteProductImage(String name) {
+        try {
+            Path file = Paths.get(rootLocation+"/products/"+name);
+            File file1 = new File(file.toString());
+            file1.delete();
+        } catch (Exception e) {
+            throw new RuntimeException("FAIL!");
+        }
+    }
 
     @Override
     public boolean storeProductImage(MultipartFile file) {

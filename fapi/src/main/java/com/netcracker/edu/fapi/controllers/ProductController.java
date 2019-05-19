@@ -104,6 +104,8 @@ public class ProductController {
     @PreAuthorize("hasRole('SELLER')")
     @DeleteMapping("/id/{id}")
     public ResponseEntity deleteProduct(@PathVariable int id){
+        Product product = productService.getProductById(new Long(id));
+        storageService.deleteProductImage(product.getName()+"-logo.jpg");
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();
     }
