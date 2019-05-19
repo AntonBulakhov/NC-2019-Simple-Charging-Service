@@ -27,8 +27,12 @@ export class NavbarComponent implements OnInit {
   }
 
   public search():void{
-    sessionStorage.setItem("search", this.searchString);
-    this.router.navigate(['/search']);
+    let nav: NavigationExtras = {
+      queryParams:{
+        "keyword": this.searchString,
+      }
+    };
+    this.router.navigate(['/search'], nav);
     setTimeout(()=>{window.location.reload()}, 100);
   }
 

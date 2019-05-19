@@ -21,19 +21,20 @@ export class SearchComponent implements OnInit {
               private productService: ProductService,
               private router: Router,
               private titleService: Title) {
+    activeRoute.queryParams.subscribe(param=>{
+      this.keyword = param['keyword'];
+    });
     titleService.setTitle("Search");
   }
 
   ngOnInit() {
-    if(sessionStorage.getItem("search") == null){
+    if(this.keyword == null){
       this.router.navigate(['']);
     }
     this.searchProduct();
   }
 
   private searchProduct():void{
-    this.keyword = sessionStorage.getItem("search");
-    console.log(this.keyword);
     if(this.keyword){
       this.productService.getProductByName(this.keyword).subscribe(data=>{
         this.product = data;
