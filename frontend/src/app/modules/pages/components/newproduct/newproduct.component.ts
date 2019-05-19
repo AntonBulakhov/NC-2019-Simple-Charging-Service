@@ -34,14 +34,18 @@ export class NewproductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categoryService.getAllCategories().subscribe(cats=>{
-      this.categories = cats as CategoryModel[];
-      this.ready = true;
-      this.category = this.categories[0].name;
-    });
-    this.userService.getUSerById(this.auth.user.id).subscribe((user)=>{
-      this.seller = user as UserModel;
-    });
+    if(this.auth.user == null || this.auth.user.role.name != "seller"){
+      this.router.navigate(['']);
+    }else{
+      this.categoryService.getAllCategories().subscribe(cats=>{
+        this.categories = cats as CategoryModel[];
+        this.ready = true;
+        this.category = this.categories[0].name;
+      });
+      this.userService.getUSerById(this.auth.user.id).subscribe((user)=>{
+        this.seller = user as UserModel;
+      });
+    }
   }
 
   public onChange(files): void{
