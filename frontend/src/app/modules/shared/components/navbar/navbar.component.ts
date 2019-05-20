@@ -26,6 +26,11 @@ export class NavbarComponent implements OnInit {
     this.auth.logOut();
   }
 
+  public profile():void{
+    this.router.navigate(['/profile/'+this.auth.user.id])
+    setTimeout(location.reload.bind(location), 100);
+  }
+
   public search():void{
     let nav: NavigationExtras = {
       queryParams:{
