@@ -28,9 +28,9 @@ export class RegformComponent implements OnInit {
     route.queryParams.subscribe(param=>{
       if(param['isA']){
         this.isAdmin = true;
-        // if( this.auth.user != null && !this.isAdmin){
-        //   this.router.navigate(['']);
-        // }
+      }
+      if( this.auth.user != null && !this.isAdmin){
+        this.router.navigate(['']);
       }
     })
   }
@@ -44,7 +44,8 @@ export class RegformComponent implements OnInit {
 
   public regNewUser():void{
     if(!this.userExistsByEmail && !this.userExistsByLogin){
-      if (this.newUser.email != null|| this.newUser.login!=null) {
+      if (this.newUser.email != null|| this.newUser.login!=null||this.newUser.password != null|| this.newUser.firstname != null||
+      this.newUser.secondname!=null) {
         this.newUser.logoUrl = "default-logo.jpg";
         this.newUser.role = this.getRole();
         this.auth.signUp(this.newUser);
