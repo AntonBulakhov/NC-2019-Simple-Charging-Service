@@ -24,14 +24,19 @@ export class RegformComponent implements OnInit {
               private router: Router,
               private auth: AuthService,
               private route: ActivatedRoute) {
+
     route.queryParams.subscribe(param=>{
       if(param['isA']){
         this.isAdmin = true;
+        // if( this.auth.user != null && !this.isAdmin){
+        //   this.router.navigate(['']);
+        // }
       }
     })
   }
 
   ngOnInit() {
+
     this.roleService.getAllRoles().subscribe(roles=>{
       this.roles = roles as RoleModel[];
     })
@@ -39,9 +44,11 @@ export class RegformComponent implements OnInit {
 
   public regNewUser():void{
     if(!this.userExistsByEmail && !this.userExistsByLogin){
-      this.newUser.logoUrl = "default-logo.jpg";
-      this.newUser.role = this.getRole();
-      this.auth.signUp(this.newUser);
+      if (this.newUser.email != null|| this.newUser.login!=null) {
+        this.newUser.logoUrl = "default-logo.jpg";
+        this.newUser.role = this.getRole();
+        this.auth.signUp(this.newUser);
+      }
     }
   }
 
