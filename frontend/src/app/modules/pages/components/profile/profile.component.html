@@ -103,7 +103,7 @@
         <th scope="col">Product</th>
         <th scope="col">Price</th>
         <th scope="col">Days left</th>
-        <th scope="col">Wallet</th>
+        <th scope="col" *ngIf="profileUser.id == auth.user.id">Wallet</th>
         <th scope="col">Status</th>
         <th scope="col" style="width: 10%" *ngIf="profileUser.id == auth.user.id"></th>
         <th scope="col" style="width: 10%" *ngIf="profileUser.id == auth.user.id"></th>
@@ -115,7 +115,7 @@
         <td>{{sub.product.name}}</td>
         <td>{{sub.product.price - sub.product.price * (sub.discount/100)}}$/month</td>
         <td [ngClass]="sub.time < 5? 'text-danger':''">{{sub.time}}</td>
-        <td>{{sub.billingAccount.name}}</td>
+        <td *ngIf="profileUser.id == auth.user.id">{{sub.billingAccount.name}}</td>
         <td>{{sub.blocked ? "Blocked" : "Active"}}</td>
         <td *ngIf="profileUser.id == auth.user.id">
           <button type="button" class="btn btn-primary" (click)="buyMore(sub.id)" data-toggle="modal" data-target="#buyMoreModal">Extend</button>
