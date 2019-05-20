@@ -32,7 +32,9 @@ export class RegformComponent implements OnInit {
         this.isAdmin = true;
       }
       if( this.auth.user != null && !this.isAdmin){
-        this.router.navigate(['']);
+        if (this.auth.user.role.name != 'admin') {
+          this.router.navigate(['']);
+        }
       }
     })
   }
