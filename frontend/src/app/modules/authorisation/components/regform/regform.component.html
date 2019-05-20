@@ -36,6 +36,7 @@
       required>
     </div>
   </div>
+  <div class="form-group d-flex justify-content-center" *ngIf="emptyFields"><p class="text-danger">All field should be filled</p></div>
   <div class="container-fluid p-0 d-flex justify-content-between mt-4">
     <button type="submit" class="btn btn-primary">Sign Up</button>
     <button type="button" class="btn btn-outline-danger" [routerLink]="['']">Cancel</button>

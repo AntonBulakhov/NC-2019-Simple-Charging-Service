@@ -19,6 +19,8 @@ export class RegformComponent implements OnInit {
   public userExistsByEmail: boolean = false;
   public userExistsByLogin: boolean = false;
 
+  public emptyFields: boolean = false;
+
   constructor(private roleService: RoleService,
               private userService: UserService,
               private router: Router,
@@ -49,6 +51,8 @@ export class RegformComponent implements OnInit {
         this.newUser.logoUrl = "default-logo.jpg";
         this.newUser.role = this.getRole();
         this.auth.signUp(this.newUser);
+      }else {
+        this.emptyFields = true;
       }
     }
   }
