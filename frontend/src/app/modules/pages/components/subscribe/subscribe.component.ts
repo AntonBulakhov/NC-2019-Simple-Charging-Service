@@ -62,23 +62,21 @@ export class SubscribeComponent implements OnInit {
       this.newSubscription.blocked = "0";
       this.newSubscription.time = this.month;
 
-      switch (this.month) {
-        case 1: {
+      switch (+this.month) {
+        case 1:
           this.newSubscription.discount = 0;
           break;
-        }
-        case 3:{
+        case 3:
           this.newSubscription.discount = 5;
           break;
-        }
-        case 6:{
+        case 6:
           this.newSubscription.discount = 10;
           break;
-        }
-        case 12:{
+        case 12:
           this.newSubscription.discount = 20;
           break;
-        }
+        default:
+          this.newSubscription.discount = 0;
       }
 
       this.subService.createSubscription(this.newSubscription).subscribe(()=>{
