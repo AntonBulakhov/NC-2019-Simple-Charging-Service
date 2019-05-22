@@ -13,14 +13,14 @@
     <div class="form-group col-md-6">
       <label for="inputLogin">Login</label>
       <input type="text" name="login" class="form-control" id="inputLogin" placeholder="Nickname" [(ngModel)]="newUser.login"
-      required minlength="4" #login="ngModel" (focusout)="ifExistsByLogin(login.value)" (change)="userExistsByLogin = false">
+      required minlength="4" autocomplete="off" #login="ngModel" (focusout)="ifExistsByLogin(login.value)" (change)="userExistsByLogin = false">
       <small [hidden]="login.valid || login.untouched" class="text-danger">Login is incorrect</small>
       <small *ngIf="userExistsByLogin" class="text-danger">This login is already exists</small>
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Password</label>
       <input type="password" name="password" class="form-control" id="inputPassword4" placeholder="Enter password" [(ngModel)]="newUser.password"
-             required minlength="4" #password="ngModel">
+             required minlength="4" #password="ngModel" autocomplete="off">
       <small [hidden]="password.valid || password.untouched" class="text-danger">Password is incorrect</small>
     </div>
   </div>
