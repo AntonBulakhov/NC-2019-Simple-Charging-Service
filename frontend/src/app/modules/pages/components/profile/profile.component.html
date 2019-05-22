@@ -118,7 +118,7 @@
         <td *ngIf="profileUser.id == auth.user.id">{{sub.billingAccount.name}}</td>
         <td>{{sub.blocked ? "Blocked" : "Active"}}</td>
         <td *ngIf="profileUser.id == auth.user.id">
-          <button type="button" class="btn btn-primary" (click)="buyMore(sub.id)" data-toggle="modal" data-target="#buyMoreModal">Extend</button>
+          <button *ngIf="sub.blocked != 1" type="button" class="btn btn-primary" (click)="buyMore(sub.id)" data-toggle="modal" data-target="#buyMoreModal">Extend</button>
         </td>
         <td *ngIf="profileUser.id == auth.user.id">
           <button type="button" class="btn btn-danger" (click)="setUnsub(sub.product.name)" data-toggle="modal" data-target="#deleteSub">Unsubscribe</button>

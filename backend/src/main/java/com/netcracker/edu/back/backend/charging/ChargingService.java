@@ -25,7 +25,7 @@ public class ChargingService{
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 1000)
 //    @Scheduled(cron = "0 0 0 * * ?")
     public void chargeMoney() {
         Calendar currenttime = Calendar.getInstance();
