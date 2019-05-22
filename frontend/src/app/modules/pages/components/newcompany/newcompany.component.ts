@@ -42,24 +42,26 @@ export class NewcompanyComponent implements OnInit {
 
   public regNewSeller():void{
     if(!this.userExistsByEmail && !this.userExistsByLogin){
-      this.newSeller.role = this.getRole();
-      this.newSeller.logoUrl = this.newSeller.login + "-logo.jpg".trim();
+      if(this.newSeller.firstname!=null&&this.newSeller.login!=null&&this.newSeller.email&&this.newSeller.password){
+        this.newSeller.role = this.getRole();
+        this.newSeller.logoUrl = this.newSeller.login + "-logo.jpg".trim();
 
-      this.userService.saveUserImage(this.sellerImage, this.newSeller.logoUrl).subscribe(()=>{
-        this.userService.saveNewUser(this.newSeller).subscribe(resp=>{
-          let user: UserModel = resp as UserModel;
-          console.log(resp);
-          this.router.navigate(['/profile/'+user.id]);
-        }, error1 => {
-          let nav: NavigationExtras = {
-            queryParams:{
-              "code": error1.status,
-              "message": error1.statusText
-            }
-          };
-          this.router.navigate(['/error'], nav)
-        })
-      });
+        this.userService.saveUserImage(this.sellerImage, this.newSeller.logoUrl).subscribe(()=>{
+          this.userService.saveNewUser(this.newSeller).subscribe(resp=>{
+            let user: UserModel = resp as UserModel;
+            console.log(resp);
+            this.router.navigate(['/profile/'+user.id]);
+          }, error1 => {
+            let nav: NavigationExtras = {
+              queryParams:{
+                "code": error1.status,
+                "message": error1.statusText
+              }
+            };
+            this.router.navigate(['/error'], nav)
+          })
+        });
+      }
     }
   }
 
