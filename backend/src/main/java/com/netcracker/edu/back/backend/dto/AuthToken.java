@@ -1,4 +1,4 @@
-package com.netcracker.edu.fapi.dto;
+package com.netcracker.edu.back.backend.dto;
 
 public class AuthToken {
     private String token;

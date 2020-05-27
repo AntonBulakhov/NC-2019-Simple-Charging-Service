@@ -1,4 +1,4 @@
-package com.netcracker.edu.fapi.filter;
+package com.netcracker.edu.back.backend.filter;
 
 import org.springframework.stereotype.Component;
 

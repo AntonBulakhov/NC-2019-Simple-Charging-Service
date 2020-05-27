@@ -3,13 +3,19 @@ package com.netcracker.edu.back.backend.controller;
 import com.netcracker.edu.back.backend.entity.Role;
 import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.service.RoleService;
+import com.netcracker.edu.back.backend.service.StorageService;
 import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -20,6 +26,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private StorageService storageService;
 
     private final int USERS_COUNT_ON_PAGE = 10;
 
@@ -75,11 +83,17 @@ public class UserController {
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> getUserById(@PathVariable("id") int id){
-        Optional<User> user = userService.findById(id);
-        if (user.isPresent()){
-            return ResponseEntity.ok(user.get());
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findById(id).get();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean hasAdminRole = authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+
+        if(user.getLogin().equals(principal.getUsername()) || hasAdminRole){
+            return ResponseEntity.ok(user);
         }else {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -99,5 +113,24 @@ public class UserController {
     public User saveUser(@RequestBody User user){
         userService.save(user);
         return userService.findByLogin(user.getLogin());
+    }
+
+    @PostMapping("/image")
+    public ResponseEntity saveProductImage(@RequestParam("image") MultipartFile file){
+        if(storageService.storeUserImage(file)){
+            return ResponseEntity.ok().build();
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/image/{name}")
+    public ResponseEntity<Resource> getProductImage(@PathVariable String name){
+        Resource res = storageService.getUserImage(name);
+        if(res != null){
+            return ResponseEntity.ok(res);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

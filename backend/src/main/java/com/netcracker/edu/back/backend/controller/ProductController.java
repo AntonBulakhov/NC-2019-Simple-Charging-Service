@@ -8,15 +8,18 @@ import com.netcracker.edu.back.backend.entity.Subscription;
 import com.netcracker.edu.back.backend.entity.User;
 import com.netcracker.edu.back.backend.service.CategoryService;
 import com.netcracker.edu.back.backend.service.ProductService;
+import com.netcracker.edu.back.backend.service.StorageService;
 import com.netcracker.edu.back.backend.service.SubscriptionService;
 import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,8 @@ public class ProductController {
     private UserService userService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private StorageService storageService;
 
     private ProductToProductDTO converter = new ProductToProductDTO();
 
@@ -125,5 +130,24 @@ public class ProductController {
     public ResponseEntity<Product> saveProduct(@RequestBody Product product){
         productService.saveProduct(product);
         return ResponseEntity.ok(productService.getProductByName(product.getName()));
+    }
+
+    @PostMapping("/image")
+    public ResponseEntity saveProductImage(@RequestParam("image") MultipartFile file){
+        if(storageService.storeProductImage(file)){
+            return ResponseEntity.ok().build();
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/image/{name}")
+    public ResponseEntity<Resource> getProductImage(@PathVariable String name){
+        Resource res = storageService.getProductImage(name);
+        if(res != null){
+            return ResponseEntity.ok(res);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

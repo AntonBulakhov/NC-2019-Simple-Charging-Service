@@ -1,6 +1,6 @@
-package com.netcracker.edu.fapi.service.implementation;
+package com.netcracker.edu.back.backend.service.implementation;
 
-import com.netcracker.edu.fapi.service.StorageService;
+import com.netcracker.edu.back.backend.service.StorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

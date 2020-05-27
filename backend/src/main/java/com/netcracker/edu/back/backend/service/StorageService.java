@@ -1,4 +1,4 @@
-package com.netcracker.edu.fapi.service;
+package com.netcracker.edu.back.backend.service;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;

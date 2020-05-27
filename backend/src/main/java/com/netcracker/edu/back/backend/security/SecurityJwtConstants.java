@@ -1,4 +1,4 @@
-package com.netcracker.edu.fapi.security;
+package com.netcracker.edu.back.backend.security;
 
 public class SecurityJwtConstants {
     public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 5*60*60;

@@ -1,4 +1,4 @@
-package com.netcracker.edu.fapi.security;
+package com.netcracker.edu.back.backend.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;

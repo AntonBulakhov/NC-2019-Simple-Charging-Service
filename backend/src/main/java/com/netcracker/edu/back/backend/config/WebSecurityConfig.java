@@ -1,7 +1,7 @@
-package com.netcracker.edu.fapi.config;
+package com.netcracker.edu.back.backend.config;
 
-import com.netcracker.edu.fapi.security.JwtAuthenticationEntryPoint;
-import com.netcracker.edu.fapi.security.JwtAuthenticationFilter;
+import com.netcracker.edu.back.backend.security.JwtAuthenticationEntryPoint;
+import com.netcracker.edu.back.backend.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
