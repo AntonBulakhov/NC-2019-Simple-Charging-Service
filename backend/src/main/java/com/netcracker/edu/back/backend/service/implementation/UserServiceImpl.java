@@ -2,9 +2,12 @@ package com.netcracker.edu.back.backend.service.implementation;
 
 import com.netcracker.edu.back.backend.entity.Role;
 import com.netcracker.edu.back.backend.entity.User;
+import com.netcracker.edu.back.backend.repository.RoleRepository;
 import com.netcracker.edu.back.backend.repository.UserRepository;
 import com.netcracker.edu.back.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +26,8 @@ import java.util.Set;
 public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCrypt;
@@ -88,5 +93,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName().toUpperCase()));
         return authorities;
+    }
+
+    @EventListener
+    public void appReady(ApplicationReadyEvent event) {
+        User existingUser = userRepository.findByLogin("admin");
+
+        Role roleEntity = roleRepository.findRoleByName("admin");
+
+        User user = new User();
+        if (existingUser != null) {
+            user.setId(existingUser.getId());
+            userRepository.delete(existingUser);
+        }
+
+        user.setRole(roleEntity);
+        user.setLogin("admin");
+        user.setPassword("admin");
+        user.setEmail("admin@email.com");
+        user.setBlocked((byte) 0);
+        user.setFirstname("admin");
+        user.setSecondname("admin");
+        user.setLogoUrl("default-logo.jpg");
+        save(user);
     }
 }

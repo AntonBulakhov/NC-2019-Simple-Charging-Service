@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 @Service
 public class StorageServiceImpl implements StorageService {
 
-    private Path rootLocation = Paths.get("fapi/src/main/resources/images");
+    private final Path rootLocation = Paths.get("backend/src/main/resources/images");
 
     @Override
     public void deleteProductImage(String name) {
@@ -76,7 +76,7 @@ public class StorageServiceImpl implements StorageService {
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new RuntimeException("FAIL!");
+                throw new RuntimeException("FAIL to load image!");
             }
         } catch (MalformedURLException e) {
             throw new RuntimeException("FAIL!");

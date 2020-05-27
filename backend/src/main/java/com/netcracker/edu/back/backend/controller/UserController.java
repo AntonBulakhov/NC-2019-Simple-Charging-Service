@@ -97,6 +97,12 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/blocked/{login}", method = RequestMethod.GET)
+    public Boolean isUserBlocked(@PathVariable String login) {
+        User user = userService.findByLogin(login);
+        return user.getBlocked() != 0;
+    }
+
     @RequestMapping(value = "/login/{login}", method = RequestMethod.GET)
     public ResponseEntity<User> getUserByLogin(@PathVariable(name = "login") String login) {
         User user = userService.findByLogin(login);
